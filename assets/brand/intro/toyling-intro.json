@@ -1,0 +1,1350 @@
+{
+  "frames": [
+    {
+      "filename": "toyling-intro-000",
+      "label": "ground",
+      "duration": 240,
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-001",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-002",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 114,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-003",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 171,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-004",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 228,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-005",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 285,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-006",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 342,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-007",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 399,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-008",
+      "label": "rise",
+      "duration": 40,
+      "frame": {
+        "x": 0,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-009",
+      "label": "rise-overshoot",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-010",
+      "label": "rise-settle",
+      "duration": 80,
+      "frame": {
+        "x": 114,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-011",
+      "label": "snowfall",
+      "duration": 80,
+      "frame": {
+        "x": 171,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-012",
+      "label": "snowfall",
+      "duration": 80,
+      "frame": {
+        "x": 228,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-013",
+      "label": "snowcap",
+      "duration": 120,
+      "frame": {
+        "x": 285,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-014",
+      "label": "snowcap",
+      "duration": 80,
+      "frame": {
+        "x": 342,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-015",
+      "label": "controller",
+      "duration": 40,
+      "frame": {
+        "x": 399,
+        "y": 70,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-016",
+      "label": "controller",
+      "duration": 40,
+      "frame": {
+        "x": 0,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-017",
+      "label": "controller",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-018",
+      "label": "face-dpad",
+      "duration": 80,
+      "frame": {
+        "x": 114,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-019",
+      "label": "face-y",
+      "duration": 80,
+      "frame": {
+        "x": 171,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-020",
+      "label": "face-r",
+      "duration": 80,
+      "frame": {
+        "x": 228,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-021",
+      "label": "face-n",
+      "duration": 80,
+      "frame": {
+        "x": 285,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-022",
+      "label": "face-l",
+      "duration": 80,
+      "frame": {
+        "x": 342,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-023",
+      "label": "smile-grow",
+      "duration": 80,
+      "frame": {
+        "x": 399,
+        "y": 140,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-024",
+      "label": "smile",
+      "duration": 160,
+      "frame": {
+        "x": 0,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-025",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-026",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 114,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-027",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 171,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-028",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 228,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-029",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 285,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-030",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 342,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-031",
+      "label": "wordmark",
+      "duration": 40,
+      "frame": {
+        "x": 399,
+        "y": 210,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-032",
+      "label": "dot-press",
+      "duration": 80,
+      "frame": {
+        "x": 0,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-033",
+      "label": "dot-fall",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-034",
+      "label": "dot-fall",
+      "duration": 40,
+      "frame": {
+        "x": 114,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-035",
+      "label": "dot-fall",
+      "duration": 40,
+      "frame": {
+        "x": 171,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-036",
+      "label": "dot-fall",
+      "duration": 40,
+      "frame": {
+        "x": 228,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-037",
+      "label": "dot-squash",
+      "duration": 40,
+      "frame": {
+        "x": 285,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-038",
+      "label": "dot-bounce",
+      "duration": 40,
+      "frame": {
+        "x": 342,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-039",
+      "label": "dot-settle",
+      "duration": 40,
+      "frame": {
+        "x": 399,
+        "y": 280,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-040",
+      "label": "games",
+      "duration": 40,
+      "frame": {
+        "x": 0,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-041",
+      "label": "games",
+      "duration": 40,
+      "frame": {
+        "x": 57,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-042",
+      "label": "games",
+      "duration": 40,
+      "frame": {
+        "x": 114,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-043",
+      "label": "games",
+      "duration": 40,
+      "frame": {
+        "x": 171,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-044",
+      "label": "games",
+      "duration": 40,
+      "frame": {
+        "x": 228,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-045",
+      "label": "blink",
+      "duration": 120,
+      "frame": {
+        "x": 285,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    },
+    {
+      "filename": "toyling-intro-046",
+      "label": "hold",
+      "duration": 1000,
+      "frame": {
+        "x": 342,
+        "y": 350,
+        "w": 57,
+        "h": 70
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 70
+      },
+      "sourceSize": {
+        "w": 57,
+        "h": 70
+      }
+    }
+  ],
+  "meta": {
+    "app": "Toyling brand build",
+    "version": "3.1.0",
+    "image": "toyling-intro-sheet-light@1x.png",
+    "image_dark": "toyling-intro-sheet-dark@1x.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 456,
+      "h": 420
+    },
+    "scale": "1",
+    "frameTags": [
+      {
+        "name": "ground",
+        "from": 0,
+        "to": 0,
+        "direction": "forward"
+      },
+      {
+        "name": "rise",
+        "from": 1,
+        "to": 10,
+        "direction": "forward"
+      },
+      {
+        "name": "snowfall",
+        "from": 11,
+        "to": 12,
+        "direction": "forward"
+      },
+      {
+        "name": "snowcap",
+        "from": 13,
+        "to": 14,
+        "direction": "forward"
+      },
+      {
+        "name": "controller",
+        "from": 15,
+        "to": 17,
+        "direction": "forward"
+      },
+      {
+        "name": "face",
+        "from": 18,
+        "to": 22,
+        "direction": "forward"
+      },
+      {
+        "name": "smile",
+        "from": 23,
+        "to": 24,
+        "direction": "forward"
+      },
+      {
+        "name": "wordmark",
+        "from": 25,
+        "to": 31,
+        "direction": "forward"
+      },
+      {
+        "name": "dot",
+        "from": 32,
+        "to": 39,
+        "direction": "forward"
+      },
+      {
+        "name": "games",
+        "from": 40,
+        "to": 44,
+        "direction": "forward"
+      },
+      {
+        "name": "blink",
+        "from": 45,
+        "to": 45,
+        "direction": "forward"
+      },
+      {
+        "name": "hold",
+        "from": 46,
+        "to": 46,
+        "direction": "forward"
+      },
+      {
+        "name": "idle-loop",
+        "from": 45,
+        "to": 46,
+        "direction": "forward",
+        "note": "After the intro, loop blink (120 ms) + hold (play hold for 2000-4000 ms) while loading."
+      }
+    ],
+    "loop": false,
+    "total_duration_ms": 3760,
+    "frame_count": 47,
+    "cell_px": 1,
+    "timing_unit_ms": 40,
+    "gutter_cells": 1,
+    "skippable_after_first_view": true,
+    "audio_cues": [
+      {
+        "frame": 1,
+        "time_ms": 240,
+        "cue": "rise-whoosh",
+        "label": "rise"
+      },
+      {
+        "frame": 9,
+        "time_ms": 560,
+        "cue": "land-thump",
+        "label": "rise-overshoot"
+      },
+      {
+        "frame": 11,
+        "time_ms": 680,
+        "cue": "snow-chime-1",
+        "label": "snowfall"
+      },
+      {
+        "frame": 12,
+        "time_ms": 760,
+        "cue": "snow-chime-2",
+        "label": "snowfall"
+      },
+      {
+        "frame": 13,
+        "time_ms": 840,
+        "cue": "sparkle",
+        "label": "snowcap"
+      },
+      {
+        "frame": 17,
+        "time_ms": 1120,
+        "cue": "controller-pop",
+        "label": "controller"
+      },
+      {
+        "frame": 18,
+        "time_ms": 1160,
+        "cue": "dpad-blip",
+        "label": "face-dpad"
+      },
+      {
+        "frame": 19,
+        "time_ms": 1240,
+        "cue": "button-blip-1",
+        "label": "face-y"
+      },
+      {
+        "frame": 20,
+        "time_ms": 1320,
+        "cue": "button-blip-2",
+        "label": "face-r"
+      },
+      {
+        "frame": 21,
+        "time_ms": 1400,
+        "cue": "button-blip-3",
+        "label": "face-n"
+      },
+      {
+        "frame": 22,
+        "time_ms": 1480,
+        "cue": "button-blip-4",
+        "label": "face-l"
+      },
+      {
+        "frame": 24,
+        "time_ms": 1640,
+        "cue": "smile-chirp",
+        "label": "smile"
+      },
+      {
+        "frame": 25,
+        "time_ms": 1800,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 26,
+        "time_ms": 1840,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 27,
+        "time_ms": 1880,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 28,
+        "time_ms": 1920,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 29,
+        "time_ms": 1960,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 30,
+        "time_ms": 2000,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 31,
+        "time_ms": 2040,
+        "cue": "letter-tick",
+        "label": "wordmark"
+      },
+      {
+        "frame": 32,
+        "time_ms": 2080,
+        "cue": "button-press",
+        "label": "dot-press"
+      },
+      {
+        "frame": 37,
+        "time_ms": 2320,
+        "cue": "dot-land",
+        "label": "dot-squash"
+      },
+      {
+        "frame": 40,
+        "time_ms": 2440,
+        "cue": "games-tick",
+        "label": "games"
+      },
+      {
+        "frame": 41,
+        "time_ms": 2480,
+        "cue": "games-tick",
+        "label": "games"
+      },
+      {
+        "frame": 42,
+        "time_ms": 2520,
+        "cue": "games-tick",
+        "label": "games"
+      },
+      {
+        "frame": 43,
+        "time_ms": 2560,
+        "cue": "games-tick",
+        "label": "games"
+      },
+      {
+        "frame": 44,
+        "time_ms": 2600,
+        "cue": "games-tick",
+        "label": "games"
+      },
+      {
+        "frame": 45,
+        "time_ms": 2640,
+        "cue": "blink",
+        "label": "blink"
+      }
+    ],
+    "notes": "Durations are multiples of 40 ms (25 fps). Scale by whole numbers with point/nearest filtering. Movement happens in whole cells only. Let players tap to skip after their first viewing. Respect reduced-motion settings: show toyling-intro-static-* for 1.5 s instead. audio_cues is a timing sheet for your sound designer; no audio files are included."
+  }
+}
