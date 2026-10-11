@@ -1,0 +1,1936 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Somewhere, above — a tiny city film</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = ["light", "dark"].includes(param) ? param
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    :root {
+      /* Photographic pigments stay fixed when the surrounding page changes theme. */
+      --cp-film-paper: #ece6d5;
+      --cp-film-ink: #59564a;
+      --cp-film-road: #768383;
+      --cp-film-walk: #c3c3ad;
+      --cp-film-line: #d9ceb0;
+      --cp-film-grass: #859672;
+      --cp-film-leaf: #526f5c;
+      --cp-film-leaf-light: #7f956c;
+      --cp-film-shadow: #394e50;
+      --cp-film-roof: #ccc4a4;
+      --cp-film-roof-red: #b38970;
+      --cp-film-roof-blue: #8faaa3;
+      --cp-film-wall: #a79e82;
+      --cp-film-wall-dark: #7f8377;
+      --cp-film-window: #496266;
+      --cp-film-car: #e4d4ab;
+      --cp-film-red: #a85743;
+      --cp-film-white: #eee7ce;
+      --cp-film-black: #324e51;
+      --cp-film-gold: #ceaa65;
+      --cp-film-warm: #edc08c;
+      --cp-film-water: #6b9caa;
+      --cp-film-foam: #b7d0c6;
+      --cp-film-sand: #dfcda1;
+      --cp-film-bike-blue: #347fb0;
+      --cp-film-chrome: #bcc5c4;
+      --cp-paris-roof: #a4acb3;
+      --cp-paris-wall: #d4c8ad;
+      --cp-munich-roof: #b77959;
+      --cp-munich-grass: #78a375;
+      --cp-istanbul-roof: #bf8068;
+      --cp-istanbul-water: #4f8baf;
+      --cp-seattle-water: #547e93;
+      --cp-seattle-roof: #8faaa8;
+      --cp-newyork-roof: #a1a6af;
+      --cp-london-roof: #867d7a;
+      --cp-london-wall: #b5a38a;
+      --cp-ibiza-roof: #f3ebd8;
+      --cp-ibiza-water: #45b7b3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 40px 16px;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font: 13px/1.6 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    main { width: 320px; max-width: 100%; text-align: center; }
+    .eyebrow, .film-meta, button, .note {
+      font-family: Consolas, "Courier New", Courier, monospace;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--cp-text-muted);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0 0 28px; font: italic 26px/1.2 Georgia, "Times New Roman", serif; }
+    figure {
+      width: 232px;
+      margin: 0 auto;
+      padding: 16px 16px 0;
+      background: var(--cp-film-paper);
+      color: var(--cp-film-ink);
+      box-shadow: var(--cp-shadow);
+      transform: rotate(-2deg);
+    }
+    .aperture { width: 200px; height: 200px; overflow: hidden; background: var(--cp-film-road); }
+    canvas { display: block; width: 200px; height: 200px; cursor: crosshair; touch-action: manipulation; }
+    canvas:focus-visible { outline: 2px solid var(--cp-film-white); outline-offset: -3px; }
+    figcaption { padding: 16px 0 18px; }
+    .handwritten { font: italic 18px/1.3 Georgia, "Times New Roman", serif; }
+    .film-meta { display: flex; justify-content: space-between; margin-top: 9px; font-size: 8px; letter-spacing: .08em; }
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 32px 0 12px; }
+    button, select {
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0;
+      background: var(--cp-bg-elevated);
+      color: var(--cp-text);
+      font-size: 11px;
+      cursor: pointer;
+    }
+    button:hover { background: var(--cp-surface-soft); }
+    button:active { transform: translateY(1px); }
+    button:focus-visible { outline: 2px solid var(--cp-text); outline-offset: 3px; }
+    select:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 2px solid var(--cp-text); outline-offset: 3px;
+    }
+    .settings { margin: 20px 0; text-align: left; display: grid; gap: 12px; }
+    .settings label { display: grid; gap: 4px; color: var(--cp-text-muted); font-size: 11px; }
+    .settings select { width: 100%; min-width: 0; font-size: 12px; }
+    .settings .check { display: flex; align-items: center; gap: 8px; min-height: 32px; }
+    input[type="range"] { width: 100%; accent-color: var(--cp-text-muted); min-height: 24px; }
+    input[type="checkbox"] { accent-color: var(--cp-text-muted); width: 16px; height: 16px; }
+    .settings fieldset { margin: 0; padding: 12px; border: 1px solid var(--cp-border); }
+    .settings legend { padding: 0 6px; font-size: 11px; color: var(--cp-text-muted); }
+    .settings .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #city-description, #film-description { margin: 0; font-size: 11px; color: var(--cp-text-muted); }
+    details { margin-top: 20px; text-align: left; color: var(--cp-text-muted); font-size: 11px; }
+    summary { cursor: pointer; min-height: 32px; }
+    details p { margin: 8px 0; }
+    a { color: var(--cp-link); }
+    body.expanded { display: block; padding: 20px; }
+    body.expanded main {
+      width: min(1200px, 100%); margin: 0 auto; display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px; gap: 12px 28px; align-items: start;
+    }
+    body.expanded .eyebrow, body.expanded h1 { grid-column: 1 / -1; margin-bottom: 4px; }
+    body.expanded figure { grid-column: 1; grid-row: 3 / span 6; width: 100%; transform: none; padding: 16px 16px 0; }
+    body.expanded .aperture { width: 100%; height: auto; aspect-ratio: 1; }
+    body.expanded #city { width: 100%; height: 100%; }
+    body.expanded .controls { margin: 0; }
+    body.expanded .settings { margin: 0; }
+    body.expanded main > :not(figure):not(h1):not(.eyebrow) { grid-column: 2; }
+    @media (max-width: 720px) {
+      body.expanded { padding: 12px; }
+      body.expanded main { display: block; max-width: 480px; }
+      body.expanded figure { margin: 20px 0; }
+      body.expanded .settings { margin: 20px 0; }
+    }
+    .note { margin: 0; color: var(--cp-text-muted); font-size: 10px; line-height: 1.8; }
+    #status { margin: 8px 0 0; color: var(--cp-text-muted); font-size: 11px; min-height: 18px; }
+    .recovery {
+      width: 112px;
+      height: 52px;
+      margin: 20px auto 0;
+      border: 1px dashed var(--cp-border-strong);
+      color: var(--cp-text-muted);
+      font: 8px/18px Consolas, "Courier New", Courier, monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    #airspace {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      cursor: default;
+      z-index: 10;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      figure { transform: none; }
+      button:active { transform: none; }
+    }
+  </style>
+<!-- CITY VERSION STYLE START -->
+<style>
+  .version-bar { display: flex; justify-content: flex-end; width: 100%; margin: 0 0 12px; position: relative; z-index: 30; }
+  .version-picker { margin: 0; color: var(--cp-film-ink); font: 11px/1.5 Consolas, "Courier New", monospace; letter-spacing: 0; }
+  .version-picker > summary { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 8px; cursor: pointer; list-style: none; border: 1px solid var(--cp-border-strong); background: var(--cp-film-paper); }
+  .version-picker > summary::-webkit-details-marker { display: none; }
+  .version-picker > summary::after { content: "+"; }
+  .version-picker[open] > summary::after { content: "-"; }
+  .version-picker > summary:focus-visible, .version-list a:focus-visible { outline: 2px solid var(--cp-film-ink); outline-offset: -3px; }
+  .version-panel { position: absolute; right: 0; top: 100%; width: min(370px, 100%); max-height: min(65vh, 520px); overflow-y: auto; overscroll-behavior: contain; background: var(--cp-film-paper); border: 1px solid var(--cp-film-ink); padding: 12px; text-align: left; box-shadow: var(--cp-shadow); }
+  .version-panel p { margin: 0 0 12px; line-height: 1.5; }
+  .version-list { list-style: none; padding: 0; margin: 0; }
+  .version-list a { display: block; padding: 10px 6px; min-height: 44px; color: var(--cp-film-ink); text-decoration: none; border-top: 1px solid var(--cp-border-strong); }
+  .version-list a:hover, .version-list a[aria-current="page"] { text-decoration: underline; }
+  .version-list strong, .version-list span { display: block; }
+  .version-list span { margin-top: 4px; font: 11px/1.5 "Segoe UI", sans-serif; }
+
+  .city-notes .version-bar, body.full-view .city-notes .version-bar { position: relative; inset: auto; width: 100%; margin: 0 0 16px; justify-content: flex-start; }
+  .city-notes .version-picker { width: 100%; }
+  .city-notes .version-panel, body.full-view .city-notes .version-panel { position: static; width: 100%; max-height: min(60dvh, 520px); box-sizing: border-box; box-shadow: none; }
+  html body:has(> .version-pager) { padding-top: 104px; }
+  .version-pager { position: fixed; inset: 0 0 auto; z-index: 100; height: 88px; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; background: var(--cp-surface); color: var(--cp-text); border-bottom: 1px solid var(--cp-border-strong); }
+  .version-step { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 88px; height: 72px; box-sizing: border-box; border: 1px solid var(--cp-border-strong); color: var(--cp-text); background: var(--cp-surface); text-decoration: none; text-align: center; font: 11px/1.5 Consolas, "Courier New", monospace; }
+  .version-step svg { display: block; width: 44px; height: 44px; }
+  a.version-step:hover { background: var(--cp-surface-soft); border-color: var(--cp-text); }
+  a.version-step:focus-visible { outline: 3px solid var(--cp-text); outline-offset: 2px; }
+  .version-step[aria-disabled="true"] { color: var(--cp-text-muted); border-style: dashed; }
+  .version-position { min-width: 0; text-align: center; font: 12px/1.5 Consolas, "Courier New", monospace; }
+  html body.full-view:has(> .version-pager) { padding-top: 88px; }
+  html body.full-view:has(> .version-pager) > main,
+  html body.full-view:has(> .version-pager) .city-layout { height: calc(100dvh - 88px); }
+  @media (min-width: 851px) {
+    html body.full-view:has(> .version-pager) .city-layout > main,
+    html body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+  @media (max-height: 500px) and (min-width: 650px) {
+    html[data-ui] body.full-view:has(> .version-pager) .city-layout > main,
+    html[data-ui] body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+</style>
+<!-- CITY VERSION STYLE END -->
+</head>
+<body>
+<!-- CITY VERSION NAV START -->
+<nav class="version-pager" aria-label="Browse archived versions">
+  <a class="version-step" rel="prev" href="city-flight-v2.html" aria-label="Previous version: v2" title="Previous version: v2"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M30 8L14 24L30 40"/></svg><span>v2</span></a>
+  <span class="version-position">Archive<br><strong>v3</strong></span>
+  <a class="version-step" rel="next" href="city-flight-v4.html" aria-label="Next version: v4" title="Next version: v4"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M18 8L34 24L18 40"/></svg><span>v4</span></a>
+</nav>
+<!-- CITY VERSION NAV END -->
+  <main>
+    <p class="eyebrow">A little window / an endless city</p>
+    <h1>Somewhere, above.</h1>
+<!-- CITY VERSION NAV START -->
+      <nav class="version-bar" aria-label="City flight version history">
+        <details class="version-picker">
+          <summary aria-label="Version history, v3, archived">v3</summary>
+          <div class="version-panel">
+            <p><strong>Historical snapshot · v3</strong><br>Films, cities and motorcycles</p>
+            <p>Original simulation preserved; only this version navigator was added. Historical limitations remain.</p>
+            <ol class="version-list">
+              <li><a href="../city-flight.html"><strong>v15 · current — Nineteen cities, a hundred landmarks</strong><span>19 destinations with 102 seeded architectural motifs, including Antalya&#39;s Yivli Minare and Saat Kulesi. Modern Istanbul clock numerals; 176 px dial with stacked speed controls; colorful wheel strokes. New vehicles keep moving while searching for a home, while yielding to real obstacles. Researched approximate Polaroid borders, 440 px control pane, mixed car/motorcycle spawns and animated rescue Junkyard. Original defaults to 600 px Polaroid / Close up / Auto 30 FPS. v14 preserves the prior layout.</span></a></li>
+              <li><a href="city-flight-v0.html"><strong>v0 — The first miniature</strong><span>200 px procedural city, pedestrians, traffic and faded Chrome-style film.</span></a></li>
+              <li><a href="city-flight-v1.html"><strong>v1 — Click a lane</strong><span>Lane-click cars, legal directions, keyboard aiming and an original WAV chime.</span></a></li>
+              <li><a href="city-flight-v2.html"><strong>v2 — Helicopter recovery</strong><span>Rooftop helicopters lift crashed vehicles into a collection bay.</span></a></li>
+              <li><a href="city-flight-v3.html" aria-current="page"><strong>v3 — Films, cities and motorcycles</strong><span>20 film approximations, seven named cities, blue motorcycles, filtering and continuous rotor audio.</span></a></li>
+              <li><a href="city-flight-v4.html"><strong>v4 — A living soundtrack</strong><span>Generative music, safer ambient traffic, local crash queues, water falls and night lighting.</span></a></li>
+              <li><a href="city-flight-v5.html"><strong>v5 — Physics and paper controls</strong><span>Caption wheels, connected river bridges, physical falls and recovery, smaller argh effects and a day/night rocker.</span></a></li>
+              <li><a href="city-flight-v6.html"><strong>v6 — Five AI player-designer reviews</strong><span>Review-driven gameplay, accessibility, audio and input refinements; larger view and neighboring reel options. These were AI reviews, not human playtests.</span></a></li>
+              <li><a href="city-flight-v7.html"><strong>v7 — The size dial</strong><span>Hidden-at-rest reel neighbors and exact 100–1000 px sizes, originally defaulting to 200 px.</span></a></li>
+              <li><a href="city-flight-v8.html"><strong>v8 — Driving school and family homes</strong><span>First handbook-informed home routing and analog-clock daylight implementation, with a 600 px default. No real license test or AI training; turn refinements followed in v9.</span></a></li>
+              <li><a href="city-flight-v9.html"><strong>v9 — Forgiving reels and refined driving</strong><span>Nearest-option release snapping, deferred resizing, one shared preview line, and refined legal junction turns.</span></a></li>
+              <li><a href="city-flight-v10.html"><strong>v10 — Town clocks and traffic governor</strong><span>30 city minutes per real second, eight original city-branded dials, governor safety interlocks and the first browsable archive.</span></a></li>
+              <li><a href="city-flight-v11.html"><strong>v11 — More city, not bigger pixels</strong><span>Constant-scale city sizes, full-window controls, adjustable downtown clocks with calmer hands, grab-to-turn reels and a live City Chronicle.</span></a></li>
+              <li><a href="city-flight-v12.html"><strong>v12 — Compact clocks and tilted prints</strong><span>Full digital time, inline speed controls, 5x hand-speed limits, readable Chronicle ink, 30 FPS, city-specific paper tilts and separate Chronicle/media workers.</span></a></li>
+              <li><a href="city-flight-v13.html"><strong>v13 — Clock tower and camera views</strong><span>Reference-style clock, 300 px / 30 FPS Drone default, restored Enlarge/Small control, Close up/Drone/Space zoom, four rendering and motion workers, and cached vehicle artwork.</span></a></li>
+              <li><a href="city-flight-v14.html"><strong>v14 — Living streets, two frames</strong><span>Light Gamified default with a separate collapsed style panel, city-specific lettering and films, crowd-responsive frame rates, stacked camera/print wheels, grouped Chronicle events and a larger recovery gallery; varied blocks, colored motorcycles, mini-roundabouts and fair traffic.</span></a></li>
+            </ol>
+          </div>
+        </details>
+      </nav>
+<!-- CITY VERSION NAV END -->
+    <figure>
+      <div class="aperture">
+        <canvas id="city" width="400" height="400" role="img" tabindex="0" aria-describedby="spawn-help"
+          aria-label="Interactive bird's-eye city. Click a road lane to add the selected vehicle. Keyboard: arrow keys move the crosshair; Enter or Space adds a vehicle.">
+          Your browser needs Canvas support to show the city.
+        </canvas>
+      </div>
+      <figcaption>
+        <span class="handwritten" id="city-caption">wish you were here.</span>
+        <div class="film-meta"><span id="roll">ROLL 001</span><span id="film-caption">CLASSIC CHROME</span><span>24 FPS</span></div>
+      </figcaption>
+    </figure>
+    <div class="controls" aria-label="Film controls">
+      <button id="pause" type="button" aria-pressed="false">Pause</button>
+      <button id="new" type="button">New roll</button>
+      <button id="sound" type="button" aria-pressed="true" aria-label="City sound effects">Sound on</button>
+      <button id="collisions" type="button" aria-pressed="false">Collisions off</button>
+      <button id="fullscreen" type="button" aria-pressed="false">Full screen</button>
+      <button id="reset-view" type="button">Revisit landmark</button>
+    </div>
+    <div class="settings" aria-label="City and film options">
+      <label>Destination <select id="destination">
+        <option value="original">Somewhere / original</option>
+        <option value="paris">Paris</option><option value="munich">Munich</option>
+        <option value="istanbul">Istanbul</option><option value="seattle">Seattle</option>
+        <option value="newyork">New York</option><option value="london">London</option>
+        <option value="ibiza">Ibiza</option>
+      </select></label>
+      <p id="city-description"></p>
+      <label>Film simulation <select id="film" aria-describedby="film-description"></select></label>
+      <p id="film-description"></p>
+      <fieldset>
+        <legend>Traffic / blue Sportster S</legend>
+        <label class="check"><input id="motorcycles" type="checkbox" checked>Motorcycles</label>
+        <label>Motorcycle share <span><output id="bike-ratio-value">25%</output> of generated traffic</span>
+          <input id="bike-ratio" type="range" min="0" max="70" step="5" value="25">
+        </label>
+        <label class="check"><input id="filtering" type="checkbox" checked>Fast lane filtering</label>
+        <label>On lane click <select id="spawn-kind">
+          <option value="car">Car</option><option value="bike">Blue Sportster S</option>
+          <option value="mixed">Random / traffic mix</option>
+        </select></label>
+      </fieldset>
+      <div class="pair">
+        <label>Traffic pace <select id="traffic-speed"><option value=".65">Sunday drive</option>
+          <option value="1" selected>Normal</option><option value="1.5">Lively</option></select></label>
+        <label>Flight pace <select id="flight-speed"><option value=".6">Hover slowly</option>
+          <option value="1" selected>Cruise</option><option value="1.65">Swift</option></select></label>
+      </div>
+      <label>Soft chiptune volume <input id="volume" type="range" min="0" max="100" value="35"></label>
+    </div>
+    <p class="note">200 × 200 · made as you fly<br>no footage. no map. just a passing moment.</p>
+    <p class="note" id="spawn-help">Click a lane to add your selected vehicle.<br>Keyboard: arrows to aim, Enter to add.</p>
+    <p id="status" role="status" aria-live="polite"></p>
+    <div id="recovery" class="recovery" aria-label="Recovered cars, outside the city" hidden>Recovery bay</div>
+    <details>
+      <summary>About the films &amp; places</summary>
+      <p>All 20 X100VI film modes, including ACROS and Monochrome filter variants, are represented by original palette approximations. These are not Fujifilm's proprietary simulations. Film grading also colors the paper and interface.</p>
+      <p>The cities are endless, reseeded impressions, not navigable maps. Landmarks recur as the camera travels. Munich adds orderly signal phases; London uses left-hand traffic. Motorcycle filtering is a fictional simulation setting, not a claim about local road law.</p>
+      <p>The blue motorcycle is a tiny top-view interpretation of a 2023 Harley-Davidson Sportster S: fat tires, blue tank, low seat and twin high-side exhausts. All audio is original, synthesized locally. Enable sound with an interaction; pause or mute silences it.</p>
+      <p>References:
+        <a href="https://fujifilm-dsc.com/en/manual/x100vi/menu_shooting/image_quality_setting/#film_simulation" target="_blank" rel="noreferrer">Fujifilm manual</a>;
+        <a href="https://www.louvre.fr/en/explore/the-palace" target="_blank" rel="noreferrer">Louvre</a>;
+        <a href="https://www.toureiffel.paris/en" target="_blank" rel="noreferrer">Eiffel Tower</a>;
+        <a href="https://www.munich.travel/en/pois/sports-leisure/english-garden" target="_blank" rel="noreferrer">Munich gardens</a>;
+        <a href="https://www.munich.travel/en/pois/urban-districts/frauenkirche" target="_blank" rel="noreferrer">Frauenkirche</a>;
+        <a href="https://goturkiye.com/istanbul/hagia-sophia" target="_blank" rel="noreferrer">Istanbul</a>;
+        <a href="https://www.seattle.gov/waterfront" target="_blank" rel="noreferrer">Seattle waterfront</a>;
+        <a href="https://www.spaceneedle.com" target="_blank" rel="noreferrer">Space Needle</a>;
+        <a href="https://www.centralparknyc.org/locations" target="_blank" rel="noreferrer">Central Park</a>;
+        <a href="https://www.visitlondon.com/things-to-do/london-attractions-map" target="_blank" rel="noreferrer">London</a>;
+        <a href="https://www.spain.info/en/destination/eivissa/" target="_blank" rel="noreferrer">Ibiza</a>.
+      </p>
+    </details>
+  </main>
+  <canvas id="airspace" aria-hidden="true"></canvas>
+  <script>
+    (() => {
+      "use strict";
+      const canvas = document.getElementById("city");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const airspace = document.getElementById("airspace");
+      const air = airspace.getContext("2d");
+      const recovery = document.getElementById("recovery");
+      const status = document.getElementById("status");
+      if (!ctx || !air) {
+        status.textContent = "This browser cannot render the city: Canvas 2D is unavailable.";
+        document.querySelectorAll("button").forEach(button => { button.disabled = true; });
+        return;
+      }
+      const styles = getComputedStyle(document.documentElement);
+      const color = name => styles.getPropertyValue("--cp-film-" + name).trim();
+      const colors = Object.fromEntries([
+        "road", "walk", "line", "grass", "leaf", "leaf-light", "shadow", "roof",
+        "roof-red", "roof-blue", "wall", "wall-dark", "window", "car", "red",
+        "white", "black", "gold", "warm", "water", "foam", "sand", "bike-blue", "chrome"
+      ].map(name => [name, color(name)]));
+      const baseColors = { ...colors };
+      const films = [
+        { id: "provia", name: "PROVIA / STANDARD", sat: 1.12, contrast: 1.03, note: "Balanced, natural everyday color." },
+        { id: "velvia", name: "Velvia / VIVID", sat: 1.75, contrast: 1.19, note: "Saturated greens and blues; bold landscape contrast." },
+        { id: "astia", name: "ASTIA / SOFT", sat: 1.08, contrast: .92, lift: 5, note: "Gentle contrast and softer color." },
+        { id: "chrome", name: "CLASSIC CHROME", sat: .86, contrast: 1.06, cool: 3, note: "Quiet documentary color with deeper shadows." },
+        { id: "reala", name: "REALA ACE", sat: 1.15, contrast: 1.13, note: "Faithful color with firm, clear tonal separation." },
+        { id: "pro-hi", name: "PRO Neg. Hi", sat: .95, contrast: 1.13, note: "Subdued portrait color with stronger contrast." },
+        { id: "pro-std", name: "PRO Neg. Std", sat: .88, contrast: .88, lift: 3, note: "Soft gradations and restrained studio color." },
+        { id: "classic-neg", name: "CLASSIC Neg.", sat: 1.24, contrast: 1.22, warm: 5, cool: 7, note: "Harder shadows, warm highlights, green-leaning cool tones." },
+        { id: "nostalgic", name: "NOSTALGIC Neg.", sat: 1.12, contrast: .98, warm: 18, lift: 4, note: "Amber highlights and rich, gently lifted shadows." },
+        { id: "eterna", name: "ETERNA / CINEMA", sat: .67, contrast: .83, lift: 4, note: "Muted cinematic color and open shadow detail." },
+        { id: "bleach", name: "ETERNA BLEACH BYPASS", sat: .28, contrast: 1.32, cool: 3, note: "Low saturation and dramatic contrast." },
+        ...[["acros", "ACROS", 1.18], ["mono", "MONOCHROME", 1.02]].flatMap(([id, name, contrast]) =>
+          [["", "", [.299, .587, .114]], ["-ye", " + Ye", [.38, .58, .04]],
+            ["-r", " + R", [.65, .32, .03]], ["-g", " + G", [.19, .76, .05]]].map(([suffix, label, weights]) =>
+            ({ id: id + suffix, name: name + label, contrast, weights, sat: 0,
+              grain: id === "acros" ? 1.6 : .75,
+              note: `${name === "ACROS" ? "Rich, grainy" : "Classic"} black and white${label ? "; " + label.slice(3) + " color-filter response" : ""}.` }))),
+        { id: "sepia", name: "SEPIA", sat: 0, contrast: .98, sepia: true, note: "Warm brown monochrome, like an old print." }
+      ];
+      const cities = {
+        original: { name: "Somewhere", width: 0, parks: .18, landmarks: [], palette: {}, note: "The original endless miniature city." },
+        paris: { name: "Paris", width: 48, bend: 38, parks: .15, landmarks: ["eiffel", "louvre"],
+          palette: { roof: "paris-roof", "roof-blue": "paris-roof", wall: "paris-wall" },
+          note: "Seine quays, zinc roofs, formal gardens, Eiffel ironwork and the Louvre's glass pyramid." },
+        munich: { name: "Munich", width: 39, bend: 24, parks: .4, landmarks: ["frauenkirche", "garden"],
+          palette: { "roof-red": "munich-roof", grass: "munich-grass" },
+          note: "Twin-domed Frauenkirche, red roofs, Isar banks, broad English Garden lawns and orderly traffic signals." },
+        istanbul: { name: "Istanbul", width: 100, bend: 30, parks: .09, landmarks: ["mosque", "bazaar"],
+          palette: { "roof-red": "istanbul-roof", water: "istanbul-water" },
+          note: "Europe and Asia across a deep-blue Bosphorus, suspension bridges, ferries, domes, minarets and market courtyards." },
+        seattle: { name: "Seattle", width: 80, bend: 23, coast: true, parks: .24, landmarks: ["needle", "market"],
+          palette: { water: "seattle-water", roof: "seattle-roof" },
+          note: "Elliott Bay piers and ferries, evergreen pockets, the Space Needle's saucer and Pike Place market roofs." },
+        newyork: { name: "New York", width: 63, bend: 10, parks: .06, landmarks: ["empire", "centralpark"],
+          palette: { roof: "newyork-roof" },
+          note: "Dense stepped towers, long avenue blocks, yellow taxis, a rectangular Central Park and river crossings." },
+        london: { name: "London", width: 59, bend: 55, parks: .23, landmarks: ["westminster", "towerbridge"],
+          palette: { roof: "london-roof", wall: "london-wall" }, left: true,
+          note: "A bending Thames, Westminster's clock tower, Tower Bridge, garden squares, red buses and left-hand traffic." },
+        ibiza: { name: "Ibiza", width: 80, bend: 45, coast: true, parks: .18, landmarks: ["daltvila", "marina"],
+          palette: { roof: "ibiza-roof", "roof-blue": "ibiza-roof", water: "ibiza-water", wall: "ibiza-roof" },
+          note: "Dalt Vila's angular bastions, whitewashed low houses, pine gardens, sandy coves and a turquoise yacht harbor." }
+      };
+      let cityId = "original";
+      let filmId = "chrome";
+      let bikesEnabled = true;
+      let bikeRatio = .25;
+      let filteringEnabled = true;
+      let trafficPace = 1;
+      let flightPace = 1;
+      let bikeTime = 0;
+      let signalClocks = [0, 0];
+      let signalBikeClocks = [0, 0];
+      let soundVolume = .35;
+      let expanded = false;
+      const SIZE = 200;
+      const BLOCK = 152;
+      const ROAD = 30;
+      const ZOOM = .72;
+      const FRAME_TIME = 1000 / 24;
+      const carPaints = ["car", "white", "red", "roof-blue", "black", "gold"];
+      const tiles = new Map();
+      const spawnedCars = [];
+      const helicopters = new Map();
+      const removedCars = new Map();
+      const recoveredCars = [];
+      const activeSounds = new Set();
+      const aim = { x: SIZE / 2, y: SIZE / 2 };
+      let keyboardAim = false;
+      let screenToWorld;
+      let worldToScreen;
+      let soundEnabled = true;
+      let collisionsEnabled = false;
+      let incident = null;
+      let collisionAfter = 0;
+      let nextCarId = 0;
+      let recoveredCount = 0;
+      let rotorSound = null;
+      let soundContext = null;
+      let soundMaster = null;
+      let audioUnlocked = false;
+      let audioFailed = false;
+      let nextEngineSound = 0;
+      let rotorLevel = null;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      const deviceTheme = matchMedia("(prefers-color-scheme: dark)");
+      let seed = newSeed();
+      let roll = 1;
+      let time = 0;
+      let trafficTime = 0;
+      let cameraTime = 0;
+      let paused = reducedMotion.matches;
+      let lastFrame = null;
+      let request = null;
+      let frame = 0;
+
+      function newSeed() {
+        return crypto.getRandomValues(new Uint32Array(1))[0];
+      }
+      function hash(x, y, salt = 0) {
+        let h = seed ^ Math.imul(x, 374761393) ^ Math.imul(y, 668265263) ^ Math.imul(salt, 1597334677);
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+      }
+      const mod = (n, m) => ((n % m) + m) % m;
+      const currentCity = () => cities[cityId];
+      function grade(value, film) {
+        let rgb;
+        let alpha = 1;
+        if (value.startsWith("#")) {
+          const hex = value.slice(1);
+          rgb = [0, 2, 4].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+        } else {
+          const components = value.match(/[\d.]+/g).map(Number);
+          rgb = components.slice(0, 3);
+          alpha = components[3] ?? 1;
+        }
+        const weights = film.weights || [.299, .587, .114];
+        const luminance = rgb.reduce((sum, channel, index) => sum + channel * weights[index], 0);
+        rgb = rgb.map(channel => luminance + (channel - luminance) * film.sat);
+        rgb = rgb.map(channel => (channel - 128) * film.contrast + 128 + (film.lift || 0));
+        const warmth = (film.warm || 0) * Math.pow(luminance / 255, 2);
+        const cool = (film.cool || 0) * (1 - luminance / 255);
+        rgb[0] += warmth - cool;
+        rgb[1] += warmth * .3 + cool * .35;
+        rgb[2] -= warmth;
+        if (film.sepia) { rgb[0] += 17; rgb[1] += 5; rgb[2] -= 19; }
+        return `rgba(${rgb.map(channel => Math.round(Math.max(0, Math.min(255, channel)))).join(",")},${alpha})`;
+      }
+      function applyFilm() {
+        const film = films.find(item => item.id === filmId);
+        const root = document.documentElement;
+        const uiTokens = ["bg", "bg-elevated", "surface", "surface-soft", "border", "border-strong",
+          "text", "text-muted", "text-soft", "accent", "accent-hover", "accent-fg", "link"];
+        for (const token of uiTokens) root.style.removeProperty("--cp-" + token);
+        root.style.removeProperty("--cp-film-paper");
+        root.style.removeProperty("--cp-film-ink");
+        const base = getComputedStyle(root);
+        const originals = Object.fromEntries(uiTokens.map(token => [token, base.getPropertyValue("--cp-" + token).trim()]));
+        const paper = base.getPropertyValue("--cp-film-paper").trim();
+        const ink = base.getPropertyValue("--cp-film-ink").trim();
+        for (const [token, value] of Object.entries(originals)) root.style.setProperty("--cp-" + token, grade(value, film));
+        root.style.setProperty("--cp-film-paper", grade(paper, film));
+        root.style.setProperty("--cp-film-ink", grade(ink, film));
+        for (const key of Object.keys(colors)) {
+          const paletteToken = currentCity().palette[key];
+          colors[key] = grade(paletteToken ? base.getPropertyValue("--cp-" + paletteToken).trim() : baseColors[key], film);
+        }
+        document.getElementById("film-caption").textContent = film.name;
+        document.getElementById("film-description").textContent = film.note + " Scene + UI approximation.";
+        tiles.clear();
+        grains = makeGrains();
+      }
+      function waterBounds(y) {
+        const place = currentCity();
+        const center = 87 - (y - 107) * .56 + 154 + Math.sin(y / 310) * (place.bend || 0);
+        return { left: center - place.width / 2, right: place.coast ? Infinity : center + place.width / 2 };
+      }
+      function isWater(x, y) {
+        if (!currentCity().width) return false;
+        const { left, right } = waterBounds(y);
+        return x > left && x < right;
+      }
+      function isBridge(x, y) {
+        return !currentCity().coast && isWater(x, y)
+          && mod(Math.floor(y / BLOCK), 3) === 0 && mod(y, BLOCK) < ROAD;
+      }
+      function drivable(x, y) {
+        return (mod(x, BLOCK) < ROAD || mod(y, BLOCK) < ROAD) && (!isWater(x, y) || isBridge(x, y));
+      }
+      function canPlace(x, y, w, h) {
+        return [[x, y], [x + w, y], [x, y + h], [x + w, y + h], [x + w / 2, y + h / 2]]
+          .every(([px, py]) => !isWater(px, py));
+      }
+      function landmarkAt(bx, by) {
+        const place = currentCity();
+        if (!place.landmarks.length || mod(by, 3) !== 0) return null;
+        const routeX = 87 - (by * BLOCK + 91 - 107) * .56;
+        if (bx !== Math.floor(routeX / BLOCK)) return null;
+        if (!canPlace(bx * BLOCK + 35, by * BLOCK + 35, 110, 110)) return null;
+        return place.landmarks[mod(-Math.floor(by / 3), place.landmarks.length)];
+      }
+      function parkAt(bx, by) {
+        if (cityId === "newyork" && mod(by, 9) >= 5 && mod(by, 9) <= 7
+          && bx === Math.floor((87 - (by * BLOCK - 107) * .56) / BLOCK)) return true;
+        if (cityId === "munich" && bx === Math.floor((waterBounds(by * BLOCK + 76).left - 105) / BLOCK)
+          && mod(by, 5) !== 0) return true;
+        return hash(bx, by, 1) < currentCity().parks;
+      }
+      function pick(items) {
+        return items[Math.floor(newSeed() / 4294967296 * items.length)];
+      }
+      function laneRules(road, axis, lane) {
+        const dir = (lane ? -1 : 1) * (currentCity().left ? -1 : 1);
+        return {
+          axis, road, lane,
+          dir,
+          speed: 14 + hash(road, axis, 300 + lane) * 7,
+          across: road * BLOCK + (lane ? 9 : 21)
+        };
+      }
+      function lanesAt(x, y) {
+        if (!drivable(x, y)) return [];
+        const lanes = [];
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? x : y;
+          const local = mod(cross, BLOCK);
+          if (local >= ROAD) continue;
+          const road = Math.floor(cross / BLOCK);
+          // The center marking is equally close to both lanes; junctions admit both axes.
+          const choices = Math.abs(local - ROAD / 2) < 1 ? [0, 1] : [local < ROAD / 2 ? 1 : 0];
+          for (const lane of choices) {
+            const rules = laneRules(road, axis, lane);
+            if (isWater(x, y) && axis !== 0) continue;
+            if (drivable(axis ? rules.across : x, axis ? y : rules.across)) lanes.push(rules);
+          }
+        }
+        return lanes;
+      }
+      function makeSoundWav(kind = "spawn") {
+        const rate = 22050;
+        const duration = { spawn: .48, collision: .3, pickup: .5 }[kind];
+        const count = Math.round(rate * duration);
+        const bytes = new ArrayBuffer(44 + count * 2);
+        const wav = new DataView(bytes);
+        const text = (offset, value) => [...value].forEach((char, i) => wav.setUint8(offset + i, char.charCodeAt(0)));
+        text(0, "RIFF"); wav.setUint32(4, bytes.byteLength - 8, true);
+        text(8, "WAVE"); text(12, "fmt "); wav.setUint32(16, 16, true);
+        wav.setUint16(20, 1, true); wav.setUint16(22, 1, true);
+        wav.setUint32(24, rate, true); wav.setUint32(28, rate * 2, true);
+        wav.setUint16(32, 2, true); wav.setUint16(34, 16, true);
+        text(36, "data"); wav.setUint32(40, count * 2, true);
+        // Original felt-like pluck: a soft attack, glassy partials, and a short rising answer.
+        for (let i = 0; i < count; i++) {
+          const t = i / rate;
+          let sample = 0;
+          if (kind === "spawn" || kind === "pickup") {
+            const notes = kind === "spawn" ? [[0, 523.25, .29], [.065, 783.99, .16]]
+              : [[0, 659.25, .17], [.1, 880, .13]];
+            for (const [start, frequency, gain] of notes) {
+              const age = t - start;
+              if (age < 0) continue;
+              const envelope = (1 - Math.exp(-age * 650)) * Math.exp(-age * 12);
+              sample += gain * envelope * (
+                Math.sin(2 * Math.PI * frequency * age) +
+                .22 * Math.sin(2 * Math.PI * frequency * 2.003 * age) +
+                .06 * Math.sin(2 * Math.PI * frequency * 3.98 * age)
+              );
+            }
+          } else if (kind === "collision") {
+            const envelope = (1 - Math.exp(-t * 180)) * Math.exp(-t * 19);
+            sample = .28 * envelope * (Math.sin(2 * Math.PI * 95 * t)
+              + .18 * Math.sin(t * 1771) * Math.sin(t * 1237));
+          }
+          const fade = Math.min(1, (count - 1 - i) / (rate * .025));
+          const chip = Math.round(sample * 96) / 96;
+          wav.setInt16(44 + i * 2, Math.round(Math.max(-1, Math.min(1, chip * fade)) * 32767), true);
+        }
+        return bytes;
+      }
+      const soundUrls = Object.fromEntries(["spawn", "collision", "pickup"].map(kind =>
+        [kind, URL.createObjectURL(new Blob([makeSoundWav(kind)], { type: "audio/wav" }))]));
+      function reportAudioError(error) {
+        audioFailed = true;
+        console.error("City sound could not play:", error);
+        status.textContent = "Audio unavailable. Check browser permissions; toggle Sound off/on to retry.";
+      }
+      function unlockAudio() {
+        if (!soundEnabled || audioFailed) return;
+        const Context = window.AudioContext || window.webkitAudioContext;
+        if (!Context) {
+          reportAudioError(new Error("Web Audio is not supported by this browser."));
+          return;
+        }
+        try {
+          if (!soundContext) {
+            soundContext = new Context();
+            soundMaster = soundContext.createGain();
+            soundMaster.gain.value = soundVolume;
+            soundMaster.connect(soundContext.destination);
+          }
+          audioUnlocked = true;
+          if (soundContext.state === "suspended") {
+            soundContext.resume().then(syncRotorSound).catch(reportAudioError);
+          } else syncRotorSound();
+        } catch (error) {
+          reportAudioError(error);
+        }
+      }
+      function stopRotor() {
+        if (!rotorSound) return;
+        for (const oscillator of rotorSound.oscillators) oscillator.stop();
+        for (const node of rotorSound.nodes) node.disconnect();
+        rotorSound = null;
+        rotorLevel = null;
+      }
+      function stopSounds() {
+        for (const audio of activeSounds) audio.pause();
+        activeSounds.clear();
+        stopRotor();
+        if (soundMaster) soundMaster.gain.setTargetAtTime(0, soundContext.currentTime, .02);
+      }
+      function playSound(kind) {
+        if (!soundEnabled || document.hidden) return null;
+        if (activeSounds.size >= 6) {
+          const oldest = activeSounds.values().next().value;
+          oldest.pause();
+          activeSounds.delete(oldest);
+        }
+        const audio = new Audio(soundUrls[kind]);
+        audio.volume = { spawn: .65, collision: .35, pickup: .4 }[kind] * soundVolume;
+        activeSounds.add(audio);
+        audio.addEventListener("ended", () => activeSounds.delete(audio), { once: true });
+        audio.play().catch(error => {
+          const wasActive = activeSounds.delete(audio);
+          if (error.name === "AbortError" && !wasActive) return;
+          reportAudioError(error);
+        });
+        return audio;
+      }
+      function syncRotorSound() {
+        const enabled = !paused && !document.hidden && soundEnabled && audioUnlocked && !audioFailed;
+        if (soundMaster) soundMaster.gain.setTargetAtTime(enabled ? soundVolume : 0, soundContext.currentTime, .03);
+        const flyby = flyover();
+        const flying = enabled && (incident?.heli || flyby);
+        if (!flying) { stopRotor(); return; }
+        if (!rotorSound) {
+          // Live oscillators never rewind: blade pulses have no clip boundary, silence, or decoder gap.
+          const carrier = soundContext.createOscillator();
+          const harmonic = soundContext.createOscillator();
+          const blades = soundContext.createOscillator();
+          const modulation = soundContext.createGain();
+          const pulse = soundContext.createGain();
+          const lowpass = soundContext.createBiquadFilter();
+          rotorLevel = soundContext.createGain();
+          carrier.type = "triangle";
+          harmonic.type = "sine";
+          blades.type = "sine";
+          carrier.frequency.value = 78;
+          harmonic.frequency.value = 156;
+          modulation.gain.value = .28;
+          pulse.gain.value = .7;
+          lowpass.type = "lowpass";
+          lowpass.frequency.value = 420;
+          rotorLevel.gain.value = 0;
+          carrier.connect(pulse); harmonic.connect(pulse);
+          blades.connect(modulation); modulation.connect(pulse.gain);
+          pulse.connect(lowpass); lowpass.connect(rotorLevel); rotorLevel.connect(soundMaster);
+          rotorSound = { oscillators: [carrier, harmonic, blades], nodes: [carrier, harmonic, blades, modulation, pulse, lowpass, rotorLevel] };
+          for (const oscillator of rotorSound.oscillators) oscillator.start();
+        }
+        const heli = incident?.heli || flyby;
+        const speed = heli.speed || 65;
+        rotorSound.oscillators[2].frequency.setTargetAtTime(12 + speed / 14, soundContext.currentTime, .4);
+        rotorSound.oscillators[0].frequency.setTargetAtTime(65 + speed / 5, soundContext.currentTime, .4);
+        rotorLevel.gain.setTargetAtTime(incident?.heli ? .045 : .024, soundContext.currentTime, .15);
+      }
+      function engineSound(vehicle) {
+        if (!audioUnlocked || !soundEnabled || audioFailed || paused || document.hidden || soundContext.state !== "running") return;
+        const oscillator = soundContext.createOscillator();
+        const filter = soundContext.createBiquadFilter();
+        const gain = soundContext.createGain();
+        const now = soundContext.currentTime;
+        const bike = vehicle.kind === "bike";
+        const length = bike ? .7 : 1.05;
+        oscillator.type = "triangle";
+        const frequency = (bike ? 125 : 58) + (vehicle.speed || 20) * .6;
+        oscillator.frequency.setValueAtTime(frequency, now);
+        oscillator.frequency.exponentialRampToValueAtTime(frequency * .68, now + length);
+        filter.type = "lowpass";
+        filter.frequency.value = bike ? 650 : 240;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(bike ? .028 : .022, now + .12);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + length);
+        oscillator.connect(filter); filter.connect(gain); gain.connect(soundMaster);
+        oscillator.start(now); oscillator.stop(now + length + .02);
+        oscillator.onended = () => { oscillator.disconnect(); filter.disconnect(); gain.disconnect(); };
+      }
+      function spawnAt(screenX, screenY) {
+        const point = screenToWorld.transformPoint({
+          x: screenX * canvas.width / SIZE,
+          y: screenY * canvas.height / SIZE
+        });
+        const choices = lanesAt(point.x, point.y);
+        if (!choices.length) {
+          status.textContent = "Choose a road lane, not a building or sidewalk.";
+          return;
+        }
+        const rules = pick(choices);
+        const selection = document.getElementById("spawn-kind").value;
+        const kind = bikesEnabled && (selection === "bike" || selection === "mixed" && newSeed() / 4294967296 < bikeRatio) ? "bike" : "car";
+        spawnedCars.push({
+          ...rules,
+          kind,
+          speed: rules.speed * (kind === "bike" ? 1.45 : .85 + newSeed() / 4294967296 * .35),
+          id: "spawn:" + nextCarId++,
+          start: rules.axis ? point.y : point.x,
+          born: vehicleClock(rules.axis, kind),
+          paint: kind === "bike" ? "bike-blue" : pick(carPaints)
+        });
+        const name = kind === "bike" ? "Blue Sportster S" : "Car";
+        status.textContent = paused ? name + " added. Press Play to set it moving."
+          : incident && !incident.roadCleared ? name + " added. Traffic is waiting for the rescue." : name + " added to the lane.";
+        unlockAudio();
+        playSound("spawn");
+        engineSound(spawnedCars.at(-1));
+        draw();
+      }
+      function rect(g, fill, x, y, w, h) {
+        g.fillStyle = colors[fill];
+        g.fillRect(x, y, w, h);
+      }
+      function polygon(g, fill, points) {
+        g.fillStyle = colors[fill];
+        g.beginPath();
+        points.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
+        g.closePath();
+        g.fill();
+      }
+      function tree(g, x, y, r) {
+        g.globalAlpha = .24;
+        g.fillStyle = colors.shadow;
+        g.beginPath();
+        g.ellipse(x + 4, y + 5, r, r * .7, .5, 0, Math.PI * 2);
+        g.fill();
+        g.globalAlpha = 1;
+        g.fillStyle = colors.leaf;
+        g.beginPath();
+        g.arc(x, y, r, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = colors["leaf-light"];
+        g.beginPath();
+        g.arc(x - r * .25, y - r * .3, r * .68, 0, Math.PI * 2);
+        g.fill();
+      }
+      function stroke(g, fill, width, points, close = false) {
+        g.strokeStyle = colors[fill];
+        g.lineWidth = width;
+        g.beginPath();
+        points.forEach(([x, y], index) => index ? g.lineTo(x, y) : g.moveTo(x, y));
+        if (close) g.closePath();
+        g.stroke();
+      }
+      function disc(g, fill, x, y, radius) {
+        g.fillStyle = colors[fill];
+        g.beginPath(); g.arc(x, y, radius, 0, Math.PI * 2); g.fill();
+      }
+      function label(g, text, x, y) {
+        g.font = "5px Consolas, monospace";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.fillStyle = colors.black;
+        g.fillText(text, x, y);
+      }
+      function waterfront(g, bx, by) {
+        if (!currentCity().width) return;
+        const ox = bx * BLOCK, oy = by * BLOCK;
+        const coast = currentCity().coast;
+        for (let y = 0; y < BLOCK; y += 4) {
+          const a = waterBounds(oy + y), b = waterBounds(oy + y + 4);
+          const leftA = a.left - ox, leftB = b.left - ox;
+          const rightA = coast ? BLOCK : a.right - ox, rightB = coast ? BLOCK : b.right - ox;
+          polygon(g, "water", [[leftA, y], [rightA, y], [rightB, y + 4], [leftB, y + 4]]);
+          stroke(g, cityId === "ibiza" ? "sand" : "foam", cityId === "ibiza" ? 7 : 2, [[leftA, y], [leftB, y + 4]]);
+          if (!coast) stroke(g, "foam", 2, [[rightA, y], [rightB, y + 4]]);
+        }
+        for (let i = 0; i < 28; i++) {
+          const x = hash(bx, by, 1500 + i) * BLOCK;
+          const y = hash(bx, by, 1600 + i) * BLOCK;
+          if (isWater(ox + x, oy + y)) {
+            g.globalAlpha = .3;
+            rect(g, "foam", x, y, 5, .5);
+          }
+        }
+        g.globalAlpha = 1;
+        if (!coast && mod(by, 3) === 0) {
+          const bank = waterBounds(oy + 15);
+          const l = bank.left - ox - 5, r = bank.right - ox + 5;
+          rect(g, "walk", l, 0, r - l, ROAD + 3);
+          rect(g, "road", l, 1, r - l, ROAD - 2);
+          stroke(g, "line", 1, [[l, 2], [r, 2]]);
+          stroke(g, "line", 1, [[l, 28], [r, 28]]);
+          for (let x = Math.ceil(l / 12) * 12; x < r; x += 12) rect(g, "line", x, 15, 5, .7);
+          if (cityId === "istanbul" || cityId === "newyork") {
+            for (const x of [l + 12, r - 12]) {
+              rect(g, "wall", x - 2, 0, 4, 6);
+              rect(g, "wall", x - 2, 24, 4, 6);
+              stroke(g, "white", .7, [[l, 3], [x, -6], [r, 3]]);
+              stroke(g, "white", .7, [[l, 27], [x, 20], [r, 27]]);
+            }
+          }
+          if (cityId === "istanbul") {
+            label(g, "EUROPE", l - 23, 45);
+            label(g, "BOSPHORUS", (l + r) / 2, 45);
+            label(g, "ASIA", r + 18, 45);
+          }
+        }
+        if (coast && mod(by, 2) === 0) {
+          const bank = waterBounds(oy + 75).left - ox;
+          rect(g, "wall", bank - 8, 64, 42, 10);
+          rect(g, "walk", bank - 8, 65, 40, 7);
+          for (let i = 0; i < 4; i++) {
+            polygon(g, "white", [[bank + i * 8, 80], [bank + i * 8 + 3, 84],
+              [bank + i * 8 + 2, 94], [bank + i * 8 - 2, 94], [bank + i * 8 - 3, 84]]);
+          }
+        }
+        const river = waterBounds(oy + 107);
+        const boatX = (coast ? river.left + 48 : (river.left + river.right) / 2) - ox;
+        if (boatX > 0 && boatX < BLOCK) {
+          polygon(g, "white", [[boatX, 91], [boatX + 4, 99], [boatX + 4, 116],
+            [boatX - 4, 116], [boatX - 4, 99]]);
+          rect(g, "roof-blue", boatX - 2, 102, 4, 9);
+          stroke(g, "foam", .7, [[boatX - 5, 118], [boatX - 8, 130]]);
+          stroke(g, "foam", .7, [[boatX + 5, 118], [boatX + 8, 130]]);
+        }
+      }
+      function landmark(g, kind) {
+        rect(g, kind === "garden" || kind === "centralpark" || kind === "eiffel" ? "grass" : "walk", 35, 35, 111, 111);
+        if (kind === "eiffel") {
+          rect(g, "walk", 83, 38, 14, 104);
+          for (const x of [49, 121]) for (let y = 49; y < 140; y += 16) tree(g, x, y, 4);
+          polygon(g, "shadow", [[69, 113], [91, 53], [140, 132], [101, 120]]);
+          stroke(g, "wall-dark", 3, [[65, 113], [91, 45], [115, 113]]);
+          stroke(g, "wall-dark", 3, [[70, 74], [91, 45], [110, 74]]);
+          stroke(g, "wall", 2, [[65, 113], [115, 113], [110, 74], [70, 74], [65, 113]]);
+          for (let y = 68; y <= 108; y += 8) {
+            const spread = (y - 45) * .35;
+            stroke(g, "wall-dark", 1, [[91 - spread, y], [91 + spread, y]]);
+            stroke(g, "wall", .8, [[91 - spread, y], [91 + spread + 3, y + 8]]);
+          }
+          label(g, "TOUR EIFFEL", 91, 137);
+        } else if (kind === "louvre") {
+          rect(g, "wall", 44, 44, 92, 16);
+          rect(g, "wall", 44, 44, 16, 82);
+          rect(g, "wall", 120, 44, 16, 82);
+          rect(g, "roof", 45, 45, 90, 8);
+          rect(g, "roof", 45, 45, 8, 80);
+          rect(g, "roof", 121, 45, 8, 80);
+          polygon(g, "roof-blue", [[90, 70], [111, 93], [90, 114], [69, 93]]);
+          polygon(g, "window", [[90, 70], [111, 93], [90, 93]]);
+          stroke(g, "white", 1, [[90, 70], [90, 114], [69, 93], [111, 93]], true);
+          for (let i = 0; i < 4; i++) rect(g, "water", 65 + i * 14, 121, 9, 5);
+          label(g, "LOUVRE / ART", 91, 138);
+        } else if (kind === "frauenkirche" || kind === "westminster") {
+          const london = kind === "westminster";
+          rect(g, "wall", 67, 47, 53, 80);
+          rect(g, london ? "gold" : "roof-red", 74, 50, 39, 74);
+          stroke(g, "wall-dark", 2, [[93, 50], [93, 124]]);
+          for (let y = 58; y < 120; y += 12) rect(g, "walk", 65, y, 58, 2);
+          for (const x of [65, 112]) {
+            rect(g, "wall", x - 5, 46, 15, 18);
+            disc(g, london ? "gold" : "leaf", x + 2, 43, 7);
+            if (london) {
+              rect(g, "wall-dark", x - 3, 36, 10, 12);
+              disc(g, "white", x + 2, 42, 3);
+              stroke(g, "black", .7, [[x + 2, 42], [x + 2, 39]]);
+            }
+          }
+          label(g, london ? "WESTMINSTER" : "FRAUENKIRCHE", 91, 138);
+        } else if (kind === "mosque") {
+          rect(g, "wall", 52, 53, 76, 70);
+          rect(g, "walk", 58, 59, 64, 60);
+          for (const [x, y] of [[72, 72], [109, 72], [72, 106], [109, 106]]) disc(g, "roof-blue", x, y, 10);
+          disc(g, "wall-dark", 92, 89, 23);
+          disc(g, "roof-blue", 89, 86, 22);
+          disc(g, "walk", 85, 82, 9);
+          for (const [x, y] of [[49, 49], [132, 49], [49, 128], [132, 128], [49, 89], [132, 89]]) {
+            rect(g, "wall", x - 2, y - 10, 4, 14);
+            disc(g, "white", x, y - 10, 3);
+          }
+          label(g, "DOMES / OLD ISTANBUL", 91, 139);
+        } else if (kind === "bazaar" || kind === "market") {
+          for (let y = 47; y < 133; y += 21) {
+            rect(g, "wall", 45, y, 91, 13);
+            for (let x = 47; x < 131; x += 13) {
+              rect(g, kind === "market" ? "red" : "roof-red", x, y, 11, 9);
+              rect(g, "gold", x, y + 9, 11, 3);
+            }
+          }
+          label(g, kind === "market" ? "PIKE PLACE" : "GRAND BAZAAR", 91, 141);
+        } else if (kind === "needle") {
+          rect(g, "grass", 40, 40, 101, 101);
+          stroke(g, "walk", 8, [[45, 134], [88, 93], [136, 48]]);
+          polygon(g, "shadow", [[80, 90], [139, 135], [146, 124], [99, 80]]);
+          for (const x of [72, 91, 110]) stroke(g, "wall", 2, [[x, 112], [91, 64]]);
+          disc(g, "wall-dark", 91, 70, 20);
+          disc(g, "white", 89, 67, 19);
+          disc(g, "window", 89, 67, 13);
+          disc(g, "white", 89, 67, 8);
+          rect(g, "wall", 88, 48, 2, 20);
+          label(g, "SPACE NEEDLE", 91, 138);
+        } else if (kind === "empire") {
+          rect(g, "wall-dark", 60, 65, 65, 65);
+          rect(g, "wall", 54, 56, 65, 65);
+          rect(g, "roof", 59, 58, 52, 53);
+          rect(g, "wall-dark", 67, 62, 36, 38);
+          rect(g, "roof", 65, 58, 34, 35);
+          rect(g, "wall", 70, 53, 22, 24);
+          rect(g, "roof", 73, 48, 15, 20);
+          stroke(g, "white", 2, [[80, 60], [80, 36]]);
+          for (let x = 60; x < 118; x += 7) rect(g, "window", x, 117, 2, 4);
+          label(g, "MIDTOWN", 91, 141);
+        } else if (kind === "towerbridge") {
+          rect(g, "water", 36, 36, 108, 108);
+          rect(g, "road", 38, 80, 104, 20);
+          for (const x of [65, 113]) {
+            rect(g, "wall", x - 7, 60, 14, 53);
+            rect(g, "roof-blue", x - 9, 58, 18, 8);
+            rect(g, "roof-blue", x - 9, 108, 18, 8);
+          }
+          stroke(g, "roof-blue", 2, [[40, 81], [65, 66], [113, 66], [140, 81]]);
+          stroke(g, "roof-blue", 2, [[40, 100], [65, 110], [113, 110], [140, 100]]);
+          label(g, "TOWER BRIDGE", 91, 138);
+        } else if (kind === "daltvila") {
+          const wall = [[42, 75], [57, 49], [80, 53], [100, 40], [133, 60], [128, 84],
+            [142, 110], [119, 130], [93, 122], [67, 140], [48, 114]];
+          polygon(g, "sand", wall);
+          stroke(g, "wall-dark", 5, wall, true);
+          stroke(g, "wall", 3, wall, true);
+          for (let y = 67; y < 119; y += 15) for (let x = 60; x < 123; x += 15) {
+            rect(g, "white", x, y, 11, 9);
+            rect(g, "roof-blue", x + 1, y + 1, 7, 6);
+          }
+          rect(g, "wall", 81, 70, 22, 34);
+          rect(g, "gold", 87, 66, 8, 9);
+          label(g, "DALT VILA", 91, 146);
+        } else if (kind === "marina") {
+          rect(g, "water", 40, 40, 102, 94);
+          for (let x = 50; x < 140; x += 22) {
+            rect(g, "walk", x, 42, 3, 80);
+            for (let y = 55; y < 120; y += 15) {
+              polygon(g, "white", [[x + 7, y], [x + 12, y + 5], [x + 11, y + 12], [x + 5, y + 12]]);
+            }
+          }
+          label(g, "EIVISSA / MARINA", 91, 141);
+        } else {
+          rect(g, "grass", 39, 39, 103, 103);
+          stroke(g, "walk", 4, [[44, 128], [74, 113], [101, 70], [134, 48]]);
+          for (let i = 0; i < 16; i++) tree(g, 46 + mod(i * 37, 91), 46 + mod(i * 59, 89), 4.5);
+          g.fillStyle = colors.water;
+          g.beginPath(); g.ellipse(100, 87, 17, 10, -.4, 0, Math.PI * 2); g.fill();
+          label(g, kind === "garden" ? "ENGLISCHER GARTEN" : "CENTRAL PARK", 91, 138);
+        }
+      }
+      function building(g, x, y, w, h, height, variant, hasPad = true) {
+        const dx = -height * .42;
+        const dy = -height * .65;
+        g.globalAlpha = .23;
+        polygon(g, "shadow", [[x, y], [x + w, y], [x + w + height, y + h + height * .5],
+          [x + height, y + h + height * .5], [x, y + h]]);
+        g.globalAlpha = 1;
+        polygon(g, "wall-dark", [[x + w, y], [x + w + dx, y + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        polygon(g, "wall", [[x, y + h], [x + dx, y + h + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        const roof = ["roof", "roof-red", "roof-blue"][variant];
+        rect(g, roof, x + dx, y + dy, w, h);
+        g.strokeStyle = colors.line;
+        g.lineWidth = .7;
+        g.strokeRect(x + dx + 1, y + dy + 1, w - 2, h - 2);
+        rect(g, "wall-dark", x + dx + w * .6, y + dy + h * .25, 6, 5);
+        rect(g, "walk", x + dx + w * .6 - .8, y + dy + h * .25 - 1, 6, 4);
+        if (w > 30) {
+          rect(g, "window", x + dx + 5, y + dy + 5, 9, 5);
+          rect(g, "roof-blue", x + dx + 6, y + dy + 5, 7, 1);
+        }
+        g.globalAlpha = .65;
+        for (let wx = x + 4; wx < x + w - 2; wx += 6) {
+          rect(g, "window", wx + dx * .4, y + h + dy * .4, 2, 2);
+        }
+        g.globalAlpha = 1;
+        if (!hasPad) return null;
+        const pad = { x: x + dx + w * .4, y: y + dy + h * .64 };
+        g.strokeStyle = colors.line;
+        g.lineWidth = .8;
+        g.beginPath();
+        g.arc(pad.x, pad.y, Math.min(w, h) * .25, 0, Math.PI * 2);
+        g.stroke();
+        g.fillStyle = colors.line;
+        g.font = "bold 8px monospace";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.fillText("H", pad.x, pad.y + .5);
+        return pad;
+      }
+      function createTile(bx, by) {
+        const tile = document.createElement("canvas");
+        tile.width = tile.height = BLOCK * 2;
+        const g = tile.getContext("2d");
+        if (!g) throw new Error("Unable to create a city block.");
+        g.scale(2, 2);
+        rect(g, "road", 0, 0, BLOCK, BLOCK);
+        rect(g, "walk", ROAD, ROAD, BLOCK - ROAD, BLOCK - ROAD);
+        rect(g, "wall", ROAD + 6, ROAD + 6, BLOCK - ROAD - 12, BLOCK - ROAD - 12);
+        g.strokeStyle = colors.line;
+        g.globalAlpha = .58;
+        g.lineWidth = .6;
+        g.setLineDash([5, 7]);
+        g.beginPath();
+        g.moveTo(ROAD + 5, ROAD / 2); g.lineTo(BLOCK - 5, ROAD / 2);
+        g.moveTo(ROAD / 2, ROAD + 5); g.lineTo(ROAD / 2, BLOCK - 5);
+        g.stroke();
+        g.setLineDash([]);
+        g.globalAlpha = .7;
+        for (let i = 5; i < ROAD - 3; i += 4) {
+          rect(g, "line", i, ROAD + 1, 2, 6);
+          rect(g, "line", ROAD + 1, i, 6, 2);
+        }
+        g.globalAlpha = 1;
+        const feature = landmarkAt(bx, by);
+        const ox = bx * BLOCK, oy = by * BLOCK;
+        const dryBlock = canPlace(ox + 34, oy + 34, 112, 112);
+        if (feature) {
+          landmark(g, feature);
+        } else if (parkAt(bx, by) && dryBlock) {
+          const large = cityId === "munich" || cityId === "newyork";
+          rect(g, "grass", 34, 34, 114, 114);
+          if (large) rect(g, "walk", 80, 34, 5, 114);
+          else {
+            rect(g, "walk", 86, 38, 6, 106);
+            rect(g, "walk", 38, 90, 106, 5);
+          }
+          for (let i = 0; i < 18; i++) {
+            const x = 44 + hash(bx, by, i + 20) * 94;
+            const y = 44 + hash(bx, by, i + 50) * 94;
+            if (Math.abs(x - 89) > 10 && Math.abs(y - 92) > 9) tree(g, x, y, 4 + hash(bx, by, i + 80) * 5);
+          }
+          rect(g, "roof-red", 94, 101, 9, 2);
+          rect(g, "roof-red", 73, 80, 9, 2);
+        } else {
+          const compact = cityId === "istanbul" || cityId === "ibiza";
+          const rows = compact ? 3 : 2;
+          const cols = cityId === "newyork" ? 3 : compact ? 3 : 2;
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+              const n = row * cols + col;
+              const irregular = compact ? hash(bx, by, 1800 + n) * 6 : 0;
+              const x = 47 + col * (98 / cols) + irregular;
+              const y = 49 + row * (96 / rows);
+              const w = (cols === 3 ? 22 : 30) + hash(bx, by, 10 + n) * 9;
+              const h = (rows === 3 ? 19 : 27) + hash(bx, by, 15 + n) * 9;
+              const height = cityId === "ibiza" ? 3 + hash(bx, by, 90 + n) * 3
+                : cityId === "newyork" ? 17 + hash(bx, by, 90 + n) * 19 : 5 + hash(bx, by, 90 + n) * 13;
+              if (!canPlace(ox + x - height * .5, oy + y - height, w + height, h + height * 1.5)) continue;
+              const variant = cityId === "ibiza" ? 0 : cityId === "munich" || cityId === "istanbul" ? 1
+                : Math.floor(hash(bx, by, 100 + n) * 3);
+              const pad = building(g, x, y, w, h, height, variant, cityId === "original" || n === 0);
+              const id = bx + "," + by + ":" + n;
+              if (pad && !helicopters.has(id)) {
+                helicopters.set(id, {
+                  id, block: bx + "," + by, state: "parked",
+                  x: bx * BLOCK + pad.x, y: by * BLOCK + pad.y, angle: -.3,
+                  speed: 52 + hash(bx, by, n + 1950) * 35
+                });
+              }
+            }
+          }
+          for (let i = 0; i < 4; i++) {
+            if (!isWater(ox + 47 + i * 27, oy + 143)) tree(g, 47 + i * 27, 143, 3.6);
+            if (i % 2 === 0 && !isWater(ox + 143, oy + 48 + i * 28)) tree(g, 143, 48 + i * 28, 4.5);
+          }
+          if (cityId === "paris" && dryBlock) {
+            // Formal courtyards and zinc-roofed perimeter wings.
+            rect(g, "grass", 81, 83, 15, 13);
+            rect(g, "walk", 87, 83, 3, 13);
+          }
+        }
+        waterfront(g, bx, by);
+        // Fixed per-block texture prevents terrain from boiling as the camera moves.
+        g.globalAlpha = .07;
+        for (let i = 0; i < 230; i++) {
+          rect(g, i % 2 ? "white" : "black", hash(bx, by, 400 + i) * BLOCK,
+            hash(bx, by, 800 + i) * BLOCK, .7, .7);
+        }
+        g.globalAlpha = 1;
+        return tile;
+      }
+      function pedestrian(x, y, angle, phase, outfit) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        const stride = Math.sin(time * 8 + phase) * .65;
+        ctx.globalAlpha = .28;
+        rect(ctx, "shadow", .6, .6, 2.2, 3.4);
+        ctx.globalAlpha = 1;
+        rect(ctx, "black", -.65, -.7 + stride, .65, 1.25);
+        rect(ctx, "black", .15, -.7 - stride, .65, 1.25);
+        rect(ctx, outfit, -1, -.9, 2, 1.7);
+        rect(ctx, "car", -.55, -.5, 1.1, 1.1);
+        ctx.restore();
+      }
+      function people(bx, by) {
+        const outfits = ["red", "white", "black", "gold", "roof-blue"];
+        const lo = 33.5;
+        const hi = 148.5;
+        const side = hi - lo;
+        for (let i = 0; i < 15; i++) {
+          const direction = hash(bx, by, 180 + i) < .5 ? -1 : 1;
+          const speed = 3 + hash(bx, by, 210 + i) * 2;
+          const p = mod(hash(bx, by, 240 + i) * side * 4 + time * speed * direction, side * 4);
+          const edge = Math.floor(p / side);
+          const f = p % side;
+          const coords = [[lo + f, lo], [hi, lo + f], [hi - f, hi], [lo, hi - f]][edge];
+          if (isWater(bx * BLOCK + coords[0], by * BLOCK + coords[1])) continue;
+          pedestrian(bx * BLOCK + coords[0], by * BLOCK + coords[1],
+            edge * Math.PI / 2 + (direction < 0 ? Math.PI : 0), i * 2,
+            outfits[Math.floor(hash(bx, by, 270 + i) * outfits.length)]);
+        }
+      }
+      function car(x, y, angle, paint, long, g = ctx) {
+        g.save();
+        g.translate(x, y);
+        g.rotate(angle);
+        const length = long ? 12 : 8;
+        g.globalAlpha = .28;
+        rect(g, "shadow", -length / 2 + 1.5, -.5, length, 4);
+        g.globalAlpha = 1;
+        rect(g, "black", -length / 2 + 1, -2.3, 1.5, 4.6);
+        rect(g, "black", length / 2 - 2.5, -2.3, 1.5, 4.6);
+        rect(g, paint, -length / 2, -2, length, 4);
+        rect(g, "window", length / 2 - 3, -1.6, 1.3, 3.2);
+        rect(g, "window", -length / 2 + 1.5, -1.5, 1, 3);
+        rect(g, "white", length / 2 - .7, -1.6, .6, .7);
+        rect(g, "white", length / 2 - .7, .9, .6, .7);
+        g.restore();
+      }
+      function motorcycle(x, y, angle, g = ctx) {
+        g.save(); g.translate(x, y); g.rotate(angle);
+        g.globalAlpha = .25;
+        rect(g, "shadow", -4, 1, 10, 2);
+        g.globalAlpha = 1;
+        rect(g, "black", -5, -1.2, 2.4, 2.4);
+        rect(g, "black", 3.3, -1.15, 2.3, 2.3);
+        rect(g, "chrome", -3.5, -.5, 8, 1);
+        rect(g, "black", -3, -1.2, 4.5, 2.4);
+        g.fillStyle = colors["bike-blue"];
+        g.beginPath(); g.ellipse(1.1, 0, 2.5, 1.25, 0, 0, Math.PI * 2); g.fill();
+        rect(g, "bike-blue", -4.1, -.8, 1.4, 1.6);
+        rect(g, "black", -2.8, -.8, 2.2, 1.6);
+        stroke(g, "chrome", .45, [[-3.2, 1.5], [1, 1.5]]);
+        stroke(g, "chrome", .45, [[-3.2, 2.1], [.5, 2.1]]);
+        stroke(g, "black", .7, [[2.5, -2], [3, 0], [2.5, 2]]);
+        disc(g, "black", -.25, 0, .95);
+        rect(g, "white", 5.1, -.6, .6, 1.2);
+        g.restore();
+      }
+      function drawVehicle(vehicle, g = ctx) {
+        if (vehicle.kind === "bike") motorcycle(vehicle.x, vehicle.y, vehicle.angle, g);
+        else car(vehicle.x, vehicle.y, vehicle.angle, vehicle.paint, vehicle.long, g);
+      }
+      function vehicleClock(axis, kind) {
+        if (cityId === "munich") return kind === "bike" ? signalBikeClocks[axis] : signalClocks[axis];
+        return kind === "bike" ? bikeTime : trafficTime;
+      }
+      function vehicleAcross(rules, kind, along) {
+        if (kind !== "bike" || !filteringEnabled) return rules.across;
+        const offset = (rules.lane ? 1 : -1) * 3.9;
+        // Stay in the center gap: a gentle weave never enters either car's footprint.
+        return rules.across + offset + Math.sin(along * .045) * .25;
+      }
+      function trafficVehicles(cameraX, cameraY, radius) {
+        const vehicles = [];
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? cameraX : cameraY;
+          const along = axis ? cameraY : cameraX;
+          for (let road = Math.floor((cross - radius) / BLOCK); road <= Math.ceil((cross + radius) / BLOCK); road++) {
+            for (let lane = 0; lane < 2; lane++) {
+              const rules = laneRules(road, axis, lane);
+              for (let variant = 0; variant < 3; variant++) {
+                for (const kind of bikesEnabled ? ["car", "bike"] : ["car"]) {
+                  const speed = rules.speed * [.82, 1, 1.22][variant];
+                  const travel = vehicleClock(axis, kind) * speed * rules.dir;
+                  const spacing = 70;
+                  const first = Math.floor((along - radius - travel) / spacing) - 1;
+                  const last = Math.ceil((along + radius - travel) / spacing) + 1;
+                  for (let slot = first; slot <= last; slot++) {
+                    const salt = axis * 2 + lane;
+                    if (hash(road, slot, 310 + salt) < .26) continue;
+                    if (Math.floor(hash(road, slot, 2050 + salt) * 3) !== variant) continue;
+                    const chosenKind = bikesEnabled && hash(road, slot, 2100 + salt) < bikeRatio ? "bike" : "car";
+                    if (chosenKind !== kind) continue;
+                    const id = [axis, road, lane, slot, kind].join(":");
+                    if (removedCars.has(id)) continue;
+                    const pos = slot * spacing + travel + hash(road, slot, 320 + lane) * 22;
+                    const across = vehicleAcross(rules, kind, pos);
+                    const x = axis ? across : pos, y = axis ? pos : across;
+                    if (axis === 1 && isWater(x, y)) continue;
+                    if (!drivable(x, y) || !drivable(x + (axis ? 0 : 5), y + (axis ? 5 : 0))
+                      || !drivable(x - (axis ? 0 : 5), y - (axis ? 5 : 0))) continue;
+                    const long = kind === "car" && hash(road, slot, 340 + lane) < .12;
+                    let paint = kind === "bike" ? "bike-blue"
+                      : carPaints[Math.floor(hash(road, slot, 330 + axis + lane) * carPaints.length)];
+                    if (kind === "car" && cityId === "newyork" && hash(road, slot, 2150) < .55) paint = "gold";
+                    if (kind === "car" && cityId === "london" && long) paint = "red";
+                    vehicles.push({ ...rules, across, id, kind, speed, x, y, long, paint,
+                      angle: axis * Math.PI / 2 + (rules.dir < 0 ? Math.PI : 0) });
+                  }
+                }
+              }
+            }
+          }
+        }
+        for (let i = spawnedCars.length - 1; i >= 0; i--) {
+          const vehicle = spawnedCars[i];
+          const pos = vehicle.start + (vehicleClock(vehicle.axis, vehicle.kind) - vehicle.born) * vehicle.speed * vehicle.dir;
+          const across = vehicleAcross(laneRules(vehicle.road, vehicle.axis, vehicle.lane), vehicle.kind, pos);
+          const x = vehicle.axis ? across : pos;
+          const y = vehicle.axis ? pos : across;
+          if (Math.abs(x - cameraX) > radius || Math.abs(y - cameraY) > radius || !drivable(x, y)) {
+            spawnedCars.splice(i, 1);
+            continue;
+          }
+          vehicles.push({
+            ...vehicle, across, x, y, angle: vehicle.axis * Math.PI / 2 + (vehicle.dir < 0 ? Math.PI : 0), long: false
+          });
+        }
+        if (!filteringEnabled) {
+          for (const bike of vehicles.filter(vehicle => vehicle.kind === "bike")) {
+            const ahead = vehicles.filter(vehicle => vehicle.kind === "car" && vehicle.axis === bike.axis
+              && vehicle.road === bike.road && vehicle.lane === bike.lane)
+              .map(vehicle => ({ vehicle, gap: ((bike.axis ? vehicle.y - bike.y : vehicle.x - bike.x) * bike.dir) }))
+              .filter(item => item.gap >= 0 && item.gap < 13).sort((a, b) => a.gap - b.gap)[0];
+            if (ahead) {
+              if (bike.axis) bike.y = ahead.vehicle.y - bike.dir * 13;
+              else bike.x = ahead.vehicle.x - bike.dir * 13;
+            }
+          }
+        }
+        return vehicles;
+      }
+      function flyover() {
+        const phase = mod(time + 6, 42);
+        if (phase > 17) return null;
+        const cycle = Math.floor((time + 6) / 42);
+        const view = camera();
+        const speed = 31 + hash(cycle, 0, 2500) * 19;
+        const x = view.x + (phase - 8.5) * speed;
+        if (Math.abs(x - view.x) > 155) return null;
+        return { x, y: view.y - 38 + Math.sin(phase * .1) * 20, angle: .05, speed, state: "flying" };
+      }
+      function helicopter(g, x, y, angle, flying) {
+        g.save();
+        g.translate(x, y);
+        g.rotate(angle);
+        rect(g, "black", -6, -4.5, 11, .7);
+        rect(g, "black", -6, 3.8, 11, .7);
+        polygon(g, "red", [[-3, -2], [-12, -1], [-12, 1], [-3, 2]]);
+        rect(g, "red", -12, -3, 2, 6);
+        g.fillStyle = colors.red;
+        g.beginPath();
+        g.ellipse(0, 0, 6, 3.5, 0, 0, Math.PI * 2);
+        g.fill();
+        polygon(g, "window", [[2, -2.7], [5, -1.5], [5, 1.5], [2, 2.7]]);
+        rect(g, "white", -2, -.6, 3, 1.2);
+        rect(g, "white", -.9, -1.7, .8, 3.4);
+        g.rotate(flying ? time * 34 : .6);
+        g.globalAlpha = flying ? .65 : .9;
+        rect(g, "black", -11, -.45, 22, .9);
+        rect(g, "black", -.45, -11, .9, 22);
+        g.restore();
+      }
+      function camera() {
+        return {
+          x: 87 + cameraTime * 5.6 + Math.sin(cameraTime * .045) * 24
+            + (cityId === "original" ? 0 : 60 * (1 - Math.cos(cameraTime * .075))),
+          y: 107 - cameraTime * 10,
+          angle: -.18 + Math.sin(cameraTime * .025) * .045
+        };
+      }
+      function closestHelicopter(x, y) {
+        let nearest = null;
+        let distance = Infinity;
+        for (const heli of helicopters.values()) {
+          const candidate = Math.hypot(heli.x - x, heli.y - y);
+          if (heli.state === "parked" && candidate < distance) {
+            nearest = heli;
+            distance = candidate;
+          }
+        }
+        return nearest;
+      }
+      function beginCollision(cars) {
+        const x = (cars[0].x + cars[1].x) / 2;
+        const y = (cars[0].y + cars[1].y) / 2;
+        let heli = closestHelicopter(x, y);
+        if (!heli) {
+          heli = { id: "dispatch", block: "", x: x - 200, y: y - 160, angle: 0, speed: 72, state: "parked" };
+          helicopters.set(heli.id, heli);
+        }
+        incident = { x, y, cars, heli, stage: heli ? "approach" : "waiting", elapsed: 0, roadCleared: false };
+        if (heli) heli.state = "rescuing";
+        for (const vehicle of cars) {
+          if (!vehicle.id.startsWith("spawn:")) removedCars.set(vehicle.id, vehicle);
+          const index = spawnedCars.findIndex(item => item.id === vehicle.id);
+          if (index !== -1) spawnedCars.splice(index, 1);
+        }
+        recovery.hidden = false;
+        status.textContent = heli ? "Collision. Traffic stopped; the nearest helicopter is on its way."
+          : "Collision. Traffic stopped, waiting for an available rooftop helicopter.";
+        playSound("collision");
+      }
+      function detectCollision(vehicles) {
+        const visible = vehicles.filter(vehicle => {
+          const point = worldToScreen.transformPoint(vehicle);
+          return point.x > canvas.width * .05 && point.x < canvas.width * .95
+            && point.y > canvas.height * .05 && point.y < canvas.height * .95;
+        });
+        for (let a = 0; a < visible.length; a++) {
+          for (let b = a + 1; b < visible.length; b++) {
+            const first = visible[a], second = visible[b];
+            const halfX = vehicle => vehicle.axis ? vehicle.kind === "bike" ? .8 : 2 : vehicle.long ? 6 : 4;
+            const halfY = vehicle => vehicle.axis ? vehicle.long ? 6 : 4 : vehicle.kind === "bike" ? .8 : 2;
+            if (Math.abs(first.x - second.x) < halfX(first) + halfX(second)
+              && Math.abs(first.y - second.y) < halfY(first) + halfY(second)) {
+              beginCollision([first, second]);
+              return;
+            }
+          }
+        }
+      }
+      function moveToward(point, target, distance) {
+        const dx = target.x - point.x, dy = target.y - point.y;
+        const length = Math.hypot(dx, dy);
+        if (length > .01) point.angle = Math.atan2(dy, dx);
+        if (length <= distance) {
+          point.x = target.x; point.y = target.y;
+          return true;
+        }
+        point.x += dx / length * distance;
+        point.y += dy / length * distance;
+        return false;
+      }
+      function pagePoint(x, y) {
+        const pixel = worldToScreen.transformPoint({ x, y });
+        const box = canvas.getBoundingClientRect();
+        const paper = new DOMMatrix(getComputedStyle(canvas.closest("figure")).transform);
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        const left = box.left - Math.min(0, paper.a * w, paper.c * h, paper.a * w + paper.c * h);
+        const top = box.top - Math.min(0, paper.b * w, paper.d * h, paper.b * w + paper.d * h);
+        const localX = pixel.x * w / canvas.width, localY = pixel.y * h / canvas.height;
+        return {
+          x: left + paper.a * localX + paper.c * localY,
+          y: top + paper.b * localX + paper.d * localY,
+          angle: Math.atan2(worldToScreen.b, worldToScreen.a) + Math.atan2(paper.b, paper.a)
+        };
+      }
+      function advanceRescue(dt) {
+        const rescue = incident;
+        if (rescue.stage === "waiting") {
+          rescue.heli = closestHelicopter(rescue.x, rescue.y);
+          if (rescue.heli) {
+            rescue.heli.state = "rescuing";
+            rescue.stage = "approach";
+          }
+          return;
+        }
+        const heli = rescue.heli;
+        if (rescue.stage === "approach") {
+          if (moveToward(heli, { x: rescue.x, y: rescue.y - 16 }, dt * (heli.speed || 65))) {
+            rescue.stage = "pickup";
+            rescue.elapsed = 0;
+            status.textContent = "Winching the wrecks clear. Traffic is still stopped.";
+            playSound("pickup");
+          }
+        } else if (rescue.stage === "pickup") {
+          rescue.elapsed += dt;
+          if (rescue.elapsed >= 1.2) {
+            heli.screen = pagePoint(heli.x, heli.y);
+            rescue.cargoAngle = heli.screen.angle;
+            heli.screen.angle += heli.angle;
+            rescue.stage = "carry";
+            rescue.roadCleared = true;
+            status.textContent = "Road clear. Traffic resumes; the wrecks are leaving the city.";
+          }
+        } else if (rescue.stage === "carry") {
+          const bay = recovery.getBoundingClientRect();
+          if (moveToward(heli.screen, { x: bay.left + bay.width / 2, y: bay.top - 10 }, dt * (heli.speed || 65) * 2.5)) {
+            rescue.stage = "drop";
+            rescue.elapsed = 0;
+            playSound("pickup");
+            status.textContent = "Lowering the recovered cars into the bay outside the city.";
+          }
+        } else if (rescue.stage === "drop") {
+          rescue.elapsed += dt;
+          if (rescue.elapsed >= .9) {
+            recoveredCars.push(...rescue.cars.map(vehicle => ({ paint: vehicle.paint, long: vehicle.long, kind: vehicle.kind })));
+            recoveredCars.splice(0, Math.max(0, recoveredCars.length - 8));
+            recoveredCount += rescue.cars.length;
+            rescue.stage = "exit";
+          }
+        } else if (rescue.stage === "exit") {
+          const target = { x: heli.screen.x < innerWidth / 2 ? -40 : innerWidth + 40, y: -40 };
+          if (moveToward(heli.screen, target, dt * (heli.speed || 65) * 3.3)) {
+            helicopters.delete(heli.id);
+            incident = null;
+            collisionAfter = time + 3;
+            status.textContent = recoveredCount + " cars recovered. Helicopter departed; traffic is moving.";
+          }
+        }
+      }
+      function step(dt) {
+        time += dt;
+        if (!incident || incident.roadCleared) {
+          trafficTime += dt * trafficPace;
+          bikeTime += dt * trafficPace * (filteringEnabled ? 2.8 : 1);
+          const greenAxis = Math.floor(time / 5) % 2;
+          signalClocks[greenAxis] += dt * trafficPace;
+          signalBikeClocks[greenAxis] += dt * trafficPace * (filteringEnabled ? 2.8 : 1);
+          cameraTime += dt * flightPace;
+        }
+        if (incident) advanceRescue(dt);
+        else if (collisionsEnabled && time >= collisionAfter) {
+          const view = camera();
+          detectCollision(trafficVehicles(view.x, view.y, 235));
+        }
+        syncRotorSound();
+        if (time >= nextEngineSound && (!incident || incident.roadCleared)) {
+          nextEngineSound = time + 1.4 + hash(Math.floor(time), 0, 2600) * 1.1;
+          const view = camera();
+          const nearby = trafficVehicles(view.x, view.y, 115)
+            .filter(vehicle => Math.hypot(vehicle.x - view.x, vehicle.y - view.y) < 110);
+          if (nearby.length) engineSound(nearby[Math.floor(hash(Math.floor(time), 0, 2601) * nearby.length)]);
+        }
+      }
+      function drawRescue() {
+        for (const heli of helicopters.values()) {
+          if (heli.state === "parked") helicopter(ctx, heli.x, heli.y, heli.angle, false);
+        }
+        if (!incident || incident.roadCleared) return;
+        const { heli, cars, stage, elapsed, x, y } = incident;
+        const lift = stage === "pickup" ? Math.min(1, elapsed / 1.2) : 0;
+        ctx.globalAlpha = 1 - lift;
+        for (let n = 0; n < 7; n++) {
+          const angle = n * 2.4;
+          rect(ctx, n % 2 ? "red" : "wall", x + Math.cos(angle) * 8, y + Math.sin(angle) * 6, 1.5, 1);
+        }
+        ctx.globalAlpha = 1;
+        cars.forEach((vehicle, index) => {
+          const targetX = heli ? heli.x + (index ? 6 : -6) : vehicle.x;
+          const targetY = heli ? heli.y + 12 : vehicle.y;
+          const cx = vehicle.x + (targetX - vehicle.x) * lift;
+          const cy = vehicle.y + (targetY - vehicle.y) * lift;
+          if (stage === "pickup") {
+            ctx.strokeStyle = colors.black;
+            ctx.lineWidth = .5;
+            ctx.beginPath(); ctx.moveTo(heli.x, heli.y); ctx.lineTo(cx, cy); ctx.stroke();
+          }
+          drawVehicle({ ...vehicle, x: cx, y: cy, angle: vehicle.angle + (index ? .22 : -.22) * (1 - lift) });
+        });
+        if (heli) helicopter(ctx, heli.x, heli.y, heli.angle, true);
+      }
+      function drawAirspace() {
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const width = Math.round(innerWidth * dpr), height = Math.round(innerHeight * dpr);
+        if (airspace.width !== width || airspace.height !== height) {
+          airspace.width = width; airspace.height = height;
+        }
+        air.setTransform(dpr, 0, 0, dpr, 0, 0);
+        air.clearRect(0, 0, innerWidth, innerHeight);
+        const bay = recovery.getBoundingClientRect();
+        recoveredCars.forEach((vehicle, index) => {
+          drawVehicle({ ...vehicle, x: bay.left + 17 + index % 4 * 25,
+            y: bay.top + 25 + Math.floor(index / 4) * 15, angle: index % 2 ? .1 : -.1 }, air);
+        });
+        if (!incident || !incident.roadCleared) return;
+        const { heli, stage, cars, elapsed, cargoAngle } = incident;
+        const point = heli.screen;
+        if (stage !== "exit") {
+          cars.forEach((vehicle, index) => {
+            const offsetX = (index ? 6 : -6) * ZOOM;
+            const offsetY = 12 * ZOOM;
+            const liftX = point.x + Math.cos(cargoAngle) * offsetX - Math.sin(cargoAngle) * offsetY;
+            const liftY = point.y + Math.sin(cargoAngle) * offsetX + Math.cos(cargoAngle) * offsetY;
+            const lower = stage === "drop" ? Math.min(1, elapsed / .9) : 0;
+            const finalIndex = Math.min(6, recoveredCars.length) + index;
+            const dropX = bay.left + 17 + finalIndex % 4 * 25;
+            const dropY = bay.top + 25 + Math.floor(finalIndex / 4) * 15;
+            const cx = liftX + (dropX - liftX) * lower;
+            const cy = liftY + (dropY - liftY) * lower;
+            air.strokeStyle = colors.black;
+            air.lineWidth = .5;
+            air.beginPath(); air.moveTo(point.x, point.y); air.lineTo(cx, cy); air.stroke();
+            air.save(); air.translate(cx, cy); air.scale(ZOOM + (1 - ZOOM) * lower, ZOOM + (1 - ZOOM) * lower);
+            drawVehicle({ ...vehicle, x: 0, y: 0, angle: (vehicle.angle + cargoAngle) * (1 - lower) }, air);
+            air.restore();
+          });
+        }
+        air.save(); air.translate(point.x, point.y); air.scale(ZOOM, ZOOM);
+        helicopter(air, 0, 0, point.angle, true);
+        air.restore();
+      }
+      function makeGrains() {
+        return Array.from({ length: 8 }, (_, index) => {
+        const layer = document.createElement("canvas");
+        layer.width = layer.height = SIZE;
+        const g = layer.getContext("2d");
+        if (!g) throw new Error("Unable to create film texture.");
+        for (let i = 0; i < 7000; i++) {
+          g.globalAlpha = .025 + hash(index, i, 500) * .07;
+          rect(g, i % 2 ? "black" : "white",
+            Math.floor(hash(index, i, 501) * SIZE),
+            Math.floor(hash(index, i, 502) * SIZE), 1, 1);
+        }
+        return layer;
+        });
+      }
+      let grains = [];
+      function draw() {
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const resolution = Math.round((expanded ? Math.min(canvas.clientWidth, 1000) : SIZE) * dpr);
+        if (canvas.width !== resolution) {
+          canvas.width = canvas.height = resolution;
+        }
+        const scale = canvas.width / SIZE;
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        rect(ctx, "road", 0, 0, SIZE, SIZE);
+        ctx.save();
+        const { x: cameraX, y: cameraY, angle } = camera();
+        ctx.translate(100 + Math.sin(frame * 1.71) * .12, 100 + Math.cos(frame * 2.13) * .1);
+        ctx.rotate(angle);
+        ctx.scale(ZOOM, ZOOM);
+        ctx.translate(-cameraX, -cameraY);
+        worldToScreen = ctx.getTransform();
+        screenToWorld = worldToScreen.inverse();
+        const radius = 235;
+        const visible = new Set();
+        const blocks = [];
+        for (let by = Math.floor((cameraY - radius) / BLOCK); by <= Math.floor((cameraY + radius) / BLOCK); by++) {
+          for (let bx = Math.floor((cameraX - radius) / BLOCK); bx <= Math.floor((cameraX + radius) / BLOCK); bx++) {
+            const key = bx + "," + by;
+            visible.add(key);
+            if (!tiles.has(key)) tiles.set(key, createTile(bx, by));
+            ctx.drawImage(tiles.get(key), bx * BLOCK, by * BLOCK, BLOCK, BLOCK);
+            blocks.push([bx, by]);
+          }
+        }
+        // Evict departed blocks; deterministic coordinates reproduce them if revisited.
+        for (const key of tiles.keys()) if (!visible.has(key)) tiles.delete(key);
+        for (const [id, heli] of helicopters) {
+          if (heli.state === "parked" && !visible.has(heli.block)) helicopters.delete(id);
+        }
+        // These roads are behind a monotonically advancing camera and cannot return.
+        for (const [id, vehicle] of removedCars) {
+          if (vehicle.axis ? cameraX - vehicle.across > radius + BLOCK : vehicle.across - cameraY > radius + BLOCK) {
+            removedCars.delete(id);
+          }
+        }
+        for (const vehicle of trafficVehicles(cameraX, cameraY, radius)) drawVehicle(vehicle);
+        for (const [bx, by] of blocks) people(bx, by);
+        if (cityId === "munich") {
+          const greenAxis = Math.floor(time / 5) % 2;
+          for (const [bx, by] of blocks) {
+            if (isWater(bx * BLOCK + 32, by * BLOCK + 32)) continue;
+            disc(ctx, greenAxis === 0 ? "leaf-light" : "red", bx * BLOCK + 31, by * BLOCK + 25, 1.5);
+            disc(ctx, greenAxis === 1 ? "leaf-light" : "red", bx * BLOCK + 25, by * BLOCK + 31, 1.5);
+          }
+        }
+        drawRescue();
+        const passing = flyover();
+        if (passing) {
+          ctx.globalAlpha = .2;
+          disc(ctx, "shadow", passing.x + 12, passing.y + 14, 7);
+          ctx.globalAlpha = 1;
+          helicopter(ctx, passing.x, passing.y, passing.angle, true);
+        }
+        ctx.restore();
+        if (keyboardAim) {
+          ctx.strokeStyle = colors.white;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(aim.x - 4, aim.y - 4, 8, 8);
+          ctx.strokeStyle = colors.black;
+          ctx.strokeRect(aim.x - 5, aim.y - 5, 10, 10);
+        }
+        ctx.globalAlpha = .07;
+        rect(ctx, "warm", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .055;
+        rect(ctx, "roof-blue", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .3;
+        const vignette = ctx.createRadialGradient(100, 92, 40, 100, 100, 141);
+        vignette.addColorStop(0, "transparent");
+        vignette.addColorStop(1, colors.black);
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        ctx.globalAlpha = Math.min(1, (films.find(film => film.id === filmId).grain || 1) * .65);
+        ctx.drawImage(grains[frame % grains.length], 0, 0);
+        ctx.globalAlpha = .02 + Math.sin(frame * 1.43) * .012;
+        rect(ctx, "white", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        frame++;
+        drawAirspace();
+      }
+      function tick(now) {
+        request = null;
+        if (paused || document.hidden) return;
+        if (lastFrame === null) lastFrame = now;
+        if (now - lastFrame >= FRAME_TIME) {
+          const steps = Math.floor((now - lastFrame) / FRAME_TIME);
+          step(Math.min(steps * FRAME_TIME / 1000, .1));
+          lastFrame += steps * FRAME_TIME;
+          draw();
+        }
+        request = requestAnimationFrame(tick);
+      }
+      function syncPlayback() {
+        if (request !== null) cancelAnimationFrame(request);
+        request = null;
+        lastFrame = null;
+        document.getElementById("pause").textContent = paused ? "Play" : "Pause";
+        document.getElementById("pause").setAttribute("aria-pressed", String(paused));
+        if (paused || document.hidden) stopSounds();
+        else syncRotorSound();
+        if (!paused && !document.hidden) request = requestAnimationFrame(tick);
+      }
+      canvas.addEventListener("click", event => {
+        keyboardAim = false;
+        // offsetX/Y are element-local, undoing the paper's CSS rotation before the camera inverse.
+        spawnAt(event.offsetX * SIZE / canvas.clientWidth, event.offsetY * SIZE / canvas.clientHeight);
+      });
+      canvas.addEventListener("keydown", event => {
+        const moves = { ArrowLeft: [-4, 0], ArrowRight: [4, 0], ArrowUp: [0, -4], ArrowDown: [0, 4] };
+        if (moves[event.key]) {
+          event.preventDefault();
+          keyboardAim = true;
+          aim.x = Math.max(5, Math.min(SIZE - 5, aim.x + moves[event.key][0]));
+          aim.y = Math.max(5, Math.min(SIZE - 5, aim.y + moves[event.key][1]));
+          draw();
+        } else if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          if (!event.repeat) spawnAt(aim.x, aim.y);
+        }
+      });
+      canvas.addEventListener("focus", () => { keyboardAim = true; draw(); });
+      canvas.addEventListener("blur", () => { keyboardAim = false; draw(); });
+      document.getElementById("sound").addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        document.getElementById("sound").textContent = soundEnabled ? "Sound on" : "Sound off";
+        document.getElementById("sound").setAttribute("aria-pressed", String(soundEnabled));
+        if (!soundEnabled) stopSounds();
+        else {
+          audioFailed = false;
+          unlockAudio();
+          syncRotorSound();
+        }
+      });
+      document.getElementById("collisions").addEventListener("click", () => {
+        collisionsEnabled = !collisionsEnabled;
+        document.getElementById("collisions").textContent = collisionsEnabled ? "Collisions on" : "Collisions off";
+        document.getElementById("collisions").setAttribute("aria-pressed", String(collisionsEnabled));
+        recovery.hidden = !collisionsEnabled && !incident && !recoveredCars.length;
+        status.textContent = collisionsEnabled ? "Collisions on. Rooftop helicopters will clear any crashes."
+          : incident ? "New collisions off. The current rescue will finish safely." : "Collisions off. Traffic passes freely.";
+        draw();
+      });
+      document.getElementById("pause").addEventListener("click", () => {
+        paused = !paused;
+        status.textContent = paused ? "A moment, held still." : "";
+        syncPlayback();
+      });
+      function resetCity(reseed = true) {
+        if (reseed) seed = newSeed();
+        time = 0;
+        trafficTime = 0;
+        bikeTime = 0;
+        signalClocks = [0, 0];
+        signalBikeClocks = [0, 0];
+        cameraTime = 0;
+        nextEngineSound = 0;
+        collisionAfter = 0;
+        nextCarId = 0;
+        recoveredCount = 0;
+        incident = null;
+        frame = 0;
+        tiles.clear();
+        helicopters.clear();
+        removedCars.clear();
+        recoveredCars.length = 0;
+        recovery.hidden = !collisionsEnabled;
+        spawnedCars.length = 0;
+        stopSounds();
+        roll++;
+        document.getElementById("roll").textContent = "ROLL " + String(roll).padStart(3, "0");
+        document.getElementById("city-caption").textContent = cityId === "original" ? "wish you were here." : currentCity().name + ", from above.";
+        document.getElementById("city-description").textContent = currentCity().note;
+        status.textContent = reseed ? "A new roll in " + currentCity().name + "." : "Back over the first landmark.";
+        draw();
+        syncPlayback();
+      }
+      document.getElementById("new").addEventListener("click", () => resetCity());
+      document.getElementById("reset-view").addEventListener("click", () => resetCity(false));
+      document.getElementById("destination").addEventListener("change", event => {
+        cityId = event.target.value;
+        applyFilm();
+        resetCity();
+      });
+      for (const film of films) {
+        const option = document.createElement("option");
+        option.value = film.id;
+        option.textContent = film.name;
+        document.getElementById("film").appendChild(option);
+      }
+      document.getElementById("film").value = filmId;
+      document.getElementById("film").addEventListener("change", event => {
+        filmId = event.target.value;
+        applyFilm();
+        draw();
+      });
+      document.getElementById("motorcycles").addEventListener("change", event => {
+        bikesEnabled = event.target.checked;
+        document.getElementById("bike-ratio").disabled = !bikesEnabled;
+        document.getElementById("filtering").disabled = !bikesEnabled;
+        document.querySelector('#spawn-kind option[value="bike"]').disabled = !bikesEnabled;
+        if (!bikesEnabled) {
+          for (let i = spawnedCars.length - 1; i >= 0; i--) {
+            if (spawnedCars[i].kind === "bike") spawnedCars.splice(i, 1);
+          }
+          if (document.getElementById("spawn-kind").value === "bike") document.getElementById("spawn-kind").value = "car";
+        }
+        draw();
+      });
+      document.getElementById("bike-ratio").addEventListener("input", event => {
+        bikeRatio = Number(event.target.value) / 100;
+        document.getElementById("bike-ratio-value").textContent = event.target.value + "%";
+        draw();
+      });
+      document.getElementById("filtering").addEventListener("change", event => {
+        filteringEnabled = event.target.checked;
+        status.textContent = filteringEnabled ? "Motorcycles use the lane gap at up to 2.8× their cruising pace."
+          : "Filtering off. Motorcycles share car lanes at normal pace.";
+        draw();
+      });
+      document.getElementById("traffic-speed").addEventListener("change", event => { trafficPace = Number(event.target.value); });
+      document.getElementById("flight-speed").addEventListener("change", event => { flightPace = Number(event.target.value); });
+      document.getElementById("volume").addEventListener("input", event => {
+        soundVolume = Number(event.target.value) / 100;
+        for (const audio of activeSounds) audio.volume = soundVolume * .4;
+        syncRotorSound();
+      });
+      function setExpanded(value) {
+        expanded = value;
+        document.body.classList.toggle("expanded", value);
+        document.getElementById("fullscreen").textContent = value ? "Exit full screen" : "Full screen";
+        document.getElementById("fullscreen").setAttribute("aria-pressed", String(value));
+        draw();
+      }
+      document.getElementById("fullscreen").addEventListener("click", async () => {
+        if (expanded) {
+          if (document.fullscreenElement) {
+            try { await document.exitFullscreen(); }
+            catch (error) {
+              console.error("Cannot exit full screen:", error);
+              status.textContent = "Could not exit full screen. Use your browser's Escape key.";
+              return;
+            }
+          }
+          setExpanded(false);
+          return;
+        }
+        setExpanded(true);
+        if (!document.documentElement.requestFullscreen) {
+          status.textContent = "Browser fullscreen is unavailable. Expanded view is open; press Escape to close.";
+          return;
+        }
+        try { await document.documentElement.requestFullscreen(); }
+        catch (error) {
+          console.warn("Fullscreen request was not granted:", error);
+          status.textContent = "Fullscreen was not granted. Expanded view is open; press Escape to close.";
+        }
+      });
+      document.addEventListener("fullscreenchange", () => setExpanded(Boolean(document.fullscreenElement)));
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && expanded && !document.fullscreenElement) setExpanded(false);
+        if (["Enter", " "].includes(event.key)) unlockAudio();
+      });
+      document.addEventListener("pointerdown", unlockAudio, { passive: true });
+      reducedMotion.addEventListener("change", event => {
+        paused = event.matches;
+        status.textContent = paused ? "Motion is off. Press Play to take flight." : "";
+        syncPlayback();
+      });
+      deviceTheme.addEventListener("change", event => {
+        if (!["light", "dark"].includes(new URLSearchParams(location.search).get("scoutTheme"))) {
+          document.documentElement.dataset.theme = event.matches ? "dark" : "light";
+          applyFilm();
+          draw();
+        }
+      });
+      document.addEventListener("visibilitychange", syncPlayback);
+      document.addEventListener("visibilitychange", () => { if (document.hidden) stopSounds(); });
+      window.addEventListener("resize", draw);
+      window.addEventListener("scroll", drawAirspace, { passive: true });
+      window.addEventListener("pageshow", syncPlayback);
+      window.addEventListener("pagehide", event => {
+        stopSounds();
+        if (!event.persisted) {
+          Object.values(soundUrls).forEach(url => URL.revokeObjectURL(url));
+          if (soundContext) soundContext.close().catch(reportAudioError);
+        }
+      });
+      document.getElementById("city-description").textContent = currentCity().note;
+      applyFilm();
+      if (paused) status.textContent = "Motion is off. Press Play to take flight.";
+      draw();
+      syncPlayback();
+    })();
+  </script>
+<!-- CITY VERSION SCRIPT START -->
+<script>
+  (() => {
+    const picker = document.querySelector(".version-picker");
+    const extras = document.querySelector(".city-extras");
+    if (extras) extras.prepend(picker.closest(".version-bar"));
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && picker.open) {
+        event.preventDefault(); event.stopImmediatePropagation();
+        picker.open = false; picker.querySelector("summary").focus();
+      }
+    }, true);
+    document.addEventListener("pointerdown", event => {
+      if (picker.open && !picker.contains(event.target)) picker.open = false;
+    });
+    picker.addEventListener("focusout", () => {
+      setTimeout(() => { if (!picker.contains(document.activeElement)) picker.open = false; }, 0);
+    });
+    const theme = new URLSearchParams(location.search).get("scoutTheme");
+    if (theme === "dark" || theme === "light") {
+      for (const link of document.querySelectorAll(".version-list a, .version-pager a")) link.search = "?scoutTheme=" + theme;
+    }
+  })();
+</script>
+<!-- CITY VERSION SCRIPT END -->
+</body>
+</html>

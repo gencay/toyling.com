@@ -1,0 +1,2535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Somewhere, above — a tiny city film</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = ["light", "dark"].includes(param) ? param
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    :root {
+      /* Photographic pigments stay fixed when the surrounding page changes theme. */
+      --cp-film-paper: #ece6d5;
+      --cp-film-ink: #59564a;
+      --cp-film-road: #768383;
+      --cp-film-walk: #c3c3ad;
+      --cp-film-line: #d9ceb0;
+      --cp-film-grass: #859672;
+      --cp-film-leaf: #526f5c;
+      --cp-film-leaf-light: #7f956c;
+      --cp-film-shadow: #394e50;
+      --cp-film-roof: #ccc4a4;
+      --cp-film-roof-red: #b38970;
+      --cp-film-roof-blue: #8faaa3;
+      --cp-film-wall: #a79e82;
+      --cp-film-wall-dark: #7f8377;
+      --cp-film-window: #496266;
+      --cp-film-car: #e4d4ab;
+      --cp-film-red: #a85743;
+      --cp-film-white: #eee7ce;
+      --cp-film-black: #324e51;
+      --cp-film-gold: #ceaa65;
+      --cp-film-warm: #edc08c;
+      --cp-film-water: #6b9caa;
+      --cp-film-foam: #b7d0c6;
+      --cp-film-sand: #dfcda1;
+      --cp-film-bike-blue: #347fb0;
+      --cp-film-chrome: #bcc5c4;
+      --cp-film-lamp: #ffdb8d;
+      --cp-film-night: #152739;
+      --cp-paris-roof: #a4acb3;
+      --cp-paris-wall: #d4c8ad;
+      --cp-munich-roof: #b77959;
+      --cp-munich-grass: #78a375;
+      --cp-istanbul-roof: #bf8068;
+      --cp-istanbul-water: #4f8baf;
+      --cp-seattle-water: #547e93;
+      --cp-seattle-roof: #8faaa8;
+      --cp-newyork-roof: #a1a6af;
+      --cp-london-roof: #867d7a;
+      --cp-london-wall: #b5a38a;
+      --cp-ibiza-roof: #f3ebd8;
+      --cp-ibiza-water: #45b7b3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 40px 16px;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font: 13px/1.6 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    main { width: 320px; max-width: 100%; text-align: center; }
+    .eyebrow, .film-meta, button, .note {
+      font-family: Consolas, "Courier New", Courier, monospace;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--cp-text-muted);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0 0 28px; font: italic 26px/1.2 Georgia, "Times New Roman", serif; }
+    figure {
+      width: 232px;
+      margin: 0 auto;
+      padding: 16px 16px 0;
+      background: var(--cp-film-paper);
+      color: var(--cp-film-ink);
+      box-shadow: var(--cp-shadow);
+      transform: rotate(-2deg);
+    }
+    .aperture { width: 200px; height: 200px; overflow: hidden; background: var(--cp-film-road); }
+    canvas { display: block; width: 200px; height: 200px; cursor: crosshair; touch-action: manipulation; }
+    canvas:focus-visible { outline: 2px solid var(--cp-film-white); outline-offset: -3px; }
+    figcaption { padding: 16px 0 18px; }
+    .handwritten { font: italic 18px/1.3 Georgia, "Times New Roman", serif; }
+    .film-meta { display: grid; grid-template-columns: .8fr 1.7fr .7fr; gap: 3px; margin-top: 6px; font-size: 8px; letter-spacing: .04em; }
+    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 12px 0 0; }
+    button, select {
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0;
+      background: var(--cp-bg-elevated);
+      color: var(--cp-text);
+      font-size: 11px;
+      cursor: pointer;
+    }
+    button:hover { background: var(--cp-surface-soft); }
+    button:active { transform: translateY(1px); }
+    button:focus-visible { outline: 2px solid var(--cp-text); outline-offset: 3px; }
+    select:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 2px solid var(--cp-text); outline-offset: 3px;
+    }
+    .settings { margin: 12px 0 0; text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .settings label { display: grid; align-content: start; gap: 2px; min-width: 0; color: var(--cp-film-ink); font-size: 9px; }
+    .settings select { width: 100%; min-width: 0; font-size: 12px; }
+    .settings .check { display: grid; align-content: start; gap: 2px; }
+    input[type="range"] { width: 100%; accent-color: var(--cp-text-muted); min-height: 24px; }
+    input[type="checkbox"] { accent-color: var(--cp-text-muted); width: 16px; height: 16px; }
+    .settings fieldset, .settings .pair { display: contents; }
+    .settings legend, .settings label > span { display: none; }
+    figcaption button { background: var(--cp-film-paper); color: var(--cp-film-ink); border-color: var(--cp-film-ink); padding: 4px; font-size: 9px; }
+    figcaption button:hover { background: var(--cp-film-paper); text-decoration: underline; }
+    figcaption button:focus-visible { outline-color: var(--cp-film-ink); outline-offset: 1px; }
+    .wheel { position: relative; display: grid; place-items: center; width: 100%; overflow: hidden; perspective: 140px; touch-action: pan-x; user-select: none; cursor: ns-resize; line-height: 1.2; }
+    .wheel::before, .wheel::after { position: absolute; right: 3px; opacity: .45; font-size: 7px; content: "▴"; top: 2px; }
+    .wheel::after { content: "▾"; top: auto; bottom: 2px; }
+    .wheel-readout { display: block; padding: 3px 7px; transform-origin: center; pointer-events: none; overflow-wrap: anywhere; }
+    .wheel:disabled { opacity: .4; cursor: not-allowed; }
+    .caption-city { border: 0; font: italic 18px/1.3 Georgia, "Times New Roman", serif; }
+    .film-meta button { border: 0; font: inherit; min-width: 0; }
+    .film-meta .wheel-readout { padding: 3px 1px; }
+    .film-meta .wheel::before, .film-meta .wheel::after { right: 0; font-size: 5px; }
+    .wheel-help { margin: 6px 0 0; font: 8px/1.5 Consolas, monospace; color: var(--cp-film-ink); opacity: .8; }
+    #reset-view { grid-column: auto; }
+    .caption-options { max-width: 320px; margin: 0 auto; }
+    .paper-tools { display: flex; align-items: center; justify-content: space-between; gap: 3px; padding-bottom: 10px; }
+    .paper-tools > button { padding: 3px; min-width: 36px; font-size: 8px; background: var(--cp-film-paper); color: var(--cp-film-ink); border: 0; }
+    .paper-tools .settings { display: block; margin: 0; }
+    .paper-tools .home-switch > span:first-child { display: none; }
+    .paper-tools .home-switch .rocker { width: 30px; height: 44px; font-size: 6px; }
+    .settings .home-switch { position: relative; justify-items: center; }
+    .settings .home-switch > span { display: block; }
+    .home-switch input {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 48px; margin: 0;
+      opacity: 0; cursor: pointer; z-index: 2;
+    }
+    .settings .home-switch .rocker {
+      display: grid; grid-template-rows: 1fr 1fr; place-items: center;
+      position: relative; width: 42px; height: 48px; padding: 3px;
+      border: 1px solid var(--cp-film-ink); border-radius: 3px;
+      background: var(--cp-film-ink); perspective: 100px; font: 7px/1 Consolas, monospace;
+    }
+    .rocker::before {
+      content: ""; position: absolute; inset: 3px; background: var(--cp-film-paper);
+      border-radius: 2px; transform: rotateX(14deg);
+      box-shadow: inset 0 -4px 0 var(--cp-border-strong);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .rocker span { position: relative; z-index: 1; color: var(--cp-film-ink); }
+    .home-switch input:checked + .rocker::before {
+      transform: rotateX(-14deg); box-shadow: inset 0 4px 0 var(--cp-border-strong);
+    }
+    .home-switch input:focus-visible + .rocker { outline: 2px solid var(--cp-film-ink); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    #city-description, #film-description { margin: 0; font-size: 11px; color: var(--cp-text-muted); }
+    details { margin-top: 20px; text-align: left; color: var(--cp-text-muted); font-size: 11px; }
+    summary { cursor: pointer; min-height: 32px; }
+    details p { margin: 8px 0; }
+    a { color: var(--cp-link); }
+    body.expanded { display: block; padding: 20px; }
+    body.expanded main {
+      width: min(1200px, 100%); margin: 0 auto; display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px; gap: 12px 28px; align-items: start;
+    }
+    body.expanded .eyebrow, body.expanded h1 { grid-column: 1 / -1; margin-bottom: 4px; }
+    body.expanded figure { grid-column: 1; grid-row: 3 / span 6; width: 100%; transform: none; padding: 16px 16px 0; }
+    body.expanded .aperture { width: 100%; height: auto; aspect-ratio: 1; }
+    body.expanded #city { width: 100%; height: 100%; }
+    body.expanded .controls { margin-top: 12px; }
+    body.expanded .settings { margin-top: 12px; }
+    body.expanded main > :not(figure):not(h1):not(.eyebrow) { grid-column: 2; }
+    @media (max-width: 720px) {
+      body.expanded { padding: 12px; }
+      body.expanded main { display: block; max-width: 480px; }
+      body.expanded figure { margin: 20px 0; }
+      body.expanded .settings { margin-top: 12px; }
+    }
+    .note { margin: 0; color: var(--cp-text-muted); font-size: 10px; line-height: 1.8; }
+    #status { margin: 8px 0 0; color: var(--cp-text-muted); font-size: 11px; min-height: 18px; }
+    .recovery {
+      width: 112px;
+      height: 52px;
+      margin: 20px auto 0;
+      border: 1px dashed var(--cp-border-strong);
+      color: var(--cp-text-muted);
+      font: 8px/18px Consolas, "Courier New", Courier, monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    #airspace {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      cursor: default;
+      z-index: 10;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      figure { transform: none; }
+      button:active { transform: none; }
+      .rocker::before { transition: none; }
+    }
+  </style>
+<!-- CITY VERSION STYLE START -->
+<style>
+  .version-bar { display: flex; justify-content: flex-end; width: 100%; margin: 0 0 12px; position: relative; z-index: 30; }
+  .version-picker { margin: 0; color: var(--cp-film-ink); font: 11px/1.5 Consolas, "Courier New", monospace; letter-spacing: 0; }
+  .version-picker > summary { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 8px; cursor: pointer; list-style: none; border: 1px solid var(--cp-border-strong); background: var(--cp-film-paper); }
+  .version-picker > summary::-webkit-details-marker { display: none; }
+  .version-picker > summary::after { content: "+"; }
+  .version-picker[open] > summary::after { content: "-"; }
+  .version-picker > summary:focus-visible, .version-list a:focus-visible { outline: 2px solid var(--cp-film-ink); outline-offset: -3px; }
+  .version-panel { position: absolute; right: 0; top: 100%; width: min(370px, 100%); max-height: min(65vh, 520px); overflow-y: auto; overscroll-behavior: contain; background: var(--cp-film-paper); border: 1px solid var(--cp-film-ink); padding: 12px; text-align: left; box-shadow: var(--cp-shadow); }
+  .version-panel p { margin: 0 0 12px; line-height: 1.5; }
+  .version-list { list-style: none; padding: 0; margin: 0; }
+  .version-list a { display: block; padding: 10px 6px; min-height: 44px; color: var(--cp-film-ink); text-decoration: none; border-top: 1px solid var(--cp-border-strong); }
+  .version-list a:hover, .version-list a[aria-current="page"] { text-decoration: underline; }
+  .version-list strong, .version-list span { display: block; }
+  .version-list span { margin-top: 4px; font: 11px/1.5 "Segoe UI", sans-serif; }
+
+  .city-notes .version-bar, body.full-view .city-notes .version-bar { position: relative; inset: auto; width: 100%; margin: 0 0 16px; justify-content: flex-start; }
+  .city-notes .version-picker { width: 100%; }
+  .city-notes .version-panel, body.full-view .city-notes .version-panel { position: static; width: 100%; max-height: min(60dvh, 520px); box-sizing: border-box; box-shadow: none; }
+  html body:has(> .version-pager) { padding-top: 104px; }
+  .version-pager { position: fixed; inset: 0 0 auto; z-index: 100; height: 88px; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; background: var(--cp-surface); color: var(--cp-text); border-bottom: 1px solid var(--cp-border-strong); }
+  .version-step { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 88px; height: 72px; box-sizing: border-box; border: 1px solid var(--cp-border-strong); color: var(--cp-text); background: var(--cp-surface); text-decoration: none; text-align: center; font: 11px/1.5 Consolas, "Courier New", monospace; }
+  .version-step svg { display: block; width: 44px; height: 44px; }
+  a.version-step:hover { background: var(--cp-surface-soft); border-color: var(--cp-text); }
+  a.version-step:focus-visible { outline: 3px solid var(--cp-text); outline-offset: 2px; }
+  .version-step[aria-disabled="true"] { color: var(--cp-text-muted); border-style: dashed; }
+  .version-position { min-width: 0; text-align: center; font: 12px/1.5 Consolas, "Courier New", monospace; }
+  html body.full-view:has(> .version-pager) { padding-top: 88px; }
+  html body.full-view:has(> .version-pager) > main,
+  html body.full-view:has(> .version-pager) .city-layout { height: calc(100dvh - 88px); }
+  @media (min-width: 851px) {
+    html body.full-view:has(> .version-pager) .city-layout > main,
+    html body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+  @media (max-height: 500px) and (min-width: 650px) {
+    html[data-ui] body.full-view:has(> .version-pager) .city-layout > main,
+    html[data-ui] body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+</style>
+<!-- CITY VERSION STYLE END -->
+</head>
+<body>
+<!-- CITY VERSION NAV START -->
+<nav class="version-pager" aria-label="Browse archived versions">
+  <a class="version-step" rel="prev" href="city-flight-v4.html" aria-label="Previous version: v4" title="Previous version: v4"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M30 8L14 24L30 40"/></svg><span>v4</span></a>
+  <span class="version-position">Archive<br><strong>v5</strong></span>
+  <a class="version-step" rel="next" href="city-flight-v6.html" aria-label="Next version: v6" title="Next version: v6"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M18 8L34 24L18 40"/></svg><span>v6</span></a>
+</nav>
+<!-- CITY VERSION NAV END -->
+  <main>
+    <p class="eyebrow">A little window / an endless city</p>
+    <h1>Somewhere, above.</h1>
+<!-- CITY VERSION NAV START -->
+      <nav class="version-bar" aria-label="City flight version history">
+        <details class="version-picker">
+          <summary aria-label="Version history, v5, archived">v5</summary>
+          <div class="version-panel">
+            <p><strong>Historical snapshot · v5</strong><br>Physics and paper controls</p>
+            <p>Original simulation preserved; only this version navigator was added. Historical limitations remain.</p>
+            <ol class="version-list">
+              <li><a href="../city-flight.html"><strong>v15 · current — Nineteen cities, a hundred landmarks</strong><span>19 destinations with 102 seeded architectural motifs, including Antalya&#39;s Yivli Minare and Saat Kulesi. Modern Istanbul clock numerals; 176 px dial with stacked speed controls; colorful wheel strokes. New vehicles keep moving while searching for a home, while yielding to real obstacles. Researched approximate Polaroid borders, 440 px control pane, mixed car/motorcycle spawns and animated rescue Junkyard. Original defaults to 600 px Polaroid / Close up / Auto 30 FPS. v14 preserves the prior layout.</span></a></li>
+              <li><a href="city-flight-v0.html"><strong>v0 — The first miniature</strong><span>200 px procedural city, pedestrians, traffic and faded Chrome-style film.</span></a></li>
+              <li><a href="city-flight-v1.html"><strong>v1 — Click a lane</strong><span>Lane-click cars, legal directions, keyboard aiming and an original WAV chime.</span></a></li>
+              <li><a href="city-flight-v2.html"><strong>v2 — Helicopter recovery</strong><span>Rooftop helicopters lift crashed vehicles into a collection bay.</span></a></li>
+              <li><a href="city-flight-v3.html"><strong>v3 — Films, cities and motorcycles</strong><span>20 film approximations, seven named cities, blue motorcycles, filtering and continuous rotor audio.</span></a></li>
+              <li><a href="city-flight-v4.html"><strong>v4 — A living soundtrack</strong><span>Generative music, safer ambient traffic, local crash queues, water falls and night lighting.</span></a></li>
+              <li><a href="city-flight-v5.html" aria-current="page"><strong>v5 — Physics and paper controls</strong><span>Caption wheels, connected river bridges, physical falls and recovery, smaller argh effects and a day/night rocker.</span></a></li>
+              <li><a href="city-flight-v6.html"><strong>v6 — Five AI player-designer reviews</strong><span>Review-driven gameplay, accessibility, audio and input refinements; larger view and neighboring reel options. These were AI reviews, not human playtests.</span></a></li>
+              <li><a href="city-flight-v7.html"><strong>v7 — The size dial</strong><span>Hidden-at-rest reel neighbors and exact 100–1000 px sizes, originally defaulting to 200 px.</span></a></li>
+              <li><a href="city-flight-v8.html"><strong>v8 — Driving school and family homes</strong><span>First handbook-informed home routing and analog-clock daylight implementation, with a 600 px default. No real license test or AI training; turn refinements followed in v9.</span></a></li>
+              <li><a href="city-flight-v9.html"><strong>v9 — Forgiving reels and refined driving</strong><span>Nearest-option release snapping, deferred resizing, one shared preview line, and refined legal junction turns.</span></a></li>
+              <li><a href="city-flight-v10.html"><strong>v10 — Town clocks and traffic governor</strong><span>30 city minutes per real second, eight original city-branded dials, governor safety interlocks and the first browsable archive.</span></a></li>
+              <li><a href="city-flight-v11.html"><strong>v11 — More city, not bigger pixels</strong><span>Constant-scale city sizes, full-window controls, adjustable downtown clocks with calmer hands, grab-to-turn reels and a live City Chronicle.</span></a></li>
+              <li><a href="city-flight-v12.html"><strong>v12 — Compact clocks and tilted prints</strong><span>Full digital time, inline speed controls, 5x hand-speed limits, readable Chronicle ink, 30 FPS, city-specific paper tilts and separate Chronicle/media workers.</span></a></li>
+              <li><a href="city-flight-v13.html"><strong>v13 — Clock tower and camera views</strong><span>Reference-style clock, 300 px / 30 FPS Drone default, restored Enlarge/Small control, Close up/Drone/Space zoom, four rendering and motion workers, and cached vehicle artwork.</span></a></li>
+              <li><a href="city-flight-v14.html"><strong>v14 — Living streets, two frames</strong><span>Light Gamified default with a separate collapsed style panel, city-specific lettering and films, crowd-responsive frame rates, stacked camera/print wheels, grouped Chronicle events and a larger recovery gallery; varied blocks, colored motorcycles, mini-roundabouts and fair traffic.</span></a></li>
+            </ol>
+          </div>
+        </details>
+      </nav>
+<!-- CITY VERSION NAV END -->
+    <figure>
+      <div class="paper-tools" aria-label="Paper controls">
+        <div class="settings">
+          <label class="home-switch"><span>Day / night</span>
+            <input id="night" type="checkbox" role="switch" aria-label="Night flight">
+            <span class="rocker" aria-hidden="true"><span>DAY</span><span>NIGHT</span></span>
+          </label>
+        </div>
+        <button id="pause" type="button" aria-pressed="false">Pause</button>
+        <button id="sound" type="button" aria-pressed="true" aria-label="City sound effects">Sound on</button>
+        <button id="fullscreen" type="button" aria-pressed="false">Full screen</button>
+      </div>
+      <div class="aperture">
+        <canvas id="city" width="400" height="400" role="img" tabindex="0" aria-describedby="spawn-help"
+          aria-label="Interactive bird's-eye city. Click a road lane to add a random car or motorcycle. Keyboard: arrow keys move the crosshair; Enter or Space adds a vehicle.">
+          Your browser needs Canvas support to show the city.
+        </canvas>
+      </div>
+      <figcaption>
+        <div class="caption-options">
+        <button type="button" class="wheel caption-city" data-wheel-for="destination"><span id="city-caption" data-wheel-value>Somewhere</span></button>
+        <div class="film-meta">
+          <button id="new" type="button" title="Expose a new random roll"><span id="roll" class="wheel-readout">ROLL 001</span></button>
+          <button type="button" class="wheel" data-wheel-for="film"><span id="film-caption" data-wheel-value>CLASSIC CHROME</span></button>
+          <button type="button" class="wheel" data-wheel-for="fps"><span data-wheel-value>24 FPS</span></button>
+        </div>
+        <p class="wheel-help" id="wheel-help">Click to shuffle · drag up/down to dial<br>Arrow keys to choose · Home/End to jump</p>
+    <div class="settings" aria-label="City and film options" hidden>
+      <label hidden>Destination <select id="destination">
+        <option value="original">Somewhere</option>
+        <option value="paris">Paris</option><option value="munich">Munich</option>
+        <option value="istanbul">Istanbul</option><option value="seattle">Seattle</option>
+        <option value="newyork">New York</option><option value="london">London</option>
+        <option value="ibiza">Ibiza</option>
+      </select></label>
+      <label hidden>Film simulation <select id="film" aria-describedby="film-description"></select></label>
+      <label hidden>Frame rate <select id="fps">
+        <option value="12">12 FPS</option><option value="18">18 FPS</option>
+        <option value="24" selected>24 FPS</option><option value="30">30 FPS</option>
+        <option value="48">48 FPS</option><option value="60">60 FPS</option>
+      </select></label>
+    </div>
+    <div class="controls" aria-label="Film controls">
+      <button id="collisions" type="button" aria-pressed="true">Collisions on</button>
+      <button id="reset-view" type="button">Revisit landmark</button>
+    </div>
+        </div>
+      </figcaption>
+    </figure>
+    <p class="note">200 × 200 · made as you fly<br>no footage. no map. just a passing moment.</p>
+    <p class="note" id="spawn-help">Click a lane for a random car or blue motorcycle.<br>Traffic keeps its distance; crowded clicks can cause chaos.<br>Keyboard: arrows to aim, Enter to add.</p>
+    <p id="status" role="status" aria-live="polite"></p>
+    <div id="recovery" class="recovery" aria-label="Recovered cars, outside the city" hidden>Recovery bay</div>
+    <details>
+      <summary>About the films &amp; places</summary>
+      <p id="city-description"></p>
+      <p id="film-description"></p>
+      <p>Caption thumbwheels: click for a different random choice, drag upward/downward to browse, or use the arrow keys, Home and End. Click the roll number for a fresh procedural city. Frame rate changes the film cadence without changing simulation speed.</p>
+      <p>Traffic is automatically tuned: a 25% motorcycle draw, fast filtering, normal cruise and a soft original generative score. Every driver has a personal pace and passing preference, using clear gaps rather than teleporting. New insertions forecast four seconds ahead; crowded clicks can still overwhelm braking. Crashes block nearby lanes, not the whole city, and only then dispatch a rescue helicopter.</p>
+      <p>Every road over a finite river has a connected bridge, including north/south roads. Oceanfront roads cannot bridge an endless sea. Exposed banks have depth; pedestrians and wrecks can fall. Falls use gravity, crashes use mass-based impulses and ground friction, and rescue flight accelerates and brakes. Splash particles and ripples are clipped to open water, never land or bridges. This is a small stylized physics model, not a real-world driving simulator. The paper's rocker switches between daylight and lit-window night flight.</p>
+      <p>All 20 X100VI film modes, including ACROS and Monochrome filter variants, are represented by original palette approximations. These are not Fujifilm's proprietary simulations. Film grading also colors the paper and interface.</p>
+      <p>The cities are endless, reseeded impressions, not navigable maps. Landmarks recur as the camera travels. Munich adds orderly signal phases; London uses left-hand traffic. Motorcycle filtering is a fictional simulation setting, not a claim about local road law.</p>
+      <p>The blue motorcycle is a tiny top-view interpretation of a 2023 Harley-Davidson Sportster S: fat tires, blue tank, low seat and twin high-side exhausts. All audio is original, synthesized locally. Enable sound with an interaction; pause or mute silences it.</p>
+      <p>References:
+        <a href="https://fujifilm-dsc.com/en/manual/x100vi/menu_shooting/image_quality_setting/#film_simulation" target="_blank" rel="noreferrer">Fujifilm manual</a>;
+        <a href="https://www.louvre.fr/en/explore/the-palace" target="_blank" rel="noreferrer">Louvre</a>;
+        <a href="https://www.toureiffel.paris/en" target="_blank" rel="noreferrer">Eiffel Tower</a>;
+        <a href="https://www.munich.travel/en/pois/sports-leisure/english-garden" target="_blank" rel="noreferrer">Munich gardens</a>;
+        <a href="https://www.munich.travel/en/pois/urban-districts/frauenkirche" target="_blank" rel="noreferrer">Frauenkirche</a>;
+        <a href="https://goturkiye.com/istanbul/hagia-sophia" target="_blank" rel="noreferrer">Istanbul</a>;
+        <a href="https://www.seattle.gov/waterfront" target="_blank" rel="noreferrer">Seattle waterfront</a>;
+        <a href="https://www.spaceneedle.com" target="_blank" rel="noreferrer">Space Needle</a>;
+        <a href="https://www.centralparknyc.org/locations" target="_blank" rel="noreferrer">Central Park</a>;
+        <a href="https://www.visitlondon.com/things-to-do/london-attractions-map" target="_blank" rel="noreferrer">London</a>;
+        <a href="https://www.spain.info/en/destination/eivissa/" target="_blank" rel="noreferrer">Ibiza</a>.
+      </p>
+    </details>
+  </main>
+  <canvas id="airspace" aria-hidden="true"></canvas>
+  <script>
+    (() => {
+      "use strict";
+      const canvas = document.getElementById("city");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const airspace = document.getElementById("airspace");
+      const air = airspace.getContext("2d");
+      const recovery = document.getElementById("recovery");
+      const status = document.getElementById("status");
+      if (!ctx || !air) {
+        status.textContent = "This browser cannot render the city: Canvas 2D is unavailable.";
+        document.querySelectorAll("button").forEach(button => { button.disabled = true; });
+        return;
+      }
+      const styles = getComputedStyle(document.documentElement);
+      const color = name => styles.getPropertyValue("--cp-film-" + name).trim();
+      const colors = Object.fromEntries([
+        "road", "walk", "line", "grass", "leaf", "leaf-light", "shadow", "roof",
+        "roof-red", "roof-blue", "wall", "wall-dark", "window", "car", "red",
+        "white", "black", "gold", "warm", "water", "foam", "sand", "bike-blue", "chrome", "lamp", "night"
+      ].map(name => [name, color(name)]));
+      const baseColors = { ...colors };
+      const films = [
+        { id: "provia", name: "PROVIA / STANDARD", sat: 1.12, contrast: 1.03, note: "Balanced, natural everyday color." },
+        { id: "velvia", name: "Velvia / VIVID", sat: 1.75, contrast: 1.19, note: "Saturated greens and blues; bold landscape contrast." },
+        { id: "astia", name: "ASTIA / SOFT", sat: 1.08, contrast: .92, lift: 5, note: "Gentle contrast and softer color." },
+        { id: "chrome", name: "CLASSIC CHROME", sat: .86, contrast: 1.06, cool: 3, note: "Quiet documentary color with deeper shadows." },
+        { id: "reala", name: "REALA ACE", sat: 1.15, contrast: 1.13, note: "Faithful color with firm, clear tonal separation." },
+        { id: "pro-hi", name: "PRO Neg. Hi", sat: .95, contrast: 1.13, note: "Subdued portrait color with stronger contrast." },
+        { id: "pro-std", name: "PRO Neg. Std", sat: .88, contrast: .88, lift: 3, note: "Soft gradations and restrained studio color." },
+        { id: "classic-neg", name: "CLASSIC Neg.", sat: 1.24, contrast: 1.22, warm: 5, cool: 7, note: "Harder shadows, warm highlights, green-leaning cool tones." },
+        { id: "nostalgic", name: "NOSTALGIC Neg.", sat: 1.12, contrast: .98, warm: 18, lift: 4, note: "Amber highlights and rich, gently lifted shadows." },
+        { id: "eterna", name: "ETERNA / CINEMA", sat: .67, contrast: .83, lift: 4, note: "Muted cinematic color and open shadow detail." },
+        { id: "bleach", name: "ETERNA BLEACH BYPASS", sat: .28, contrast: 1.32, cool: 3, note: "Low saturation and dramatic contrast." },
+        ...[["acros", "ACROS", 1.18], ["mono", "MONOCHROME", 1.02]].flatMap(([id, name, contrast]) =>
+          [["", "", [.299, .587, .114]], ["-ye", " + Ye", [.38, .58, .04]],
+            ["-r", " + R", [.65, .32, .03]], ["-g", " + G", [.19, .76, .05]]].map(([suffix, label, weights]) =>
+            ({ id: id + suffix, name: name + label, contrast, weights, sat: 0,
+              grain: id === "acros" ? 1.6 : .75,
+              note: `${name === "ACROS" ? "Rich, grainy" : "Classic"} black and white${label ? "; " + label.slice(3) + " color-filter response" : ""}.` }))),
+        { id: "sepia", name: "SEPIA", sat: 0, contrast: .98, sepia: true, note: "Warm brown monochrome, like an old print." }
+      ];
+      const cities = {
+        original: { name: "Somewhere", width: 0, parks: .18, landmarks: [], palette: {}, note: "The original endless miniature city." },
+        paris: { name: "Paris", width: 48, bend: 38, parks: .15, landmarks: ["eiffel", "louvre"],
+          palette: { roof: "paris-roof", "roof-blue": "paris-roof", wall: "paris-wall" },
+          note: "Seine quays, zinc roofs, formal gardens, Eiffel ironwork and the Louvre's glass pyramid." },
+        munich: { name: "Munich", width: 39, bend: 24, parks: .4, landmarks: ["frauenkirche", "garden"],
+          palette: { "roof-red": "munich-roof", grass: "munich-grass" },
+          note: "Twin-domed Frauenkirche, red roofs, Isar banks, broad English Garden lawns and orderly traffic signals." },
+        istanbul: { name: "Istanbul", width: 100, bend: 30, parks: .09, landmarks: ["mosque", "bazaar"],
+          palette: { "roof-red": "istanbul-roof", water: "istanbul-water" },
+          note: "Europe and Asia across a deep-blue Bosphorus, suspension bridges, ferries, domes, minarets and market courtyards." },
+        seattle: { name: "Seattle", width: 80, bend: 23, coast: true, parks: .24, landmarks: ["needle", "market"],
+          palette: { water: "seattle-water", roof: "seattle-roof" },
+          note: "Elliott Bay piers and ferries, evergreen pockets, the Space Needle's saucer and Pike Place market roofs." },
+        newyork: { name: "New York", width: 63, bend: 10, parks: .06, landmarks: ["empire", "centralpark"],
+          palette: { roof: "newyork-roof" },
+          note: "Dense stepped towers, long avenue blocks, yellow taxis, a rectangular Central Park and river crossings." },
+        london: { name: "London", width: 59, bend: 55, parks: .23, landmarks: ["westminster", "towerbridge"],
+          palette: { roof: "london-roof", wall: "london-wall" }, left: true,
+          note: "A bending Thames, Westminster's clock tower, Tower Bridge, garden squares, red buses and left-hand traffic." },
+        ibiza: { name: "Ibiza", width: 80, bend: 45, coast: true, parks: .18, landmarks: ["daltvila", "marina"],
+          palette: { roof: "ibiza-roof", "roof-blue": "ibiza-roof", water: "ibiza-water", wall: "ibiza-roof" },
+          note: "Dalt Vila's angular bastions, whitewashed low houses, pine gardens, sandy coves and a turquoise yacht harbor." }
+      };
+      let cityId = "original";
+      let filmId = "chrome";
+      let nightEnabled = false;
+      let bikesEnabled = true;
+      let bikeRatio = .25;
+      let filteringEnabled = true;
+      let trafficPace = 1;
+      let flightPace = 1;
+      let bikeTime = 0;
+      let signalClocks = [0, 0];
+      let signalBikeClocks = [0, 0];
+      let soundVolume = .35;
+      let expanded = false;
+      const SIZE = 200;
+      const BLOCK = 152;
+      const ROAD = 30;
+      const ZOOM = .72;
+      let FRAME_TIME = 1000 / 24;
+      const wheelBindings = [];
+      const carPaints = ["car", "white", "red", "roof-blue", "black", "gold"];
+      const tiles = new Map();
+      const spawnedCars = [];
+      const ambientTraffic = new Map();
+      const splashes = [];
+      const lostPedestrians = new Map();
+      let trafficInitialized = false;
+      let nextPopulation = 0;
+      const helicopters = new Map();
+      const removedCars = new Map();
+      const recoveredCars = [];
+      const activeSounds = new Set();
+      const aim = { x: SIZE / 2, y: SIZE / 2 };
+      let keyboardAim = false;
+      let screenToWorld;
+      let worldToScreen;
+      let soundEnabled = true;
+      let collisionsEnabled = true;
+      let incident = null;
+      let collisionAfter = 0;
+      let nextCarId = 0;
+      let recoveredCount = 0;
+      let rotorSound = null;
+      let soundContext = null;
+      let soundMaster = null;
+      let audioUnlocked = false;
+      let audioFailed = false;
+      let nextEngineSound = 0;
+      let rotorLevel = null;
+      let musicEnabled = true;
+      let music = null;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      const deviceTheme = matchMedia("(prefers-color-scheme: dark)");
+      let seed = newSeed();
+      let roll = 1;
+      let time = 0;
+      let trafficTime = 0;
+      let cameraTime = 0;
+      let paused = reducedMotion.matches;
+      let lastFrame = null;
+      let request = null;
+      let frame = 0;
+
+      function wheelOptions(source) {
+        if (source.tagName === "SELECT") return [...source.options].filter(option => !option.disabled)
+          .map(option => ({ value: option.value, label: option.textContent }));
+        if (source.type === "checkbox") return [false, true].map(value => ({ value,
+          label: source.id === "night" ? value ? "Night" : "Day" : value ? "On" : "Off" }));
+        const min = Number(source.min), max = Number(source.max), step = Number(source.step) || 1;
+        return Array.from({length: Math.floor((max - min) / step) + 1}, (_, index) =>
+          ({ value: String(min + index * step), label: min + index * step + "%" }));
+      }
+      function syncWheels() {
+        for (const binding of wheelBindings) {
+          const {source, button, readout, name} = binding;
+          const options = wheelOptions(source), value = source.type === "checkbox" ? source.checked : source.value;
+          const index = Math.max(0, options.findIndex(option => option.value === value));
+          readout.textContent = options[index].label;
+          button.disabled = source.disabled;
+          button.setAttribute("aria-label", name);
+          button.setAttribute("aria-valuemin", "0");
+          button.setAttribute("aria-valuemax", String(options.length - 1));
+          button.setAttribute("aria-valuenow", String(index));
+          button.setAttribute("aria-valuetext", options[index].label);
+        }
+      }
+      function spinWheel(button, direction = 1) {
+        if (reducedMotion.matches) return;
+        const readout = button.querySelector(".wheel-readout");
+        if (!readout) return;
+        for (const animation of readout.getAnimations()) animation.cancel();
+        readout.animate([
+          {transform: `translateY(${direction * 65}%) rotateX(${-direction * 75}deg)`, opacity: .15},
+          {transform: "translateY(0) rotateX(0)", opacity: 1}
+        ], {duration: 230, easing: "cubic-bezier(.2,.7,.2,1)"});
+      }
+      function mountWheels() {
+        for (const source of document.querySelectorAll(".settings select, .settings input:not(#night)")) {
+          let button = document.querySelector(`[data-wheel-for="${source.id}"]`);
+          const label = source.closest("label");
+          const name = [...label.childNodes].filter(node => node.nodeType === Node.TEXT_NODE)
+            .map(node => node.textContent.trim()).filter(Boolean).join(" ");
+          if (!button) {
+            button = document.createElement("button");
+            button.type = "button"; button.className = "wheel"; button.dataset.wheelFor = source.id;
+            label.appendChild(button);
+          }
+          let readout = button.querySelector("[data-wheel-value]");
+          if (!readout) { readout = document.createElement("span"); button.appendChild(readout); }
+          readout.classList.add("wheel-readout");
+          button.setAttribute("role", "spinbutton");
+          button.setAttribute("aria-describedby", "wheel-help");
+          button.title = "Click to shuffle; drag vertically or use arrow keys to choose.";
+          source.hidden = true; source.tabIndex = -1;
+          const binding = {source, button, readout, name};
+          wheelBindings.push(binding);
+          source.addEventListener("change", syncWheels);
+          source.addEventListener("input", syncWheels);
+          const select = (index, direction) => {
+            const options = wheelOptions(source), choice = options[mod(index, options.length)];
+            if (source.type === "checkbox") source.checked = choice.value;
+            else source.value = choice.value;
+            source.dispatchEvent(new Event(source.type === "range" ? "input" : "change", {bubbles: true}));
+            syncWheels(); spinWheel(button, direction);
+          };
+          const index = () => wheelOptions(source).findIndex(option =>
+            option.value === (source.type === "checkbox" ? source.checked : source.value));
+          let drag = null, suppressUntil = 0;
+          button.addEventListener("click", () => {
+            if (performance.now() < suppressUntil) return;
+            const count = wheelOptions(source).length;
+            if (count > 1) select(index() + 1 + Math.floor(newSeed() / 4294967296 * (count - 1)), 1);
+          });
+          button.addEventListener("pointerdown", event => {
+            if (event.button !== 0) return;
+            drag = {id: event.pointerId, y: event.clientY, index: index(), step: 0, moved: false};
+            button.setPointerCapture(event.pointerId);
+          });
+          button.addEventListener("pointermove", event => {
+            if (!drag || drag.id !== event.pointerId) return;
+            const distance = drag.y - event.clientY;
+            if (Math.abs(distance) > 5) drag.moved = true;
+            const step = Math.trunc(distance / 22);
+            if (step !== drag.step) { select(drag.index + step, Math.sign(step - drag.step)); drag.step = step; }
+          });
+          const endDrag = event => {
+            if (!drag || drag.id !== event.pointerId) return;
+            if (drag.moved || event.type === "pointercancel") suppressUntil = performance.now() + 350;
+            if (button.hasPointerCapture(event.pointerId)) button.releasePointerCapture(event.pointerId);
+            drag = null;
+          };
+          button.addEventListener("pointerup", endDrag);
+          button.addEventListener("pointercancel", endDrag);
+          button.addEventListener("keydown", event => {
+            const steps = {ArrowUp: -1, ArrowDown: 1, ArrowLeft: -1, ArrowRight: 1};
+            if (event.key in steps) { event.preventDefault(); select(index() + steps[event.key], steps[event.key]); }
+            else if (event.key === "Home" || event.key === "End") {
+              event.preventDefault(); select(event.key === "Home" ? 0 : wheelOptions(source).length - 1, 1);
+            }
+          });
+        }
+        const rollButton = document.getElementById("new");
+        rollButton.addEventListener("click", () => spinWheel(rollButton));
+        let rollY = null;
+        rollButton.style.touchAction = "pan-x";
+        rollButton.addEventListener("pointerdown", event => { rollY = event.clientY; rollButton.setPointerCapture(event.pointerId); });
+        rollButton.addEventListener("pointerup", event => {
+          if (rollY !== null && Math.abs(event.clientY - rollY) > 22) {
+            // Pointer capture keeps the ensuing click on the roll, including after a vertical drag.
+            spinWheel(rollButton, Math.sign(rollY - event.clientY));
+          }
+          rollY = null;
+        });
+        syncWheels();
+      }
+      function newSeed() {
+        return crypto.getRandomValues(new Uint32Array(1))[0];
+      }
+      function hash(x, y, salt = 0) {
+        let h = seed ^ Math.imul(x, 374761393) ^ Math.imul(y, 668265263) ^ Math.imul(salt, 1597334677);
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+      }
+      const mod = (n, m) => ((n % m) + m) % m;
+      const currentCity = () => cities[cityId];
+      function grade(value, film) {
+        let rgb;
+        let alpha = 1;
+        if (value.startsWith("#")) {
+          const hex = value.slice(1);
+          rgb = [0, 2, 4].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
+        } else {
+          const components = value.match(/[\d.]+/g).map(Number);
+          rgb = components.slice(0, 3);
+          alpha = components[3] ?? 1;
+        }
+        const weights = film.weights || [.299, .587, .114];
+        const luminance = rgb.reduce((sum, channel, index) => sum + channel * weights[index], 0);
+        rgb = rgb.map(channel => luminance + (channel - luminance) * film.sat);
+        rgb = rgb.map(channel => (channel - 128) * film.contrast + 128 + (film.lift || 0));
+        const warmth = (film.warm || 0) * Math.pow(luminance / 255, 2);
+        const cool = (film.cool || 0) * (1 - luminance / 255);
+        rgb[0] += warmth - cool;
+        rgb[1] += warmth * .3 + cool * .35;
+        rgb[2] -= warmth;
+        if (film.sepia) { rgb[0] += 17; rgb[1] += 5; rgb[2] -= 19; }
+        return `rgba(${rgb.map(channel => Math.round(Math.max(0, Math.min(255, channel)))).join(",")},${alpha})`;
+      }
+      function applyFilm() {
+        const film = films.find(item => item.id === filmId);
+        const root = document.documentElement;
+        const uiTokens = ["bg", "bg-elevated", "surface", "surface-soft", "border", "border-strong",
+          "text", "text-muted", "text-soft", "accent", "accent-hover", "accent-fg", "link"];
+        for (const token of uiTokens) root.style.removeProperty("--cp-" + token);
+        root.style.removeProperty("--cp-film-paper");
+        root.style.removeProperty("--cp-film-ink");
+        const base = getComputedStyle(root);
+        const originals = Object.fromEntries(uiTokens.map(token => [token, base.getPropertyValue("--cp-" + token).trim()]));
+        const paper = base.getPropertyValue("--cp-film-paper").trim();
+        const ink = base.getPropertyValue("--cp-film-ink").trim();
+        for (const [token, value] of Object.entries(originals)) root.style.setProperty("--cp-" + token, grade(value, film));
+        root.style.setProperty("--cp-film-paper", grade(paper, film));
+        root.style.setProperty("--cp-film-ink", grade(ink, film));
+        for (const key of Object.keys(colors)) {
+          const paletteToken = currentCity().palette[key];
+          let pigment = paletteToken ? base.getPropertyValue("--cp-" + paletteToken).trim() : baseColors[key];
+          if (nightEnabled && !["lamp", "night"].includes(key)) {
+            const source = pigment.slice(1), shade = baseColors.night.slice(1);
+            const amount = ["white", "red", "gold", "car", "bike-blue", "foam"].includes(key) ? .56 : .24;
+            pigment = "#" + [0, 2, 4].map(offset => Math.round(
+              parseInt(source.slice(offset, offset + 2), 16) * amount
+              + parseInt(shade.slice(offset, offset + 2), 16) * (1 - amount)
+            ).toString(16).padStart(2, "0")).join("");
+          }
+          colors[key] = grade(pigment, film);
+        }
+        document.getElementById("film-caption").textContent = film.name;
+        document.getElementById("film-description").textContent = film.note + " Scene + UI approximation.";
+        tiles.clear();
+        grains = makeGrains();
+      }
+      function waterBounds(y) {
+        const place = currentCity();
+        const center = 87 - (y - 107) * .56 + 154 + Math.sin(y / 310) * (place.bend || 0);
+        return { left: center - place.width / 2, right: place.coast ? Infinity : center + place.width / 2 };
+      }
+      function isWater(x, y) {
+        if (!currentCity().width) return false;
+        const { left, right } = waterBounds(y);
+        return x > left && x < right;
+      }
+      function isBridge(x, y) {
+        return !currentCity().coast && isWater(x, y)
+          && (mod(x, BLOCK) < ROAD || mod(y, BLOCK) < ROAD);
+      }
+      function drivable(x, y) {
+        return (mod(x, BLOCK) < ROAD || mod(y, BLOCK) < ROAD) && (!isWater(x, y) || isBridge(x, y));
+      }
+      function canPlace(x, y, w, h) {
+        return [[x, y], [x + w, y], [x, y + h], [x + w, y + h], [x + w / 2, y + h / 2]]
+          .every(([px, py]) => !isWater(px, py));
+      }
+      function landmarkAt(bx, by) {
+        const place = currentCity();
+        if (!place.landmarks.length || mod(by, 3) !== 0) return null;
+        const routeX = 87 - (by * BLOCK + 91 - 107) * .56;
+        if (bx !== Math.floor(routeX / BLOCK)) return null;
+        if (!canPlace(bx * BLOCK + 35, by * BLOCK + 35, 110, 110)) return null;
+        return place.landmarks[mod(-Math.floor(by / 3), place.landmarks.length)];
+      }
+      function parkAt(bx, by) {
+        if (cityId === "newyork" && mod(by, 9) >= 5 && mod(by, 9) <= 7
+          && bx === Math.floor((87 - (by * BLOCK - 107) * .56) / BLOCK)) return true;
+        if (cityId === "munich" && bx === Math.floor((waterBounds(by * BLOCK + 76).left - 105) / BLOCK)
+          && mod(by, 5) !== 0) return true;
+        return hash(bx, by, 1) < currentCity().parks;
+      }
+      function pick(items) {
+        return items[Math.floor(newSeed() / 4294967296 * items.length)];
+      }
+      function laneRules(road, axis, lane) {
+        const dir = (lane ? -1 : 1) * (currentCity().left ? -1 : 1);
+        return {
+          axis, road, lane,
+          dir,
+          speed: 14 + hash(road, axis, 300 + lane) * 7,
+          across: road * BLOCK + (lane ? 9 : 21)
+        };
+      }
+      function lanesAt(x, y) {
+        if (!drivable(x, y)) return [];
+        const lanes = [];
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? x : y;
+          const local = mod(cross, BLOCK);
+          if (local >= ROAD) continue;
+          const road = Math.floor(cross / BLOCK);
+          // The center marking is equally close to both lanes; junctions admit both axes.
+          const choices = Math.abs(local - ROAD / 2) < 1 ? [0, 1] : [local < ROAD / 2 ? 1 : 0];
+          for (const lane of choices) {
+            const rules = laneRules(road, axis, lane);
+            if (drivable(axis ? rules.across : x, axis ? y : rules.across)) lanes.push(rules);
+          }
+        }
+        return lanes;
+      }
+      function makeSoundWav(kind = "spawn") {
+        const rate = 22050;
+        const duration = { spawn: .48, collision: .3, pickup: .5, splash: .65 }[kind];
+        const count = Math.round(rate * duration);
+        const bytes = new ArrayBuffer(44 + count * 2);
+        const wav = new DataView(bytes);
+        const text = (offset, value) => [...value].forEach((char, i) => wav.setUint8(offset + i, char.charCodeAt(0)));
+        text(0, "RIFF"); wav.setUint32(4, bytes.byteLength - 8, true);
+        text(8, "WAVE"); text(12, "fmt "); wav.setUint32(16, 16, true);
+        wav.setUint16(20, 1, true); wav.setUint16(22, 1, true);
+        wav.setUint32(24, rate, true); wav.setUint32(28, rate * 2, true);
+        wav.setUint16(32, 2, true); wav.setUint16(34, 16, true);
+        text(36, "data"); wav.setUint32(40, count * 2, true);
+        // Original felt-like pluck: a soft attack, glassy partials, and a short rising answer.
+        for (let i = 0; i < count; i++) {
+          const t = i / rate;
+          let sample = 0;
+          if (kind === "spawn" || kind === "pickup") {
+            const notes = kind === "spawn" ? [[0, 523.25, .29], [.065, 783.99, .16]]
+              : [[0, 659.25, .17], [.1, 880, .13]];
+            for (const [start, frequency, gain] of notes) {
+              const age = t - start;
+              if (age < 0) continue;
+              const envelope = (1 - Math.exp(-age * 650)) * Math.exp(-age * 12);
+              sample += gain * envelope * (
+                Math.sin(2 * Math.PI * frequency * age) +
+                .22 * Math.sin(2 * Math.PI * frequency * 2.003 * age) +
+                .06 * Math.sin(2 * Math.PI * frequency * 3.98 * age)
+              );
+            }
+          } else if (kind === "collision") {
+            const envelope = (1 - Math.exp(-t * 180)) * Math.exp(-t * 19);
+            sample = .28 * envelope * (Math.sin(2 * Math.PI * 95 * t)
+              + .18 * Math.sin(t * 1771) * Math.sin(t * 1237));
+          } else if (kind === "splash") {
+            const envelope = Math.sin(Math.PI * t / duration) * Math.exp(-t * 5);
+            const wobble = 5 * Math.sin(t * 65);
+            const phase = 2 * Math.PI * (310 * t - 180 * t * t) + wobble;
+            sample = .25 * envelope * (Math.sin(phase) + .2 * Math.sin(phase * 2.01))
+              + .08 * Math.exp(-t * 20) * Math.sin(t * 5171) * Math.sin(t * 3119);
+          }
+          const fade = Math.min(1, (count - 1 - i) / (rate * .025));
+          const chip = Math.round(sample * 96) / 96;
+          wav.setInt16(44 + i * 2, Math.round(Math.max(-1, Math.min(1, chip * fade)) * 32767), true);
+        }
+        return bytes;
+      }
+      const soundUrls = Object.fromEntries(["spawn", "collision", "pickup", "splash"].map(kind =>
+        [kind, URL.createObjectURL(new Blob([makeSoundWav(kind)], { type: "audio/wav" }))]));
+      function reportAudioError(error) {
+        audioFailed = true;
+        console.error("City sound could not play:", error);
+        status.textContent = "Audio unavailable. Check browser permissions; toggle Sound off/on to retry.";
+      }
+      function unlockAudio() {
+        if (!soundEnabled || audioFailed) return;
+        const Context = window.AudioContext || window.webkitAudioContext;
+        if (!Context) {
+          reportAudioError(new Error("Web Audio is not supported by this browser."));
+          return;
+        }
+        try {
+          if (!soundContext) {
+            soundContext = new Context();
+            soundMaster = soundContext.createGain();
+            soundMaster.gain.value = soundVolume;
+            soundMaster.connect(soundContext.destination);
+          }
+          audioUnlocked = true;
+          if (soundContext.state === "suspended") {
+            soundContext.resume().then(syncRotorSound).catch(reportAudioError);
+          } else syncRotorSound();
+        } catch (error) {
+          reportAudioError(error);
+        }
+      }
+      function stopRotor() {
+        if (!rotorSound) return;
+        for (const oscillator of rotorSound.oscillators) oscillator.stop();
+        for (const node of rotorSound.nodes) node.disconnect();
+        rotorSound = null;
+        rotorLevel = null;
+      }
+      function stopSounds() {
+        for (const audio of activeSounds) audio.pause();
+        activeSounds.clear();
+        stopRotor();
+        stopMusic();
+        if (soundMaster) soundMaster.gain.setTargetAtTime(0, soundContext.currentTime, .02);
+      }
+      function playSound(kind) {
+        if (!soundEnabled || document.hidden) return null;
+        if (activeSounds.size >= 6) {
+          const oldest = activeSounds.values().next().value;
+          oldest.pause();
+          activeSounds.delete(oldest);
+        }
+        const audio = new Audio(soundUrls[kind]);
+        audio.volume = { spawn: .65, collision: .35, pickup: .4, splash: .5 }[kind] * soundVolume;
+        activeSounds.add(audio);
+        audio.addEventListener("ended", () => activeSounds.delete(audio), { once: true });
+        audio.play().catch(error => {
+          const wasActive = activeSounds.delete(audio);
+          if (error.name === "AbortError" && !wasActive) return;
+          reportAudioError(error);
+        });
+        return audio;
+      }
+      function syncRotorSound() {
+        const enabled = !paused && !document.hidden && soundEnabled && audioUnlocked && !audioFailed;
+        if (soundMaster) soundMaster.gain.setTargetAtTime(enabled ? soundVolume : 0, soundContext.currentTime, .03);
+        syncMusic(enabled);
+        const flying = enabled && incident?.heli;
+        if (!flying) { stopRotor(); return; }
+        if (!rotorSound) {
+          // Live oscillators never rewind: blade pulses have no clip boundary, silence, or decoder gap.
+          const carrier = soundContext.createOscillator();
+          const harmonic = soundContext.createOscillator();
+          const blades = soundContext.createOscillator();
+          const modulation = soundContext.createGain();
+          const pulse = soundContext.createGain();
+          const lowpass = soundContext.createBiquadFilter();
+          rotorLevel = soundContext.createGain();
+          carrier.type = "triangle";
+          harmonic.type = "sine";
+          blades.type = "sine";
+          carrier.frequency.value = 78;
+          harmonic.frequency.value = 156;
+          modulation.gain.value = .28;
+          pulse.gain.value = .7;
+          lowpass.type = "lowpass";
+          lowpass.frequency.value = 420;
+          rotorLevel.gain.value = 0;
+          carrier.connect(pulse); harmonic.connect(pulse);
+          blades.connect(modulation); modulation.connect(pulse.gain);
+          pulse.connect(lowpass); lowpass.connect(rotorLevel); rotorLevel.connect(soundMaster);
+          rotorSound = { oscillators: [carrier, harmonic, blades], nodes: [carrier, harmonic, blades, modulation, pulse, lowpass, rotorLevel] };
+          for (const oscillator of rotorSound.oscillators) oscillator.start();
+        }
+        const heli = incident.heli;
+        const speed = heli.speed || 65;
+        rotorSound.oscillators[2].frequency.setTargetAtTime(12 + speed / 14, soundContext.currentTime, .4);
+        rotorSound.oscillators[0].frequency.setTargetAtTime(65 + speed / 5, soundContext.currentTime, .4);
+        rotorLevel.gain.setTargetAtTime(.045, soundContext.currentTime, .15);
+      }
+      function stopMusic() {
+        if (!music) return;
+        clearInterval(music.timer);
+        for (const voice of music.voices) {
+          voice.oscillator.stop();
+          voice.oscillator.disconnect();
+          voice.gain.disconnect();
+        }
+        for (const node of music.nodes) node.disconnect();
+        music = null;
+      }
+      function syncMusic(enabled) {
+        if (!enabled || !musicEnabled || soundContext?.state !== "running") { stopMusic(); return; }
+        if (music) return;
+        const bus = soundContext.createGain();
+        const filter = soundContext.createBiquadFilter();
+        const echo = soundContext.createDelay(2);
+        const feedback = soundContext.createGain();
+        bus.gain.value = .24;
+        filter.type = "lowpass"; filter.frequency.value = 1700;
+        echo.delayTime.value = 60 / 68 * .75;
+        feedback.gain.value = .22;
+        bus.connect(filter); filter.connect(soundMaster);
+        filter.connect(echo); echo.connect(feedback); feedback.connect(echo); feedback.connect(soundMaster);
+        const score = { nodes: [bus, filter, echo, feedback], voices: new Set(),
+          next: soundContext.currentTime + .08, beat: 0, timer: null };
+        music = score;
+        const note = (midi, at, duration, level, pad = false) => {
+          const oscillator = soundContext.createOscillator();
+          const gain = soundContext.createGain();
+          const voice = { oscillator, gain };
+          oscillator.type = pad ? "triangle" : "sine";
+          oscillator.frequency.value = 440 * 2 ** ((midi - 69) / 12);
+          gain.gain.setValueAtTime(0, at);
+          gain.gain.linearRampToValueAtTime(level, at + (pad ? .8 : .018));
+          gain.gain.exponentialRampToValueAtTime(.0001, at + duration);
+          oscillator.connect(gain); gain.connect(bus);
+          score.voices.add(voice);
+          oscillator.onended = () => {
+            score.voices.delete(voice); oscillator.disconnect(); gain.disconnect();
+          };
+          oscillator.start(at); oscillator.stop(at + duration + .05);
+        };
+        const schedule = () => {
+          const now = soundContext.currentTime;
+          // Skip elapsed beats after a throttled tab; never schedule a burst of overdue notes.
+          if (score.next < now) {
+            const missed = Math.ceil((now - score.next) / (60 / 68));
+            score.beat += missed; score.next += missed * (60 / 68);
+          }
+          while (score.next < now + .25) {
+            const beat = score.beat++, at = score.next;
+            const chord = [[48, 55, 59, 62], [45, 52, 55, 59], [41, 48, 55, 57], [43, 50, 57, 60]][Math.floor(beat / 8) % 4];
+            if (beat % 8 === 0) chord.slice(1).forEach(midi => note(midi, at, 7.5, .045, true));
+            if (beat % 4 === 0) note(chord[0] - 12, at, 2.5, .12);
+            if (beat % 2 === 0 || hash(beat, 0, 2800) > .68) {
+              const midi = chord[Math.floor(hash(beat, 0, 2801) * chord.length)] + 24;
+              note(midi, at, 2.8, .08);
+              note(midi + 12, at, 1.3, .012);
+            }
+            score.next += 60 / 68;
+          }
+        };
+        schedule();
+        score.timer = setInterval(schedule, 100);
+      }
+      function engineSound(vehicle) {
+        if (!audioUnlocked || !soundEnabled || audioFailed || paused || document.hidden || soundContext.state !== "running") return;
+        const oscillator = soundContext.createOscillator();
+        const filter = soundContext.createBiquadFilter();
+        const gain = soundContext.createGain();
+        const now = soundContext.currentTime;
+        const bike = vehicle.kind === "bike";
+        const length = bike ? .7 : 1.05;
+        oscillator.type = "triangle";
+        const frequency = (bike ? 125 : 58) + (vehicle.speed || 20) * .6;
+        oscillator.frequency.setValueAtTime(frequency, now);
+        oscillator.frequency.exponentialRampToValueAtTime(frequency * .68, now + length);
+        filter.type = "lowpass";
+        filter.frequency.value = bike ? 650 : 240;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(bike ? .028 : .022, now + .12);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + length);
+        oscillator.connect(filter); filter.connect(gain); gain.connect(soundMaster);
+        oscillator.start(now); oscillator.stop(now + length + .02);
+        oscillator.onended = () => { oscillator.disconnect(); filter.disconnect(); gain.disconnect(); };
+      }
+      function spawnAt(screenX, screenY) {
+        const point = screenToWorld.transformPoint({
+          x: screenX * canvas.width / SIZE,
+          y: screenY * canvas.height / SIZE
+        });
+        const choices = lanesAt(point.x, point.y);
+        if (!choices.length) {
+          status.textContent = "Choose a road lane, not a building or sidewalk.";
+          return;
+        }
+        const kind = newSeed() / 4294967296 < bikeRatio ? "bike" : "car";
+        const { vehicle, safe } = planSpawn(point, choices, kind);
+        vehicle.id = "spawn:" + nextCarId++;
+        vehicle.paint = kind === "bike" ? "bike-blue" : pick(carPaints);
+        spawnedCars.push(vehicle);
+        const name = kind === "bike" ? "Blue Sportster S" : "Car";
+        status.textContent = !safe ? name + " added to a crowded gap. No clear four-second path; chaos is possible!"
+          : paused ? name + " added at a forecast-safe speed. Press Play to set it moving."
+          : incident && !incident.roadCleared ? name + " added. Keep clear of the local rescue queue." : name + " added at a forecast-safe speed.";
+        unlockAudio();
+        playSound("spawn");
+        engineSound(spawnedCars.at(-1));
+        draw();
+      }
+      function rect(g, fill, x, y, w, h) {
+        g.fillStyle = colors[fill];
+        g.fillRect(x, y, w, h);
+      }
+      function polygon(g, fill, points) {
+        g.fillStyle = colors[fill];
+        g.beginPath();
+        points.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
+        g.closePath();
+        g.fill();
+      }
+      function tree(g, x, y, r) {
+        g.globalAlpha = .24;
+        g.fillStyle = colors.shadow;
+        g.beginPath();
+        g.ellipse(x + 4, y + 5, r, r * .7, .5, 0, Math.PI * 2);
+        g.fill();
+        g.globalAlpha = 1;
+        g.fillStyle = colors.leaf;
+        g.beginPath();
+        g.arc(x, y, r, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = colors["leaf-light"];
+        g.beginPath();
+        g.arc(x - r * .25, y - r * .3, r * .68, 0, Math.PI * 2);
+        g.fill();
+      }
+      function stroke(g, fill, width, points, close = false) {
+        g.strokeStyle = colors[fill];
+        g.lineWidth = width;
+        g.beginPath();
+        points.forEach(([x, y], index) => index ? g.lineTo(x, y) : g.moveTo(x, y));
+        if (close) g.closePath();
+        g.stroke();
+      }
+      function disc(g, fill, x, y, radius) {
+        g.fillStyle = colors[fill];
+        g.beginPath(); g.arc(x, y, radius, 0, Math.PI * 2); g.fill();
+      }
+      function label(g, text, x, y) {
+        g.font = "5px Consolas, monospace";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.fillStyle = colors.black;
+        g.fillText(text, x, y);
+      }
+      function waterfront(g, bx, by) {
+        if (!currentCity().width) return;
+        const ox = bx * BLOCK, oy = by * BLOCK;
+        const coast = currentCity().coast;
+        for (let y = 0; y < BLOCK; y += 4) {
+          const a = waterBounds(oy + y), b = waterBounds(oy + y + 4);
+          const leftA = a.left - ox, leftB = b.left - ox;
+          const rightA = coast ? BLOCK : a.right - ox, rightB = coast ? BLOCK : b.right - ox;
+          polygon(g, "water", [[leftA, y], [rightA, y], [rightB, y + 4], [leftB, y + 4]]);
+          stroke(g, cityId === "ibiza" ? "sand" : "foam", cityId === "ibiza" ? 7 : 2, [[leftA, y], [leftB, y + 4]]);
+          if (!coast) stroke(g, "foam", 2, [[rightA, y], [rightB, y + 4]]);
+        }
+        // Raised earth, a dark vertical face and a waterline make unbridged banks visibly hazardous.
+        for (let y = 0; y < BLOCK; y += 4) {
+          const a = waterBounds(oy + y), b = waterBounds(oy + y + 4);
+          for (const side of coast ? ["left"] : ["left", "right"]) {
+            const x1 = a[side] - ox, x2 = b[side] - ox;
+            const inward = side === "left" ? 1 : -1;
+            if (!coast && (mod(a[side], BLOCK) < ROAD + 3 || y < ROAD + 3)) continue;
+            polygon(g, "wall-dark", [[x1, y], [x2, y + 4], [x2 + inward * 5, y + 9], [x1 + inward * 5, y + 5]]);
+            stroke(g, "sand", 2, [[x1 - inward, y], [x2 - inward, y + 4]]);
+            g.globalAlpha = .36;
+            stroke(g, "shadow", 3, [[x1 + inward * 6, y + 6], [x2 + inward * 6, y + 10]]);
+            g.globalAlpha = .75;
+            stroke(g, "foam", .65, [[x1 + inward * 5, y + 5], [x2 + inward * 5, y + 9]]);
+            g.globalAlpha = 1;
+          }
+        }
+        for (let i = 0; i < 28; i++) {
+          const x = hash(bx, by, 1500 + i) * BLOCK;
+          const y = hash(bx, by, 1600 + i) * BLOCK;
+          if (isWater(ox + x, oy + y)) {
+            g.globalAlpha = .3;
+            rect(g, "foam", x, y, 5, .5);
+          }
+        }
+        g.globalAlpha = 1;
+        if (!coast) {
+          g.save();
+          g.beginPath();
+          for (let y = 0; y < BLOCK; y += 4) {
+            const a = waterBounds(oy + y), b = waterBounds(oy + y + 4);
+            g.moveTo(a.left - ox, y); g.lineTo(a.right - ox, y);
+            g.lineTo(b.right - ox, y + 4); g.lineTo(b.left - ox, y + 4); g.closePath();
+          }
+          g.clip();
+          rect(g, "shadow", 0, ROAD, BLOCK, 5);
+          rect(g, "shadow", ROAD, 0, 5, BLOCK);
+          rect(g, "road", 0, 0, BLOCK, ROAD);
+          rect(g, "road", 0, 0, ROAD, BLOCK);
+          for (const edge of [1, ROAD - 1]) {
+            stroke(g, "line", 1, [[ROAD, edge], [BLOCK, edge]]);
+            stroke(g, "line", 1, [[edge, ROAD], [edge, BLOCK]]);
+          }
+          for (let position = ROAD + 6; position < BLOCK; position += 12) {
+            rect(g, "line", position, 15, 5, .7);
+            rect(g, "line", 15, position, .7, 5);
+          }
+          g.restore();
+          const bank = waterBounds(oy + 15);
+          const l = bank.left - ox - 5, r = bank.right - ox + 5;
+          if (cityId === "istanbul" || cityId === "newyork") {
+            for (const x of [l + 12, r - 12]) {
+              rect(g, "wall", x - 2, 0, 4, 6);
+              rect(g, "wall", x - 2, 24, 4, 6);
+              stroke(g, "white", .7, [[l, 3], [x, -6], [r, 3]]);
+              stroke(g, "white", .7, [[l, 27], [x, 20], [r, 27]]);
+            }
+          }
+          if (cityId === "istanbul") {
+            label(g, "EUROPE", l - 23, 45);
+            label(g, "BOSPHORUS", (l + r) / 2, 45);
+            label(g, "ASIA", r + 18, 45);
+          }
+        }
+        if (coast && mod(by, 2) === 0) {
+          const bank = waterBounds(oy + 75).left - ox;
+          rect(g, "wall", bank - 8, 64, 42, 10);
+          rect(g, "walk", bank - 8, 65, 40, 7);
+          for (let i = 0; i < 4; i++) {
+            polygon(g, "white", [[bank + i * 8, 80], [bank + i * 8 + 3, 84],
+              [bank + i * 8 + 2, 94], [bank + i * 8 - 2, 94], [bank + i * 8 - 3, 84]]);
+          }
+        }
+        const river = waterBounds(oy + 107);
+        const boatX = (coast ? river.left + 48 : (river.left + river.right) / 2) - ox;
+        if (boatX > 0 && boatX < BLOCK && !isBridge(ox + boatX, oy + 107)
+          && !isBridge(ox + boatX - 5, oy + 107) && !isBridge(ox + boatX + 5, oy + 107)) {
+          polygon(g, "white", [[boatX, 91], [boatX + 4, 99], [boatX + 4, 116],
+            [boatX - 4, 116], [boatX - 4, 99]]);
+          rect(g, "roof-blue", boatX - 2, 102, 4, 9);
+          stroke(g, "foam", .7, [[boatX - 5, 118], [boatX - 8, 130]]);
+          stroke(g, "foam", .7, [[boatX + 5, 118], [boatX + 8, 130]]);
+        }
+      }
+      function landmark(g, kind) {
+        rect(g, kind === "garden" || kind === "centralpark" || kind === "eiffel" ? "grass" : "walk", 35, 35, 111, 111);
+        if (kind === "eiffel") {
+          rect(g, "walk", 83, 38, 14, 104);
+          for (const x of [49, 121]) for (let y = 49; y < 140; y += 16) tree(g, x, y, 4);
+          polygon(g, "shadow", [[69, 113], [91, 53], [140, 132], [101, 120]]);
+          stroke(g, "wall-dark", 3, [[65, 113], [91, 45], [115, 113]]);
+          stroke(g, "wall-dark", 3, [[70, 74], [91, 45], [110, 74]]);
+          stroke(g, "wall", 2, [[65, 113], [115, 113], [110, 74], [70, 74], [65, 113]]);
+          for (let y = 68; y <= 108; y += 8) {
+            const spread = (y - 45) * .35;
+            stroke(g, "wall-dark", 1, [[91 - spread, y], [91 + spread, y]]);
+            stroke(g, "wall", .8, [[91 - spread, y], [91 + spread + 3, y + 8]]);
+          }
+          label(g, "TOUR EIFFEL", 91, 137);
+        } else if (kind === "louvre") {
+          rect(g, "wall", 44, 44, 92, 16);
+          rect(g, "wall", 44, 44, 16, 82);
+          rect(g, "wall", 120, 44, 16, 82);
+          rect(g, "roof", 45, 45, 90, 8);
+          rect(g, "roof", 45, 45, 8, 80);
+          rect(g, "roof", 121, 45, 8, 80);
+          polygon(g, "roof-blue", [[90, 70], [111, 93], [90, 114], [69, 93]]);
+          polygon(g, "window", [[90, 70], [111, 93], [90, 93]]);
+          stroke(g, "white", 1, [[90, 70], [90, 114], [69, 93], [111, 93]], true);
+          for (let i = 0; i < 4; i++) rect(g, "water", 65 + i * 14, 121, 9, 5);
+          label(g, "LOUVRE / ART", 91, 138);
+        } else if (kind === "frauenkirche" || kind === "westminster") {
+          const london = kind === "westminster";
+          rect(g, "wall", 67, 47, 53, 80);
+          rect(g, london ? "gold" : "roof-red", 74, 50, 39, 74);
+          stroke(g, "wall-dark", 2, [[93, 50], [93, 124]]);
+          for (let y = 58; y < 120; y += 12) rect(g, "walk", 65, y, 58, 2);
+          for (const x of [65, 112]) {
+            rect(g, "wall", x - 5, 46, 15, 18);
+            disc(g, london ? "gold" : "leaf", x + 2, 43, 7);
+            if (london) {
+              rect(g, "wall-dark", x - 3, 36, 10, 12);
+              disc(g, "white", x + 2, 42, 3);
+              stroke(g, "black", .7, [[x + 2, 42], [x + 2, 39]]);
+            }
+          }
+          label(g, london ? "WESTMINSTER" : "FRAUENKIRCHE", 91, 138);
+        } else if (kind === "mosque") {
+          rect(g, "wall", 52, 53, 76, 70);
+          rect(g, "walk", 58, 59, 64, 60);
+          for (const [x, y] of [[72, 72], [109, 72], [72, 106], [109, 106]]) disc(g, "roof-blue", x, y, 10);
+          disc(g, "wall-dark", 92, 89, 23);
+          disc(g, "roof-blue", 89, 86, 22);
+          disc(g, "walk", 85, 82, 9);
+          for (const [x, y] of [[49, 49], [132, 49], [49, 128], [132, 128], [49, 89], [132, 89]]) {
+            rect(g, "wall", x - 2, y - 10, 4, 14);
+            disc(g, "white", x, y - 10, 3);
+          }
+          label(g, "DOMES / OLD ISTANBUL", 91, 139);
+        } else if (kind === "bazaar" || kind === "market") {
+          for (let y = 47; y < 133; y += 21) {
+            rect(g, "wall", 45, y, 91, 13);
+            for (let x = 47; x < 131; x += 13) {
+              rect(g, kind === "market" ? "red" : "roof-red", x, y, 11, 9);
+              rect(g, "gold", x, y + 9, 11, 3);
+            }
+          }
+          label(g, kind === "market" ? "PIKE PLACE" : "GRAND BAZAAR", 91, 141);
+        } else if (kind === "needle") {
+          rect(g, "grass", 40, 40, 101, 101);
+          stroke(g, "walk", 8, [[45, 134], [88, 93], [136, 48]]);
+          polygon(g, "shadow", [[80, 90], [139, 135], [146, 124], [99, 80]]);
+          for (const x of [72, 91, 110]) stroke(g, "wall", 2, [[x, 112], [91, 64]]);
+          disc(g, "wall-dark", 91, 70, 20);
+          disc(g, "white", 89, 67, 19);
+          disc(g, "window", 89, 67, 13);
+          disc(g, "white", 89, 67, 8);
+          rect(g, "wall", 88, 48, 2, 20);
+          label(g, "SPACE NEEDLE", 91, 138);
+        } else if (kind === "empire") {
+          rect(g, "wall-dark", 60, 65, 65, 65);
+          rect(g, "wall", 54, 56, 65, 65);
+          rect(g, "roof", 59, 58, 52, 53);
+          rect(g, "wall-dark", 67, 62, 36, 38);
+          rect(g, "roof", 65, 58, 34, 35);
+          rect(g, "wall", 70, 53, 22, 24);
+          rect(g, "roof", 73, 48, 15, 20);
+          stroke(g, "white", 2, [[80, 60], [80, 36]]);
+          for (let x = 60; x < 118; x += 7) rect(g, "window", x, 117, 2, 4);
+          label(g, "MIDTOWN", 91, 141);
+        } else if (kind === "towerbridge") {
+          rect(g, "water", 36, 36, 108, 108);
+          rect(g, "road", 38, 80, 104, 20);
+          for (const x of [65, 113]) {
+            rect(g, "wall", x - 7, 60, 14, 53);
+            rect(g, "roof-blue", x - 9, 58, 18, 8);
+            rect(g, "roof-blue", x - 9, 108, 18, 8);
+          }
+          stroke(g, "roof-blue", 2, [[40, 81], [65, 66], [113, 66], [140, 81]]);
+          stroke(g, "roof-blue", 2, [[40, 100], [65, 110], [113, 110], [140, 100]]);
+          label(g, "TOWER BRIDGE", 91, 138);
+        } else if (kind === "daltvila") {
+          const wall = [[42, 75], [57, 49], [80, 53], [100, 40], [133, 60], [128, 84],
+            [142, 110], [119, 130], [93, 122], [67, 140], [48, 114]];
+          polygon(g, "sand", wall);
+          stroke(g, "wall-dark", 5, wall, true);
+          stroke(g, "wall", 3, wall, true);
+          for (let y = 67; y < 119; y += 15) for (let x = 60; x < 123; x += 15) {
+            rect(g, "white", x, y, 11, 9);
+            rect(g, "roof-blue", x + 1, y + 1, 7, 6);
+          }
+          rect(g, "wall", 81, 70, 22, 34);
+          rect(g, "gold", 87, 66, 8, 9);
+          label(g, "DALT VILA", 91, 146);
+        } else if (kind === "marina") {
+          rect(g, "water", 40, 40, 102, 94);
+          for (let x = 50; x < 140; x += 22) {
+            rect(g, "walk", x, 42, 3, 80);
+            for (let y = 55; y < 120; y += 15) {
+              polygon(g, "white", [[x + 7, y], [x + 12, y + 5], [x + 11, y + 12], [x + 5, y + 12]]);
+            }
+          }
+          label(g, "EIVISSA / MARINA", 91, 141);
+        } else {
+          rect(g, "grass", 39, 39, 103, 103);
+          stroke(g, "walk", 4, [[44, 128], [74, 113], [101, 70], [134, 48]]);
+          for (let i = 0; i < 16; i++) tree(g, 46 + mod(i * 37, 91), 46 + mod(i * 59, 89), 4.5);
+          g.fillStyle = colors.water;
+          g.beginPath(); g.ellipse(100, 87, 17, 10, -.4, 0, Math.PI * 2); g.fill();
+          label(g, kind === "garden" ? "ENGLISCHER GARTEN" : "CENTRAL PARK", 91, 138);
+        }
+      }
+      function building(g, x, y, w, h, height, variant, hasPad = true) {
+        const dx = -height * .42;
+        const dy = -height * .65;
+        g.globalAlpha = .23;
+        polygon(g, "shadow", [[x, y], [x + w, y], [x + w + height, y + h + height * .5],
+          [x + height, y + h + height * .5], [x, y + h]]);
+        g.globalAlpha = 1;
+        polygon(g, "wall-dark", [[x + w, y], [x + w + dx, y + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        polygon(g, "wall", [[x, y + h], [x + dx, y + h + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        const roof = ["roof", "roof-red", "roof-blue"][variant];
+        rect(g, roof, x + dx, y + dy, w, h);
+        g.strokeStyle = colors.line;
+        g.lineWidth = .7;
+        g.strokeRect(x + dx + 1, y + dy + 1, w - 2, h - 2);
+        rect(g, "wall-dark", x + dx + w * .6, y + dy + h * .25, 6, 5);
+        rect(g, "walk", x + dx + w * .6 - .8, y + dy + h * .25 - 1, 6, 4);
+        if (w > 30) {
+          rect(g, "window", x + dx + 5, y + dy + 5, 9, 5);
+          rect(g, "roof-blue", x + dx + 6, y + dy + 5, 7, 1);
+        }
+        g.globalAlpha = .65;
+        for (let wx = x + 4; wx < x + w - 2; wx += 6) {
+          const lit = nightEnabled && hash(Math.floor(wx), Math.floor(y), 2910) > .22;
+          rect(g, lit ? "lamp" : "window", wx + dx * .4, y + h + dy * .4, 2, 2);
+          if (lit) {
+            g.globalAlpha = .14;
+            rect(g, "lamp", wx + dx * .4 - 1, y + h + dy * .4, 4, 5);
+            g.globalAlpha = .85;
+          }
+        }
+        g.globalAlpha = 1;
+        if (nightEnabled) {
+          rect(g, "lamp", x + dx + 6, y + dy + 6, 6, 2);
+          for (let wy = y + 5; wy < y + h - 3; wy += 7) {
+            if (hash(Math.floor(x), Math.floor(wy), 2911) > .25) rect(g, "lamp", x + w + dx * .45 - 1, wy + dy * .45, 1.2, 2);
+          }
+        }
+        if (!hasPad) return null;
+        const pad = { x: x + dx + w * .4, y: y + dy + h * .64 };
+        g.strokeStyle = colors.line;
+        g.lineWidth = .8;
+        g.beginPath();
+        g.arc(pad.x, pad.y, Math.min(w, h) * .25, 0, Math.PI * 2);
+        g.stroke();
+        g.fillStyle = colors.line;
+        g.font = "bold 8px monospace";
+        g.textAlign = "center";
+        g.textBaseline = "middle";
+        g.fillText("H", pad.x, pad.y + .5);
+        return pad;
+      }
+      function createTile(bx, by) {
+        const tile = document.createElement("canvas");
+        tile.width = tile.height = BLOCK * 2;
+        const g = tile.getContext("2d");
+        if (!g) throw new Error("Unable to create a city block.");
+        g.scale(2, 2);
+        rect(g, "road", 0, 0, BLOCK, BLOCK);
+        rect(g, "walk", ROAD, ROAD, BLOCK - ROAD, BLOCK - ROAD);
+        rect(g, "wall", ROAD + 6, ROAD + 6, BLOCK - ROAD - 12, BLOCK - ROAD - 12);
+        g.strokeStyle = colors.line;
+        g.globalAlpha = .58;
+        g.lineWidth = .6;
+        g.setLineDash([5, 7]);
+        g.beginPath();
+        g.moveTo(ROAD + 5, ROAD / 2); g.lineTo(BLOCK - 5, ROAD / 2);
+        g.moveTo(ROAD / 2, ROAD + 5); g.lineTo(ROAD / 2, BLOCK - 5);
+        g.stroke();
+        g.setLineDash([]);
+        g.globalAlpha = .7;
+        for (let i = 5; i < ROAD - 3; i += 4) {
+          rect(g, "line", i, ROAD + 1, 2, 6);
+          rect(g, "line", ROAD + 1, i, 6, 2);
+        }
+        g.globalAlpha = 1;
+        const feature = landmarkAt(bx, by);
+        const ox = bx * BLOCK, oy = by * BLOCK;
+        const dryBlock = canPlace(ox + 34, oy + 34, 112, 112);
+        if (feature) {
+          landmark(g, feature);
+        } else if (parkAt(bx, by) && dryBlock) {
+          const large = cityId === "munich" || cityId === "newyork";
+          rect(g, "grass", 34, 34, 114, 114);
+          if (large) rect(g, "walk", 80, 34, 5, 114);
+          else {
+            rect(g, "walk", 86, 38, 6, 106);
+            rect(g, "walk", 38, 90, 106, 5);
+          }
+          for (let i = 0; i < 18; i++) {
+            const x = 44 + hash(bx, by, i + 20) * 94;
+            const y = 44 + hash(bx, by, i + 50) * 94;
+            if (Math.abs(x - 89) > 10 && Math.abs(y - 92) > 9) tree(g, x, y, 4 + hash(bx, by, i + 80) * 5);
+          }
+          rect(g, "roof-red", 94, 101, 9, 2);
+          rect(g, "roof-red", 73, 80, 9, 2);
+        } else {
+          const compact = cityId === "istanbul" || cityId === "ibiza";
+          const rows = compact ? 3 : 2;
+          const cols = cityId === "newyork" ? 3 : compact ? 3 : 2;
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+              const n = row * cols + col;
+              const irregular = compact ? hash(bx, by, 1800 + n) * 6 : 0;
+              const x = 47 + col * (98 / cols) + irregular;
+              const y = 49 + row * (96 / rows);
+              const w = (cols === 3 ? 22 : 30) + hash(bx, by, 10 + n) * 9;
+              const h = (rows === 3 ? 19 : 27) + hash(bx, by, 15 + n) * 9;
+              const height = cityId === "ibiza" ? 3 + hash(bx, by, 90 + n) * 3
+                : cityId === "newyork" ? 17 + hash(bx, by, 90 + n) * 19 : 5 + hash(bx, by, 90 + n) * 13;
+              if (!canPlace(ox + x - height * .5, oy + y - height, w + height, h + height * 1.5)) continue;
+              const variant = cityId === "ibiza" ? 0 : cityId === "munich" || cityId === "istanbul" ? 1
+                : Math.floor(hash(bx, by, 100 + n) * 3);
+              const pad = building(g, x, y, w, h, height, variant, cityId === "original" || n === 0);
+              const id = bx + "," + by + ":" + n;
+              if (pad && !helicopters.has(id)) {
+                helicopters.set(id, {
+                  id, block: bx + "," + by, state: "parked",
+                  x: bx * BLOCK + pad.x, y: by * BLOCK + pad.y, angle: -.3,
+                  speed: 52 + hash(bx, by, n + 1950) * 35
+                });
+              }
+            }
+          }
+          for (let i = 0; i < 4; i++) {
+            if (!isWater(ox + 47 + i * 27, oy + 143)) tree(g, 47 + i * 27, 143, 3.6);
+            if (i % 2 === 0 && !isWater(ox + 143, oy + 48 + i * 28)) tree(g, 143, 48 + i * 28, 4.5);
+          }
+          if (cityId === "paris" && dryBlock) {
+            // Formal courtyards and zinc-roofed perimeter wings.
+            rect(g, "grass", 81, 83, 15, 13);
+            rect(g, "walk", 87, 83, 3, 13);
+          }
+        }
+        waterfront(g, bx, by);
+        if (nightEnabled) {
+          for (const [x, y] of [[36, 38], [113, 33], [33, 113]]) {
+            if (isWater(ox + x, oy + y)) continue;
+            const glow = g.createRadialGradient(x, y, 1, x, y, 18);
+            glow.addColorStop(0, colors.lamp); glow.addColorStop(1, "transparent");
+            g.globalAlpha = .16; g.fillStyle = glow; g.fillRect(x - 18, y - 18, 36, 36);
+            g.globalAlpha = 1;
+            rect(g, "black", x, y, 1, 5); disc(g, "lamp", x, y, 1);
+          }
+        }
+        // Fixed per-block texture prevents terrain from boiling as the camera moves.
+        g.globalAlpha = .07;
+        for (let i = 0; i < 230; i++) {
+          rect(g, i % 2 ? "white" : "black", hash(bx, by, 400 + i) * BLOCK,
+            hash(bx, by, 800 + i) * BLOCK, .7, .7);
+        }
+        g.globalAlpha = 1;
+        return tile;
+      }
+      function pedestrian(x, y, angle, phase, outfit) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        const stride = Math.sin(time * 8 + phase) * .65;
+        ctx.globalAlpha = .28;
+        rect(ctx, "shadow", .6, .6, 2.2, 3.4);
+        ctx.globalAlpha = 1;
+        rect(ctx, "black", -.65, -.7 + stride, .65, 1.25);
+        rect(ctx, "black", .15, -.7 - stride, .65, 1.25);
+        rect(ctx, outfit, -1, -.9, 2, 1.7);
+        rect(ctx, "car", -.55, -.5, 1.1, 1.1);
+        ctx.restore();
+      }
+      function pedestrianPosition(bx, by, i, at = time) {
+        const lo = 33.5;
+        const hi = 148.5;
+        const side = hi - lo;
+        const direction = hash(bx, by, 180 + i) < .5 ? -1 : 1;
+        const speed = 3 + hash(bx, by, 210 + i) * 2;
+        const p = mod(hash(bx, by, 240 + i) * side * 4 + at * speed * direction, side * 4);
+        const edge = Math.floor(p / side), f = p % side;
+        const coords = [[lo + f, lo], [hi, lo + f], [hi - f, hi], [lo, hi - f]][edge];
+        return { x: bx * BLOCK + coords[0], y: by * BLOCK + coords[1], speed,
+          angle: edge * Math.PI / 2 + (direction < 0 ? Math.PI : 0) };
+      }
+      function updatePedestrians(dt) {
+        if (!currentCity().width) return;
+        const view = camera();
+        for (let by = Math.floor((view.y - 235) / BLOCK); by <= Math.floor((view.y + 235) / BLOCK); by++) {
+          for (let bx = Math.floor((view.x - 235) / BLOCK); bx <= Math.floor((view.x + 235) / BLOCK); bx++) {
+            for (let i = 0; i < 15; i++) {
+              const id = `${bx},${by}:${i}`;
+              if (lostPedestrians.has(id)) continue;
+              const before = pedestrianPosition(bx, by, i, time - dt);
+              const after = pedestrianPosition(bx, by, i);
+              if (!isWater(before.x, before.y) && isWater(after.x, after.y) && !isBridge(after.x, after.y)) {
+                lostPedestrians.set(id, {bx, by});
+                loseInWater(after, true);
+              }
+            }
+          }
+        }
+      }
+      function people(bx, by) {
+        const outfits = ["red", "white", "black", "gold", "roof-blue"];
+        for (let i = 0; i < 15; i++) {
+          const person = pedestrianPosition(bx, by, i);
+          if (lostPedestrians.has(`${bx},${by}:${i}`) || isWater(person.x, person.y)) continue;
+          pedestrian(person.x, person.y, person.angle, i * 2,
+            outfits[Math.floor(hash(bx, by, 270 + i) * outfits.length)]);
+        }
+      }
+      function car(x, y, angle, paint, long, g = ctx) {
+        g.save();
+        g.translate(x, y);
+        g.rotate(angle);
+        const length = long ? 12 : 8;
+        g.globalAlpha = .28;
+        rect(g, "shadow", -length / 2 + 1.5, -.5, length, 4);
+        g.globalAlpha = 1;
+        rect(g, "black", -length / 2 + 1, -2.3, 1.5, 4.6);
+        rect(g, "black", length / 2 - 2.5, -2.3, 1.5, 4.6);
+        rect(g, paint, -length / 2, -2, length, 4);
+        rect(g, "window", length / 2 - 3, -1.6, 1.3, 3.2);
+        rect(g, "window", -length / 2 + 1.5, -1.5, 1, 3);
+        rect(g, "white", length / 2 - .7, -1.6, .6, .7);
+        rect(g, "white", length / 2 - .7, .9, .6, .7);
+        g.restore();
+      }
+      function motorcycle(x, y, angle, g = ctx) {
+        g.save(); g.translate(x, y); g.rotate(angle);
+        g.globalAlpha = .25;
+        rect(g, "shadow", -4, 1, 10, 2);
+        g.globalAlpha = 1;
+        rect(g, "black", -5, -1.2, 2.4, 2.4);
+        rect(g, "black", 3.3, -1.15, 2.3, 2.3);
+        rect(g, "chrome", -3.5, -.5, 8, 1);
+        rect(g, "black", -3, -1.2, 4.5, 2.4);
+        g.fillStyle = colors["bike-blue"];
+        g.beginPath(); g.ellipse(1.1, 0, 2.5, 1.25, 0, 0, Math.PI * 2); g.fill();
+        rect(g, "bike-blue", -4.1, -.8, 1.4, 1.6);
+        rect(g, "black", -2.8, -.8, 2.2, 1.6);
+        stroke(g, "chrome", .45, [[-3.2, 1.5], [1, 1.5]]);
+        stroke(g, "chrome", .45, [[-3.2, 2.1], [.5, 2.1]]);
+        stroke(g, "black", .7, [[2.5, -2], [3, 0], [2.5, 2]]);
+        disc(g, "black", -.25, 0, .95);
+        rect(g, "white", 5.1, -.6, .6, 1.2);
+        g.restore();
+      }
+      function drawVehicle(vehicle, g = ctx) {
+        if (nightEnabled) {
+          g.save(); g.translate(vehicle.x, vehicle.y); g.rotate(vehicle.angle);
+          g.globalAlpha = .16;
+          polygon(g, "lamp", [[4, -1.5], [22, -6], [22, 6], [4, 1.5]]);
+          g.globalAlpha = .9; rect(g, "lamp", 4, -1.6, .8, 3.2);
+          g.restore();
+        }
+        if (vehicle.kind === "bike") motorcycle(vehicle.x, vehicle.y, vehicle.angle, g);
+        else car(vehicle.x, vehicle.y, vehicle.angle, vehicle.paint, vehicle.long, g);
+      }
+      function vehicleClock(axis, kind) {
+        if (cityId === "munich") return kind === "bike" ? signalBikeClocks[axis] : signalClocks[axis];
+        return kind === "bike" ? bikeTime : trafficTime;
+      }
+      function vehicleAcross(rules, kind, along) {
+        if (kind !== "bike" || !filteringEnabled) return rules.across;
+        const offset = (rules.lane ? 1 : -1) * 3.9;
+        // Stay in the center gap: a gentle weave never enters either car's footprint.
+        return rules.across + offset + Math.sin(along * .045) * .25;
+      }
+      function trafficCandidates(cameraX, cameraY, radius) {
+        const vehicles = [];
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? cameraX : cameraY;
+          const along = axis ? cameraY : cameraX;
+          for (let road = Math.floor((cross - radius) / BLOCK); road <= Math.ceil((cross + radius) / BLOCK); road++) {
+            for (let lane = 0; lane < 2; lane++) {
+              const rules = laneRules(road, axis, lane);
+              for (let variant = 0; variant < 3; variant++) {
+                for (const kind of bikesEnabled ? ["car", "bike"] : ["car"]) {
+                  const speed = rules.speed * [.82, 1, 1.22][variant];
+                  const travel = vehicleClock(axis, kind) * speed * rules.dir;
+                  const spacing = 70;
+                  const first = Math.floor((along - radius - travel) / spacing) - 1;
+                  const last = Math.ceil((along + radius - travel) / spacing) + 1;
+                  for (let slot = first; slot <= last; slot++) {
+                    const salt = axis * 2 + lane;
+                    if (hash(road, slot, 310 + salt) < .26) continue;
+                    if (Math.floor(hash(road, slot, 2050 + salt) * 3) !== variant) continue;
+                    const chosenKind = bikesEnabled && hash(road, slot, 2100 + salt) < bikeRatio ? "bike" : "car";
+                    if (chosenKind !== kind) continue;
+                    const id = [axis, road, lane, slot, kind].join(":");
+                    if (removedCars.has(id)) continue;
+                    const pos = slot * spacing + travel + hash(road, slot, 320 + lane) * 22;
+                    const across = vehicleAcross(rules, kind, pos);
+                    const x = axis ? across : pos, y = axis ? pos : across;
+                    if (!drivable(x, y) || !drivable(x + (axis ? 0 : 5), y + (axis ? 5 : 0))
+                      || !drivable(x - (axis ? 0 : 5), y - (axis ? 5 : 0))) continue;
+                    const long = kind === "car" && hash(road, slot, 340 + lane) < .12;
+                    let paint = kind === "bike" ? "bike-blue"
+                      : carPaints[Math.floor(hash(road, slot, 330 + axis + lane) * carPaints.length)];
+                    if (kind === "car" && cityId === "newyork" && hash(road, slot, 2150) < .55) paint = "gold";
+                    if (kind === "car" && cityId === "london" && long) paint = "red";
+                    vehicles.push({ ...rules, across, id, kind, speed, x, y, long, paint, personality: hash(road, slot, 2950 + salt),
+                      angle: axis * Math.PI / 2 + (rules.dir < 0 ? Math.PI : 0) });
+                  }
+                }
+              }
+            }
+          }
+        }
+        return vehicles;
+      }
+      function footprint(vehicle) {
+        const length = vehicle.long ? 6 : vehicle.kind === "bike" ? 5.6 : 4;
+        const width = vehicle.kind === "bike" ? 2.1 : 2.3;
+        return vehicle.axis ? { x: width, y: length } : { x: length, y: width };
+      }
+      function overlaps(a, b, gap = 0) {
+        const fa = footprint(a), fb = footprint(b);
+        return Math.abs(a.x - b.x) < fa.x + fb.x + gap
+          && Math.abs(a.y - b.y) < fa.y + fb.y + gap;
+      }
+      function cruiseSpeed(vehicle) {
+        return (vehicle.speed || 0) * trafficPace * (.92 + .16 * (vehicle.personality ?? .5))
+          * (vehicle.kind === "bike" && filteringEnabled ? 2.8 : 1);
+      }
+      function velocity(vehicle, speed = vehicle.velocity ?? cruiseSpeed(vehicle)) {
+        return { x: vehicle.axis ? 0 : vehicle.dir * speed, y: vehicle.axis ? vehicle.dir * speed : 0 };
+      }
+      function conflictTime(a, b, horizon, va = velocity(a), vb = velocity(b), gap = 2) {
+        const fa = footprint(a), fb = footprint(b);
+        let enter = 0, leave = horizon;
+        for (const axis of ["x", "y"]) {
+          const position = a[axis] - b[axis], speed = va[axis] - vb[axis];
+          const extent = fa[axis] + fb[axis] + gap;
+          if (Math.abs(speed) < 1e-8) {
+            if (Math.abs(position) >= extent) return Infinity;
+          } else {
+            const t1 = (-extent - position) / speed, t2 = (extent - position) / speed;
+            enter = Math.max(enter, Math.min(t1, t2));
+            leave = Math.min(leave, Math.max(t1, t2));
+            if (enter > leave) return Infinity;
+          }
+        }
+        return enter <= leave ? enter : Infinity;
+      }
+      function roadSupports(vehicle, x = vehicle.x, y = vehicle.y) {
+        const f = footprint(vehicle);
+        return [[x - f.x, y - f.y], [x + f.x, y - f.y], [x - f.x, y + f.y], [x + f.x, y + f.y]]
+          .every(([px, py]) => drivable(px, py));
+      }
+      function populateTraffic() {
+        const view = camera(), initial = !trafficInitialized;
+        const existing = [...ambientTraffic.values(), ...spawnedCars];
+        for (const vehicle of trafficCandidates(view.x, view.y, 310)) {
+          if (ambientTraffic.has(vehicle.id) || Math.abs(vehicle.x - view.x) > 310 || Math.abs(vehicle.y - view.y) > 310) continue;
+          if (!initial && Math.hypot(vehicle.x - view.x, vehicle.y - view.y) < 220) continue;
+          if (!roadSupports(vehicle) || existing.some(other => overlaps(vehicle, other, 7))) continue;
+          vehicle.velocity = 0;
+          ambientTraffic.set(vehicle.id, vehicle);
+          existing.push(vehicle);
+        }
+        trafficInitialized = true;
+      }
+      function trafficVehicles(cameraX, cameraY, radius) {
+        if (!trafficInitialized) populateTraffic();
+        return [...ambientTraffic.values(), ...spawnedCars]
+          .filter(vehicle => Math.abs(vehicle.x - cameraX) <= radius && Math.abs(vehicle.y - cameraY) <= radius);
+      }
+      function planSpawn(point, choices, kind) {
+        const view = camera(), traffic = trafficVehicles(view.x, view.y, 360);
+        let best = null, bestClearance = -1;
+        const personality = newSeed() / 4294967296;
+        // Prefer a random cruising pace, then try slower/faster alternatives and other legal lanes.
+        const preference = .9 + newSeed() / 4294967296 * .2;
+        for (const rules of choices) {
+          const along = rules.axis ? point.y : point.x;
+          const across = vehicleAcross(rules, kind, along);
+          for (const factor of [preference, .75, 1.2, .5, .3]) {
+            const vehicle = { ...rules, kind, speed: rules.speed * factor, long: false, personality,
+              x: rules.axis ? across : along, y: rules.axis ? along : across,
+              across, angle: rules.axis * Math.PI / 2 + (rules.dir < 0 ? Math.PI : 0) };
+            vehicle.velocity = cruiseSpeed(vehicle);
+            const motion = velocity(vehicle);
+            let clearance = Math.min(4, ...traffic.flatMap(other => [
+              conflictTime(vehicle, other, 4, motion),
+              conflictTime(vehicle, other, 4, motion, velocity(other, cruiseSpeed(other)))
+            ]));
+            for (let t = 0; t <= 4; t += .1) {
+              if (!roadSupports(vehicle, vehicle.x + motion.x * t, vehicle.y + motion.y * t)) {
+                clearance = Math.min(clearance, t); break;
+              }
+            }
+            if (clearance > bestClearance) { best = vehicle; bestClearance = clearance; }
+            if (clearance === 4) return { vehicle, safe: true };
+          }
+        }
+        return { vehicle: best, safe: false };
+      }
+      function loseInWater(entity, person = false) {
+        if (!isWater(entity.x, entity.y) || isBridge(entity.x, entity.y)) return;
+        const motion = person ? {x: Math.cos(entity.angle) * (entity.speed || 4), y: Math.sin(entity.angle) * (entity.speed || 4)}
+          : {x: entity.crashVx ?? velocity(entity).x, y: entity.crashVy ?? velocity(entity).y};
+        splashes.push({ x: entity.x, y: entity.y, born: time, person, angle: entity.angle || 0,
+          vx: motion.x, vy: motion.y, height: 7, gravity: 90,
+          fontSize: 5 + hash(Math.floor(time * 1000), splashes.length, 2960) * 2,
+          tilt: (hash(Math.floor(time * 1000), splashes.length, 2961) - .5) * .2,
+          paint: entity.paint, kind: entity.kind, long: entity.long });
+        if (splashes.length > 16) splashes.shift();
+        const p = worldToScreen?.transformPoint(entity);
+        if (p && p.x > 0 && p.x < canvas.width && p.y > 0 && p.y < canvas.height) {
+          status.textContent = person ? "Argh! A wandering pedestrian slipped off the riverbank." : "Argh! Vehicle lost over the water's edge.";
+          playSound("splash");
+        }
+      }
+      function updateTraffic(dt) {
+        const view = camera();
+        if (!trafficInitialized || time >= nextPopulation) {
+          populateTraffic(); nextPopulation = time + 1;
+        }
+        const vehicles = [...ambientTraffic.values(), ...spawnedCars];
+        const wrecks = incident && !incident.roadCleared ? incident.cars : [];
+        const obstacles = [...vehicles, ...wrecks];
+        // Reserve swept footprints in stable order. Ambient vehicles never step into another vehicle.
+        for (const vehicle of vehicles) {
+          if (Math.abs(vehicle.x - view.x) > 360 || Math.abs(vehicle.y - view.y) > 360) {
+            ambientTraffic.delete(vehicle.id);
+            const index = spawnedCars.indexOf(vehicle);
+            if (index !== -1) spawnedCars.splice(index, 1);
+            continue;
+          }
+          const player = vehicle.id.startsWith("spawn:");
+          let speed = Math.min(cruiseSpeed(vehicle), (vehicle.velocity || 0) + dt * 18);
+          const along = vehicle.axis ? vehicle.y : vehicle.x;
+          const local = mod(along, BLOCK);
+          const toJunction = vehicle.dir > 0 ? BLOCK - local : local - ROAD;
+          const inside = local <= ROAD;
+          if (!player && !inside && toJunction < 10 + speed * dt
+            && (Math.floor(time / 5) % 2 !== vehicle.axis || mod(time, 5) > 3.6)) speed = 0;
+          if (!player) {
+            const motion = velocity(vehicle, speed);
+            const nx = vehicle.x + motion.x * dt, ny = vehicle.y + motion.y * dt;
+            if (!roadSupports(vehicle, nx + motion.x * .4, ny + motion.y * .4)) speed = 0;
+            for (const other of obstacles) {
+              if (other === vehicle) continue;
+              const closing = conflictTime(vehicle, other, .65, velocity(vehicle, speed), velocity(other, other.velocity || 0), .8);
+              if (closing !== Infinity) speed *= Math.max(0, (closing - .04) / .65);
+              if (conflictTime(vehicle, other, dt, velocity(vehicle, speed), {x: 0, y: 0}, .8) !== Infinity) {
+                speed = 0; break;
+              }
+            }
+          }
+          if (player && !wrecks.length) {
+            for (const other of vehicles) {
+              if (other === vehicle) continue;
+              if (conflictTime(vehicle, other, .65, velocity(vehicle, speed), velocity(other), 1) !== Infinity) {
+                // Player cars have finite braking: a late, crowded insertion can still be too close.
+                speed = Math.max(0, Math.min(speed, (vehicle.velocity || 0) - dt * 36));
+                break;
+              }
+            }
+          }
+          // Even player traffic brakes for an established wreck or the queue immediately ahead.
+          if (player && wrecks.length) {
+            for (const other of obstacles) {
+              if (other === vehicle) continue;
+              const hit = conflictTime(vehicle, other, .8, velocity(vehicle, speed), {x: 0, y: 0}, 1);
+              if (hit !== Infinity) speed = Math.min(speed, speed * Math.max(0, (hit - .04) / .8));
+            }
+          }
+          vehicle.velocity = speed;
+          const motion = velocity(vehicle);
+          vehicle.x += motion.x * dt; vehicle.y += motion.y * dt;
+          // Stable personal passing preferences avoid a fresh random direction every frame.
+          const rules = laneRules(vehicle.road, vehicle.axis, vehicle.lane);
+          let targetAcross = rules.across;
+          if (vehicle.kind !== "bike" || filteringEnabled) {
+            const nearbyCars = obstacles.filter(other => other !== vehicle
+              && other.axis === vehicle.axis && other.road === vehicle.road
+              && (other.velocity ?? cruiseSpeed(other)) < cruiseSpeed(vehicle) * .9
+              && ((other[vehicle.axis ? "y" : "x"] - along) * vehicle.dir > 0
+                || Math.abs(vehicle[vehicle.axis ? "x" : "y"] - rules.across) > 1)
+              && (other[vehicle.axis ? "y" : "x"] - along) * vehicle.dir > -15
+              && (other[vehicle.axis ? "y" : "x"] - along) * vehicle.dir < 18 + cruiseSpeed(vehicle) * .8);
+            if (nearbyCars.length) {
+              const options = ((vehicle.personality ?? .5) < .5 ? [15, vehicle.lane ? 3 : 27] : [vehicle.lane ? 3 : 27, 15])
+                .map(offset => vehicle.road * BLOCK + offset);
+              const gap = options.find(across => {
+                const projected = { ...vehicle, [vehicle.axis ? "x" : "y"]: across };
+                return roadSupports(projected) && !obstacles.some(other => other !== vehicle && overlaps(projected, other, 1));
+              });
+              if (gap !== undefined) targetAcross = gap;
+            }
+          }
+          const cross = vehicle.axis ? "x" : "y";
+          const lateralLimit = (vehicle.kind === "bike" ? 9 : 4) * Math.min(1, speed / 5);
+          const wanted = Math.max(-lateralLimit, Math.min(lateralLimit, (targetAcross - vehicle[cross]) * 5));
+          const previous = vehicle.lateralVelocity || 0;
+          vehicle.lateralVelocity = previous + Math.max(-dt * 24, Math.min(dt * 24, wanted - previous));
+          const lateral = vehicle.lateralVelocity * dt;
+          const shifted = { ...vehicle, [cross]: vehicle[cross] + lateral };
+          if (roadSupports(shifted) && !obstacles.some(other => other !== vehicle && overlaps(shifted, other, .8))) {
+            vehicle[cross] = shifted[cross];
+          } else vehicle.lateralVelocity = 0;
+          if (speed > .1) {
+            vehicle.angle = Math.atan2(motion.y + (vehicle.axis ? 0 : vehicle.lateralVelocity),
+              motion.x + (vehicle.axis ? vehicle.lateralVelocity : 0));
+          }
+          vehicle.across = vehicle[cross];
+          if (player && isWater(vehicle.x, vehicle.y) && !isBridge(vehicle.x, vehicle.y)) {
+            loseInWater(vehicle);
+            const index = spawnedCars.indexOf(vehicle);
+            if (index !== -1) spawnedCars.splice(index, 1);
+          }
+        }
+      }
+      function clipOpenWater(g) {
+        const view = camera(), left = view.x - 500, right = view.x + 500;
+        const top = Math.floor((view.y - 500) / 4) * 4, bottom = view.y + 500;
+        g.beginPath();
+        for (let y = top; y < bottom; y += 4) {
+          const a = waterBounds(y), b = waterBounds(y + 4);
+          g.moveTo(a.left, y); g.lineTo(Math.min(right, a.right), y);
+          g.lineTo(Math.min(right, b.right), y + 4); g.lineTo(b.left, y + 4); g.closePath();
+        }
+        g.clip();
+        if (!currentCity().coast) {
+          for (const axis of [0, 1]) {
+            g.beginPath(); g.rect(left, top, right - left, bottom - top);
+            const start = axis ? left : top, end = axis ? right : bottom;
+            for (let road = Math.floor(start / BLOCK); road <= Math.ceil(end / BLOCK); road++) {
+              if (axis) g.rect(road * BLOCK, top, ROAD, bottom - top);
+              else g.rect(left, road * BLOCK, right - left, ROAD);
+            }
+            g.clip("evenodd");
+          }
+        }
+      }
+      function splashState(splash, age) {
+        const impact = Math.sqrt(2 * splash.height / splash.gravity);
+        const travel = Math.min(age, impact);
+        return { impact, wetAge: Math.max(0, age - impact),
+          x: splash.x + splash.vx * travel, y: splash.y + splash.vy * travel,
+          height: Math.max(0, splash.height - splash.gravity * age * age / 2) };
+      }
+      function drawSplashes() {
+        for (const splash of splashes) {
+          const age = time - splash.born, progress = age / 1.8;
+          const {impact, wetAge, x, y, height} = splashState(splash, age);
+          ctx.save(); clipOpenWater(ctx); ctx.translate(x, y);
+          ctx.globalAlpha = Math.min(1, (1 - progress) * 3);
+          if (wetAge < .35) {
+            ctx.save(); ctx.translate(0, -height);
+            ctx.scale(Math.max(.05, 1 - wetAge * 2.8), Math.max(.05, 1 - wetAge * 2.8));
+            if (splash.person) pedestrian(0, 0, splash.angle + age * 2, 0, "red");
+            else drawVehicle({ ...splash, x: 0, y: 0, angle: splash.angle + age });
+            ctx.restore();
+          }
+          if (age >= impact) {
+            ctx.strokeStyle = colors.foam; ctx.lineWidth = 1;
+            for (const delay of [0, .12]) {
+              const wave = wetAge - delay;
+              if (wave < 0) continue;
+              ctx.beginPath(); ctx.ellipse(0, 2, 2 + wave * 14, 1 + wave * 7, 0, 0, Math.PI * 2); ctx.stroke();
+            }
+            for (let i = 0; i < 7; i++) {
+              const theta = i * Math.PI * 2 / 7;
+              const z = 19 * wetAge - splash.gravity * wetAge * wetAge / 2;
+              if (z >= 0) disc(ctx, "foam", Math.cos(theta) * wetAge * 17, Math.sin(theta) * wetAge * 8 - z, 1);
+            }
+          }
+          ctx.restore();
+          ctx.save(); ctx.translate(x, y - 6 - age * 4);
+          ctx.globalAlpha = Math.min(1, (1 - progress) * 3);
+          const pop = 1 + .08 * Math.sin(Math.min(1, age / .25) * Math.PI);
+          ctx.rotate(splash.tilt * Math.exp(-age * 2)); ctx.scale(pop, pop);
+          ctx.font = `bold ${splash.fontSize}px Consolas, monospace`; ctx.textAlign = "center";
+          ctx.lineWidth = 1.4; ctx.strokeStyle = colors.black; ctx.fillStyle = colors.white;
+          ctx.strokeText("argh!", 0, 0); ctx.fillText("argh!", 0, 0);
+          ctx.restore();
+        }
+      }
+      function helicopter(g, x, y, angle, flying) {
+        g.save();
+        g.translate(x, y);
+        g.rotate(angle);
+        rect(g, "black", -6, -4.5, 11, .7);
+        rect(g, "black", -6, 3.8, 11, .7);
+        polygon(g, "red", [[-3, -2], [-12, -1], [-12, 1], [-3, 2]]);
+        rect(g, "red", -12, -3, 2, 6);
+        g.fillStyle = colors.red;
+        g.beginPath();
+        g.ellipse(0, 0, 6, 3.5, 0, 0, Math.PI * 2);
+        g.fill();
+        polygon(g, "window", [[2, -2.7], [5, -1.5], [5, 1.5], [2, 2.7]]);
+        rect(g, "white", -2, -.6, 3, 1.2);
+        rect(g, "white", -.9, -1.7, .8, 3.4);
+        g.rotate(flying ? time * 34 : .6);
+        g.globalAlpha = flying ? .65 : .9;
+        rect(g, "black", -11, -.45, 22, .9);
+        rect(g, "black", -.45, -11, .9, 22);
+        g.restore();
+      }
+      function camera() {
+        return {
+          x: 87 + cameraTime * 5.6 + Math.sin(cameraTime * .045) * 24
+            + (cityId === "original" ? 0 : 60 * (1 - Math.cos(cameraTime * .075))),
+          y: 107 - cameraTime * 10,
+          angle: -.18 + Math.sin(cameraTime * .025) * .045
+        };
+      }
+      function closestHelicopter(x, y) {
+        let nearest = null;
+        let distance = Infinity;
+        for (const heli of helicopters.values()) {
+          const candidate = Math.hypot(heli.x - x, heli.y - y);
+          if (heli.state === "parked" && candidate < distance) {
+            nearest = heli;
+            distance = candidate;
+          }
+        }
+        return nearest;
+      }
+      function beginCollision(cars) {
+        const [first, second] = cars;
+        const mass = vehicle => vehicle.kind === "bike" ? .3 : vehicle.long ? 2 : 1;
+        const a = velocity(first), b = velocity(second);
+        const fa = footprint(first), fb = footprint(second);
+        const dx = second.x - first.x, dy = second.y - first.y;
+        const overlapX = fa.x + fb.x - Math.abs(dx), overlapY = fa.y + fb.y - Math.abs(dy);
+        const horizontal = overlapX < overlapY;
+        const normal = horizontal ? {x: Math.sign(dx) || 1, y: 0} : {x: 0, y: Math.sign(dy) || 1};
+        const inverseA = 1 / mass(first), inverseB = 1 / mass(second);
+        const relative = (b.x - a.x) * normal.x + (b.y - a.y) * normal.y;
+        const impulse = Math.max(0, -1.12 * relative / (inverseA + inverseB));
+        const separation = Math.max(0, Math.min(overlapX, overlapY)) + .1;
+        cars.forEach((vehicle, index) => {
+          const sign = index ? 1 : -1, inverse = index ? inverseB : inverseA, motion = index ? b : a;
+          vehicle.x += normal.x * separation * sign * inverse / (inverseA + inverseB);
+          vehicle.y += normal.y * separation * sign * inverse / (inverseA + inverseB);
+          vehicle.crashVx = motion.x + sign * impulse * inverse * normal.x;
+          vehicle.crashVy = motion.y + sign * impulse * inverse * normal.y;
+          vehicle.velocity = 0;
+        });
+        const x = (cars[0].x + cars[1].x) / 2;
+        const y = (cars[0].y + cars[1].y) / 2;
+        let heli = closestHelicopter(x, y);
+        if (!heli) {
+          heli = { id: "dispatch", block: "", x: x - 200, y: y - 160, angle: 0, speed: 72, state: "parked" };
+          helicopters.set(heli.id, heli);
+        }
+        incident = { x, y, cars, heli, stage: heli ? "approach" : "waiting", elapsed: 0, roadCleared: false };
+        if (heli) heli.state = "rescuing";
+        for (const vehicle of cars) {
+          ambientTraffic.delete(vehicle.id);
+          if (!vehicle.id.startsWith("spawn:")) removedCars.set(vehicle.id, vehicle);
+          const index = spawnedCars.findIndex(item => item.id === vehicle.id);
+          if (index !== -1) spawnedCars.splice(index, 1);
+        }
+        recovery.hidden = false;
+        status.textContent = heli ? "Collision. Nearby traffic is braking; the nearest helicopter is on its way."
+          : "Collision. The affected lane is blocked, waiting for an available rooftop helicopter.";
+        playSound("collision");
+      }
+      function detectCollision(vehicles) {
+        const visible = vehicles.filter(vehicle => {
+          const point = worldToScreen.transformPoint(vehicle);
+          return point.x > canvas.width * .05 && point.x < canvas.width * .95
+            && point.y > canvas.height * .05 && point.y < canvas.height * .95;
+        });
+        for (let a = 0; a < visible.length; a++) {
+          for (let b = a + 1; b < visible.length; b++) {
+            const first = visible[a], second = visible[b];
+            if (!first.id.startsWith("spawn:") && !second.id.startsWith("spawn:")) continue;
+            if (overlaps(first, second)) {
+              beginCollision([first, second]);
+              return;
+            }
+          }
+        }
+      }
+      function moveToward(point, target, distance, dt) {
+        const dx = target.x - point.x, dy = target.y - point.y;
+        const length = Math.hypot(dx, dy);
+        const maxSpeed = distance / dt, acceleration = maxSpeed * 2;
+        if (length <= .5 && Math.hypot(point.vx || 0, point.vy || 0) < acceleration * dt + 1) {
+          point.x = target.x; point.y = target.y;
+          point.vx = point.vy = 0;
+          return true;
+        }
+        const speed = Math.min(maxSpeed, Math.sqrt(2 * acceleration * Math.max(0, length - .3)));
+        const vx = length ? dx / length * speed : 0, vy = length ? dy / length * speed : 0;
+        const changeX = vx - (point.vx || 0), changeY = vy - (point.vy || 0);
+        const change = Math.hypot(changeX, changeY), blend = Math.min(1, acceleration * dt / Math.max(change, .001));
+        point.vx = (point.vx || 0) + changeX * blend;
+        point.vy = (point.vy || 0) + changeY * blend;
+        point.x += point.vx * dt; point.y += point.vy * dt;
+        if (Math.hypot(point.vx, point.vy) > .1) point.angle = Math.atan2(point.vy, point.vx);
+        return false;
+      }
+      function pagePoint(x, y) {
+        const pixel = worldToScreen.transformPoint({ x, y });
+        const box = canvas.getBoundingClientRect();
+        const paper = new DOMMatrix(getComputedStyle(canvas.closest("figure")).transform);
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        const left = box.left - Math.min(0, paper.a * w, paper.c * h, paper.a * w + paper.c * h);
+        const top = box.top - Math.min(0, paper.b * w, paper.d * h, paper.b * w + paper.d * h);
+        const localX = pixel.x * w / canvas.width, localY = pixel.y * h / canvas.height;
+        return {
+          x: left + paper.a * localX + paper.c * localY,
+          y: top + paper.b * localX + paper.d * localY,
+          angle: Math.atan2(worldToScreen.b, worldToScreen.a) + Math.atan2(paper.b, paper.a)
+        };
+      }
+      function advanceRescue(dt) {
+        const rescue = incident;
+        if (rescue.stage === "approach") {
+          for (let i = rescue.cars.length - 1; i >= 0; i--) {
+            const vehicle = rescue.cars[i];
+            const vx = vehicle.crashVx || 0, vy = vehicle.crashVy || 0, speed = Math.hypot(vx, vy);
+            const nextSpeed = Math.max(0, speed - 60 * dt), ratio = speed ? nextSpeed / speed : 0;
+            vehicle.x += vx * (1 + ratio) / 2 * dt;
+            vehicle.y += vy * (1 + ratio) / 2 * dt;
+            vehicle.crashVx = vx * ratio; vehicle.crashVy = vy * ratio;
+            if (isWater(vehicle.x, vehicle.y) && !isBridge(vehicle.x, vehicle.y)) {
+              loseInWater(vehicle); rescue.cars.splice(i, 1);
+            }
+          }
+          if (rescue.cars.length) {
+            rescue.x = rescue.cars.reduce((sum, vehicle) => sum + vehicle.x, 0) / rescue.cars.length;
+            rescue.y = rescue.cars.reduce((sum, vehicle) => sum + vehicle.y, 0) / rescue.cars.length;
+          } else {
+            rescue.heli.screen = pagePoint(rescue.heli.x, rescue.heli.y);
+            rescue.stage = "exit"; rescue.roadCleared = true;
+            status.textContent = "The wrecks fell into the water. The helicopter is returning without cargo.";
+          }
+        }
+        if (rescue.stage === "waiting") {
+          rescue.heli = closestHelicopter(rescue.x, rescue.y);
+          if (rescue.heli) {
+            rescue.heli.state = "rescuing";
+            rescue.stage = "approach";
+          }
+          return;
+        }
+        const heli = rescue.heli;
+        if (rescue.stage === "approach") {
+          if (moveToward(heli, { x: rescue.x, y: rescue.y - 16 }, dt * (heli.speed || 65), dt)) {
+            rescue.stage = "pickup";
+            rescue.elapsed = 0;
+            status.textContent = "Winching the wrecks clear. Nearby vehicles are queuing; other streets are moving.";
+            playSound("pickup");
+          }
+        } else if (rescue.stage === "pickup") {
+          rescue.elapsed += dt;
+          if (rescue.elapsed >= 1.2) {
+            heli.screen = pagePoint(heli.x, heli.y);
+            rescue.cargoAngle = heli.screen.angle;
+            heli.screen.angle += heli.angle;
+            rescue.stage = "carry";
+            rescue.roadCleared = true;
+            status.textContent = "Lane clear. The queue is moving again; the wrecks are leaving the city.";
+          }
+        } else if (rescue.stage === "carry") {
+          const bay = recovery.getBoundingClientRect();
+          if (moveToward(heli.screen, { x: bay.left + bay.width / 2, y: bay.top - 10 }, dt * (heli.speed || 65) * 2.5, dt)) {
+            rescue.stage = "drop";
+            rescue.elapsed = 0;
+            playSound("pickup");
+            status.textContent = "Lowering the recovered cars into the bay outside the city.";
+          }
+        } else if (rescue.stage === "drop") {
+          rescue.elapsed += dt;
+          if (rescue.elapsed >= .9) {
+            recoveredCars.push(...rescue.cars.map(vehicle => ({ paint: vehicle.paint, long: vehicle.long, kind: vehicle.kind })));
+            recoveredCars.splice(0, Math.max(0, recoveredCars.length - 8));
+            recoveredCount += rescue.cars.length;
+            rescue.stage = "exit";
+          }
+        } else if (rescue.stage === "exit") {
+          const target = { x: heli.screen.x < innerWidth / 2 ? -40 : innerWidth + 40, y: -40 };
+          if (moveToward(heli.screen, target, dt * (heli.speed || 65) * 3.3, dt)) {
+            helicopters.delete(heli.id);
+            incident = null;
+            collisionAfter = time + 3;
+            status.textContent = recoveredCount + " cars recovered. Helicopter departed; traffic is moving.";
+          }
+        }
+      }
+      function step(dt) {
+        time += dt;
+        {
+          trafficTime += dt * trafficPace;
+          bikeTime += dt * trafficPace * (filteringEnabled ? 2.8 : 1);
+          const greenAxis = Math.floor(time / 5) % 2;
+          signalClocks[greenAxis] += dt * trafficPace;
+          signalBikeClocks[greenAxis] += dt * trafficPace * (filteringEnabled ? 2.8 : 1);
+          cameraTime += dt * flightPace;
+          // Small physics steps keep even fast motorcycles from tunnelling through traffic or riverbanks.
+          const steps = Math.max(1, Math.ceil(dt / .02));
+          for (let i = 0; i < steps; i++) {
+            updateTraffic(dt / steps);
+            if (!incident && collisionsEnabled && time >= collisionAfter) {
+              const view = camera();
+              detectCollision(trafficVehicles(view.x, view.y, 235));
+              if (incident) break;
+            }
+          }
+        }
+        for (let i = splashes.length - 1; i >= 0; i--) if (time - splashes[i].born >= 1.8) splashes.splice(i, 1);
+        updatePedestrians(dt);
+        if (incident) advanceRescue(dt);
+        syncRotorSound();
+        if (time >= nextEngineSound) {
+          nextEngineSound = time + 1.4 + hash(Math.floor(time), 0, 2600) * 1.1;
+          const view = camera();
+          const nearby = trafficVehicles(view.x, view.y, 115)
+            .filter(vehicle => Math.hypot(vehicle.x - view.x, vehicle.y - view.y) < 110);
+          if (nearby.length) engineSound(nearby[Math.floor(hash(Math.floor(time), 0, 2601) * nearby.length)]);
+        }
+      }
+      function drawRescue() {
+        for (const heli of helicopters.values()) {
+          if (heli.state === "parked") helicopter(ctx, heli.x, heli.y, heli.angle, false);
+        }
+        if (!incident || incident.roadCleared) return;
+        const { heli, cars, stage, elapsed, x, y } = incident;
+        const lift = stage === "pickup" ? Math.min(1, elapsed / 1.2) : 0;
+        ctx.globalAlpha = 1 - lift;
+        for (let n = 0; n < 7; n++) {
+          const angle = n * 2.4;
+          rect(ctx, n % 2 ? "red" : "wall", x + Math.cos(angle) * 8, y + Math.sin(angle) * 6, 1.5, 1);
+        }
+        ctx.globalAlpha = 1;
+        cars.forEach((vehicle, index) => {
+          const targetX = heli ? heli.x + (index ? 6 : -6) : vehicle.x;
+          const targetY = heli ? heli.y + 12 : vehicle.y;
+          const cx = vehicle.x + (targetX - vehicle.x) * lift;
+          const cy = vehicle.y + (targetY - vehicle.y) * lift;
+          if (stage === "pickup") {
+            ctx.strokeStyle = colors.black;
+            ctx.lineWidth = .5;
+            ctx.beginPath(); ctx.moveTo(heli.x, heli.y); ctx.lineTo(cx, cy); ctx.stroke();
+          }
+          drawVehicle({ ...vehicle, x: cx, y: cy, angle: vehicle.angle + (index ? .22 : -.22) * (1 - lift) });
+        });
+        if (heli) helicopter(ctx, heli.x, heli.y, heli.angle, true);
+      }
+      function drawAirspace() {
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const width = Math.round(innerWidth * dpr), height = Math.round(innerHeight * dpr);
+        if (airspace.width !== width || airspace.height !== height) {
+          airspace.width = width; airspace.height = height;
+        }
+        air.setTransform(dpr, 0, 0, dpr, 0, 0);
+        air.clearRect(0, 0, innerWidth, innerHeight);
+        const bay = recovery.getBoundingClientRect();
+        recoveredCars.forEach((vehicle, index) => {
+          drawVehicle({ ...vehicle, x: bay.left + 17 + index % 4 * 25,
+            y: bay.top + 25 + Math.floor(index / 4) * 15, angle: index % 2 ? .1 : -.1 }, air);
+        });
+        if (!incident || !incident.roadCleared) return;
+        const { heli, stage, cars, elapsed, cargoAngle } = incident;
+        const point = heli.screen;
+        if (stage !== "exit") {
+          cars.forEach((vehicle, index) => {
+            const offsetX = (index ? 6 : -6) * ZOOM;
+            const offsetY = 12 * ZOOM;
+            const liftX = point.x + Math.cos(cargoAngle) * offsetX - Math.sin(cargoAngle) * offsetY;
+            const liftY = point.y + Math.sin(cargoAngle) * offsetX + Math.cos(cargoAngle) * offsetY;
+            const lower = stage === "drop" ? Math.min(1, elapsed / .9) : 0;
+            const finalIndex = Math.min(6, recoveredCars.length) + index;
+            const dropX = bay.left + 17 + finalIndex % 4 * 25;
+            const dropY = bay.top + 25 + Math.floor(finalIndex / 4) * 15;
+            const cx = liftX + (dropX - liftX) * lower;
+            const cy = liftY + (dropY - liftY) * lower * lower;
+            air.strokeStyle = colors.black;
+            air.lineWidth = .5;
+            air.beginPath(); air.moveTo(point.x, point.y); air.lineTo(cx, cy); air.stroke();
+            air.save(); air.translate(cx, cy); air.scale(ZOOM + (1 - ZOOM) * lower, ZOOM + (1 - ZOOM) * lower);
+            drawVehicle({ ...vehicle, x: 0, y: 0, angle: (vehicle.angle + cargoAngle) * (1 - lower) }, air);
+            air.restore();
+          });
+        }
+        air.save(); air.translate(point.x, point.y); air.scale(ZOOM, ZOOM);
+        helicopter(air, 0, 0, point.angle, true);
+        air.restore();
+      }
+      function makeGrains() {
+        return Array.from({ length: 8 }, (_, index) => {
+        const layer = document.createElement("canvas");
+        layer.width = layer.height = SIZE;
+        const g = layer.getContext("2d");
+        if (!g) throw new Error("Unable to create film texture.");
+        for (let i = 0; i < 7000; i++) {
+          g.globalAlpha = .025 + hash(index, i, 500) * .07;
+          rect(g, i % 2 ? "black" : "white",
+            Math.floor(hash(index, i, 501) * SIZE),
+            Math.floor(hash(index, i, 502) * SIZE), 1, 1);
+        }
+        return layer;
+        });
+      }
+      let grains = [];
+      function draw() {
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const resolution = Math.round((expanded ? Math.min(canvas.clientWidth, 1000) : SIZE) * dpr);
+        if (canvas.width !== resolution) {
+          canvas.width = canvas.height = resolution;
+        }
+        const scale = canvas.width / SIZE;
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        rect(ctx, "road", 0, 0, SIZE, SIZE);
+        ctx.save();
+        const { x: cameraX, y: cameraY, angle } = camera();
+        ctx.translate(100 + Math.sin(frame * 1.71) * .12, 100 + Math.cos(frame * 2.13) * .1);
+        ctx.rotate(angle);
+        ctx.scale(ZOOM, ZOOM);
+        ctx.translate(-cameraX, -cameraY);
+        worldToScreen = ctx.getTransform();
+        screenToWorld = worldToScreen.inverse();
+        const radius = 235;
+        const visible = new Set();
+        const blocks = [];
+        for (let by = Math.floor((cameraY - radius) / BLOCK); by <= Math.floor((cameraY + radius) / BLOCK); by++) {
+          for (let bx = Math.floor((cameraX - radius) / BLOCK); bx <= Math.floor((cameraX + radius) / BLOCK); bx++) {
+            const key = bx + "," + by;
+            visible.add(key);
+            if (!tiles.has(key)) tiles.set(key, createTile(bx, by));
+            ctx.drawImage(tiles.get(key), bx * BLOCK, by * BLOCK, BLOCK, BLOCK);
+            blocks.push([bx, by]);
+          }
+        }
+        // Evict departed blocks; deterministic coordinates reproduce them if revisited.
+        for (const key of tiles.keys()) if (!visible.has(key)) tiles.delete(key);
+        for (const [id, person] of lostPedestrians) {
+          if (!visible.has(`${person.bx},${person.by}`)) lostPedestrians.delete(id);
+        }
+        for (const [id, heli] of helicopters) {
+          if (heli.state === "parked" && !visible.has(heli.block)) helicopters.delete(id);
+        }
+        // These roads are behind a monotonically advancing camera and cannot return.
+        for (const [id, vehicle] of removedCars) {
+          if (vehicle.axis ? cameraX - vehicle.across > radius + BLOCK : vehicle.across - cameraY > radius + BLOCK) {
+            removedCars.delete(id);
+          }
+        }
+        for (const vehicle of trafficVehicles(cameraX, cameraY, radius)) drawVehicle(vehicle);
+        for (const [bx, by] of blocks) people(bx, by);
+        if (cityId === "munich") {
+          const greenAxis = Math.floor(time / 5) % 2;
+          for (const [bx, by] of blocks) {
+            if (isWater(bx * BLOCK + 32, by * BLOCK + 32)) continue;
+            disc(ctx, greenAxis === 0 ? "leaf-light" : "red", bx * BLOCK + 31, by * BLOCK + 25, 1.5);
+            disc(ctx, greenAxis === 1 ? "leaf-light" : "red", bx * BLOCK + 25, by * BLOCK + 31, 1.5);
+          }
+        }
+        drawRescue();
+        drawSplashes();
+        ctx.restore();
+        if (keyboardAim) {
+          ctx.strokeStyle = colors.white;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(aim.x - 4, aim.y - 4, 8, 8);
+          ctx.strokeStyle = colors.black;
+          ctx.strokeRect(aim.x - 5, aim.y - 5, 10, 10);
+        }
+        ctx.globalAlpha = .07;
+        rect(ctx, "warm", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .055;
+        rect(ctx, "roof-blue", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .3;
+        const vignette = ctx.createRadialGradient(100, 92, 40, 100, 100, 141);
+        vignette.addColorStop(0, "transparent");
+        vignette.addColorStop(1, colors.black);
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        ctx.globalAlpha = Math.min(1, (films.find(film => film.id === filmId).grain || 1) * .65);
+        ctx.drawImage(grains[frame % grains.length], 0, 0);
+        ctx.globalAlpha = .02 + Math.sin(frame * 1.43) * .012;
+        rect(ctx, "white", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        frame++;
+        drawAirspace();
+      }
+      function tick(now) {
+        request = null;
+        if (paused || document.hidden) return;
+        if (lastFrame === null) lastFrame = now;
+        if (now - lastFrame >= FRAME_TIME) {
+          const steps = Math.floor((now - lastFrame) / FRAME_TIME);
+          step(Math.min(steps * FRAME_TIME / 1000, .1));
+          lastFrame += steps * FRAME_TIME;
+          draw();
+        }
+        request = requestAnimationFrame(tick);
+      }
+      function syncPlayback() {
+        if (request !== null) cancelAnimationFrame(request);
+        request = null;
+        lastFrame = null;
+        document.getElementById("pause").textContent = paused ? "Play" : "Pause";
+        document.getElementById("pause").setAttribute("aria-pressed", String(paused));
+        if (paused || document.hidden) stopSounds();
+        else syncRotorSound();
+        if (!paused && !document.hidden) request = requestAnimationFrame(tick);
+      }
+      canvas.addEventListener("click", event => {
+        keyboardAim = false;
+        // offsetX/Y are element-local, undoing the paper's CSS rotation before the camera inverse.
+        spawnAt(event.offsetX * SIZE / canvas.clientWidth, event.offsetY * SIZE / canvas.clientHeight);
+      });
+      canvas.addEventListener("keydown", event => {
+        const moves = { ArrowLeft: [-4, 0], ArrowRight: [4, 0], ArrowUp: [0, -4], ArrowDown: [0, 4] };
+        if (moves[event.key]) {
+          event.preventDefault();
+          keyboardAim = true;
+          aim.x = Math.max(5, Math.min(SIZE - 5, aim.x + moves[event.key][0]));
+          aim.y = Math.max(5, Math.min(SIZE - 5, aim.y + moves[event.key][1]));
+          draw();
+        } else if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          if (!event.repeat) spawnAt(aim.x, aim.y);
+        }
+      });
+      canvas.addEventListener("focus", () => { keyboardAim = true; draw(); });
+      canvas.addEventListener("blur", () => { keyboardAim = false; draw(); });
+      document.getElementById("sound").addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        document.getElementById("sound").textContent = soundEnabled ? "Sound on" : "Sound off";
+        document.getElementById("sound").setAttribute("aria-pressed", String(soundEnabled));
+        if (!soundEnabled) stopSounds();
+        else {
+          audioFailed = false;
+          unlockAudio();
+          syncRotorSound();
+        }
+      });
+      document.getElementById("collisions").addEventListener("click", () => {
+        collisionsEnabled = !collisionsEnabled;
+        document.getElementById("collisions").textContent = collisionsEnabled ? "Collisions on" : "Collisions off";
+        document.getElementById("collisions").setAttribute("aria-pressed", String(collisionsEnabled));
+        recovery.hidden = !collisionsEnabled && !incident && !recoveredCars.length;
+        status.textContent = collisionsEnabled ? "Collisions on. Rooftop helicopters will clear any crashes."
+          : incident ? "New collisions off. The current rescue will finish safely." : "Player crashes off. Ambient traffic still keeps its distance.";
+        draw();
+      });
+      document.getElementById("pause").addEventListener("click", () => {
+        paused = !paused;
+        status.textContent = paused ? "A moment, held still." : "";
+        syncPlayback();
+      });
+      function resetCity(reseed = true) {
+        if (reseed) seed = newSeed();
+        time = 0;
+        trafficTime = 0;
+        bikeTime = 0;
+        signalClocks = [0, 0];
+        signalBikeClocks = [0, 0];
+        cameraTime = 0;
+        nextEngineSound = 0;
+        collisionAfter = 0;
+        nextCarId = 0;
+        recoveredCount = 0;
+        incident = null;
+        frame = 0;
+        tiles.clear();
+        helicopters.clear();
+        removedCars.clear();
+        recoveredCars.length = 0;
+        recovery.hidden = !collisionsEnabled;
+        spawnedCars.length = 0;
+        ambientTraffic.clear();
+        splashes.length = 0;
+        lostPedestrians.clear();
+        trafficInitialized = false;
+        nextPopulation = 0;
+        stopSounds();
+        roll++;
+        document.getElementById("roll").textContent = "ROLL " + String(roll).padStart(3, "0");
+        document.getElementById("city-caption").textContent = cityId === "original" ? "wish you were here." : currentCity().name + ", from above.";
+        document.getElementById("city-description").textContent = currentCity().note;
+        status.textContent = reseed ? "A new roll in " + currentCity().name + "." : "Back over the first landmark.";
+        draw();
+        syncWheels();
+        syncPlayback();
+      }
+      document.getElementById("new").addEventListener("click", () => resetCity());
+      document.getElementById("reset-view").addEventListener("click", () => resetCity(false));
+      document.getElementById("destination").addEventListener("change", event => {
+        cityId = event.target.value;
+        applyFilm();
+        resetCity();
+      });
+      for (const film of films) {
+        const option = document.createElement("option");
+        option.value = film.id;
+        option.textContent = film.name;
+        document.getElementById("film").appendChild(option);
+      }
+      document.getElementById("film").value = filmId;
+      document.getElementById("film").addEventListener("change", event => {
+        filmId = event.target.value;
+        applyFilm();
+        draw();
+      });
+      document.getElementById("night").addEventListener("change", event => {
+        nightEnabled = event.target.checked;
+        applyFilm();
+        status.textContent = nightEnabled ? "Night flight. House lights, streetlamps and headlights are on." : "Back to daylight.";
+        draw();
+      });
+      document.getElementById("fps").addEventListener("change", event => {
+        FRAME_TIME = 1000 / Number(event.target.value);
+        lastFrame = null;
+      });
+      function setExpanded(value) {
+        expanded = value;
+        document.body.classList.toggle("expanded", value);
+        document.getElementById("fullscreen").textContent = value ? "Exit full screen" : "Full screen";
+        document.getElementById("fullscreen").setAttribute("aria-pressed", String(value));
+        draw();
+      }
+      document.getElementById("fullscreen").addEventListener("click", async () => {
+        if (expanded) {
+          if (document.fullscreenElement) {
+            try { await document.exitFullscreen(); }
+            catch (error) {
+              console.error("Cannot exit full screen:", error);
+              status.textContent = "Could not exit full screen. Use your browser's Escape key.";
+              return;
+            }
+          }
+          setExpanded(false);
+          return;
+        }
+        setExpanded(true);
+        if (!document.documentElement.requestFullscreen) {
+          status.textContent = "Browser fullscreen is unavailable. Expanded view is open; press Escape to close.";
+          return;
+        }
+        try { await document.documentElement.requestFullscreen(); }
+        catch (error) {
+          console.warn("Fullscreen request was not granted:", error);
+          status.textContent = "Fullscreen was not granted. Expanded view is open; press Escape to close.";
+        }
+      });
+      document.addEventListener("fullscreenchange", () => setExpanded(Boolean(document.fullscreenElement)));
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && expanded && !document.fullscreenElement) setExpanded(false);
+        if (["Enter", " "].includes(event.key)) unlockAudio();
+      });
+      document.addEventListener("pointerdown", unlockAudio, { passive: true });
+      reducedMotion.addEventListener("change", event => {
+        paused = event.matches;
+        status.textContent = paused ? "Motion is off. Press Play to take flight." : "";
+        syncPlayback();
+      });
+      deviceTheme.addEventListener("change", event => {
+        if (!["light", "dark"].includes(new URLSearchParams(location.search).get("scoutTheme"))) {
+          document.documentElement.dataset.theme = event.matches ? "dark" : "light";
+          applyFilm();
+          draw();
+        }
+      });
+      document.addEventListener("visibilitychange", syncPlayback);
+      document.addEventListener("visibilitychange", () => { if (document.hidden) stopSounds(); });
+      window.addEventListener("resize", draw);
+      window.addEventListener("scroll", drawAirspace, { passive: true });
+      window.addEventListener("pageshow", syncPlayback);
+      window.addEventListener("pagehide", event => {
+        stopSounds();
+        if (!event.persisted) {
+          Object.values(soundUrls).forEach(url => URL.revokeObjectURL(url));
+          if (soundContext) soundContext.close().catch(reportAudioError);
+        }
+      });
+      document.getElementById("city-description").textContent = currentCity().note;
+      mountWheels();
+      applyFilm();
+      if (paused) status.textContent = "Motion is off. Press Play to take flight.";
+      draw();
+      syncPlayback();
+    })();
+  </script>
+<!-- CITY VERSION SCRIPT START -->
+<script>
+  (() => {
+    const picker = document.querySelector(".version-picker");
+    const extras = document.querySelector(".city-extras");
+    if (extras) extras.prepend(picker.closest(".version-bar"));
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && picker.open) {
+        event.preventDefault(); event.stopImmediatePropagation();
+        picker.open = false; picker.querySelector("summary").focus();
+      }
+    }, true);
+    document.addEventListener("pointerdown", event => {
+      if (picker.open && !picker.contains(event.target)) picker.open = false;
+    });
+    picker.addEventListener("focusout", () => {
+      setTimeout(() => { if (!picker.contains(document.activeElement)) picker.open = false; }, 0);
+    });
+    const theme = new URLSearchParams(location.search).get("scoutTheme");
+    if (theme === "dark" || theme === "light") {
+      for (const link of document.querySelectorAll(".version-list a, .version-pager a")) link.search = "?scoutTheme=" + theme;
+    }
+  })();
+</script>
+<!-- CITY VERSION SCRIPT END -->
+</body>
+</html>

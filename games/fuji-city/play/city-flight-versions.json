@@ -1,0 +1,204 @@
+{
+  "current": "city-flight.html",
+  "policy": "Keep historical versions immutable. Preserve a new milestone before major changes; city-flight.html remains current.",
+  "versions": [
+    {
+      "version": 0,
+      "file": "versions/city-flight-v0.html",
+      "title": "The first miniature",
+      "description": "200 px procedural city, pedestrians, traffic and faded Chrome-style film.",
+      "sourceSha256": "8380066dc04c5b83b87170665dce81969d9ca39ddf9dfceb849e090d3a60b172",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T04:53:11Z"
+      },
+      "archiveSha256": "7c1fefeaa308f43f96be937fb2956680be3216e98b9cb8847304e8ca78ca15c7"
+    },
+    {
+      "version": 1,
+      "file": "versions/city-flight-v1.html",
+      "title": "Click a lane",
+      "description": "Lane-click cars, legal directions, keyboard aiming and an original WAV chime.",
+      "sourceSha256": "601962239bf64815ae3342d9c11df6f4f48b2e3950d66d866acee3e817c7b932",
+      "provenance": {
+        "method": "replayed recorded diffs",
+        "edits": [
+          "2026-10-07T04:54:17.826Z",
+          "2026-10-07T04:55:30.124Z"
+        ]
+      },
+      "archiveSha256": "a02eac5cefedb208f535aa2a53aba0df839909d9a02f42323088e9a9be4098d1"
+    },
+    {
+      "version": 2,
+      "file": "versions/city-flight-v2.html",
+      "title": "Helicopter recovery",
+      "description": "Rooftop helicopters lift crashed vehicles into a collection bay.",
+      "sourceSha256": "d0214953c3388b00a8aa29fd7d73efbec0af9b4eca1bb557842f8d76c802029c",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T05:31:09Z"
+      },
+      "archiveSha256": "064eb2be1115f88fba0d071d6288308a512833c6c9b5c4cc318e147d112f0ad9"
+    },
+    {
+      "version": 3,
+      "file": "versions/city-flight-v3.html",
+      "title": "Films, cities and motorcycles",
+      "description": "20 film approximations, seven named cities, blue motorcycles, filtering and continuous rotor audio.",
+      "sourceSha256": "26220becd7bd78ea92684037f5b7d227fad1a629c9e77bc9a8a931b7cfbb32a4",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T05:53:59Z"
+      },
+      "archiveSha256": "dde6df60139e81225281ce036ec1828750c0aa19f0b587a4601f654c3de179b4"
+    },
+    {
+      "version": 4,
+      "file": "versions/city-flight-v4.html",
+      "title": "A living soundtrack",
+      "description": "Generative music, safer ambient traffic, local crash queues, water falls and night lighting.",
+      "sourceSha256": "7a4030b20944659f58a40ed2055db61e21951039d8f05196b2acb88dccf17d98",
+      "provenance": {
+        "method": "replayed recorded diffs",
+        "edits": [
+          "2026-10-07T05:55:23.981Z",
+          "2026-10-07T05:56:16.639Z",
+          "2026-10-07T05:56:54.261Z",
+          "2026-10-07T05:58:10.127Z",
+          "2026-10-07T06:01:30.809Z"
+        ]
+      },
+      "archiveSha256": "f24df3135bd325ed5d3abafa87e3a8584ca95f069c15355cc38642aa0a108eac"
+    },
+    {
+      "version": 5,
+      "file": "versions/city-flight-v5.html",
+      "title": "Physics and paper controls",
+      "description": "Caption wheels, connected river bridges, physical falls and recovery, smaller argh effects and a day/night rocker.",
+      "sourceSha256": "a87e1704d15eef868ab2fb869f94af228d54cad9fc02576c068977076b5c18c9",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T06:21:52Z"
+      },
+      "archiveSha256": "0a89890a49a30b9e9c16047b6f57a2c5135fa9102061e532d5bf5aaef746fc39"
+    },
+    {
+      "version": 6,
+      "file": "versions/city-flight-v6.html",
+      "title": "Five AI player-designer reviews",
+      "description": "Review-driven gameplay, accessibility, audio and input refinements; larger view and neighboring reel options. These were AI reviews, not human playtests.",
+      "sourceSha256": "3dc18fb4c823cde4584dafe6e8321b44a24a93831a3b8e8e4542c9c58af018c0",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T06:40:41Z"
+      },
+      "archiveSha256": "5a3674d213768713317992a6fcb0e1e5ba3d0eb05ea64e94e195d78633ddd95f"
+    },
+    {
+      "version": 7,
+      "file": "versions/city-flight-v7.html",
+      "title": "The size dial",
+      "description": "Hidden-at-rest reel neighbors and exact 100–1000 px sizes, originally defaulting to 200 px.",
+      "sourceSha256": "18d83ff9cdf5f564f421fed2b03bc65b65ea7f3b50554200fe712826fcd592ae",
+      "provenance": {
+        "method": "saved snapshot",
+        "at": "2026-10-07T07:01:28Z"
+      },
+      "archiveSha256": "8621401caf44a19209a96aaad587e6765b7ac79366a84e8e43269712326b1a77"
+    },
+    {
+      "version": 8,
+      "file": "versions/city-flight-v8.html",
+      "title": "Driving school and family homes",
+      "description": "First handbook-informed home routing and analog-clock daylight implementation, with a 600 px default. No real license test or AI training; turn refinements followed in v9.",
+      "sourceSha256": "ef10a691ae86a8fd8048495dd2bdc46af94f713c7e9ccda74e88d9dbe571fb47",
+      "provenance": {
+        "method": "replayed recorded diffs",
+        "edits": [
+          "2026-10-07T07:06:07.437Z",
+          "2026-10-07T07:07:11.634Z",
+          "2026-10-07T07:08:09.872Z",
+          "2026-10-07T07:08:20.820Z",
+          "2026-10-07T07:08:38.940Z",
+          "2026-10-07T07:08:55.970Z",
+          "2026-10-07T07:10:20.634Z",
+          "2026-10-07T07:11:21.468Z",
+          "2026-10-07T07:12:18.024Z",
+          "2026-10-07T07:15:40.966Z"
+        ],
+        "historicalCaveat": "First implementation; some junction turns were still over-conservative."
+      },
+      "archiveSha256": "f77215719e89458d246c20b58e44a773bf21c5823470dc5a7a391b46ad793e8c"
+    },
+    {
+      "version": 9,
+      "file": "versions/city-flight-v9.html",
+      "title": "Forgiving reels and refined driving",
+      "description": "Nearest-option release snapping, deferred resizing, one shared preview line, and refined legal junction turns.",
+      "sourceSha256": "9350d564209945a7f9917651f42ed1a52a2dbdfaeb36d6ed7744903dbcdb0fb5",
+      "provenance": {
+        "method": "current source verified against recorded diffs",
+        "edits": [
+          "2026-10-07T07:18:04.330Z",
+          "2026-10-07T07:18:40.384Z",
+          "2026-10-07T07:19:09.734Z",
+          "2026-10-07T07:22:50.834Z"
+        ]
+      },
+      "archiveSha256": "aa35b05f48da87acc5f6eb5ca7779b45ea7d773add22ea54a67a3696a97c0257"
+    },
+    {
+      "version": 10,
+      "file": "versions/city-flight-v10.html",
+      "title": "Town clocks and traffic governor",
+      "description": "30 city minutes per real second, eight original city-branded dials, governor safety interlocks and the first browsable archive.",
+      "sourceSha256": "060049a1e1b82e3d6e812282d221b86d8f0986deaa3b65eb2c6ab1dc1e6966e1",
+      "provenance": "Verified current implementation captured before the wide-city viewport milestone.",
+      "archiveSha256": "71cfef020287480fe324e20a5a00f2751cbdabbb77edf8a516df0962c8db1434"
+    },
+    {
+      "version": 11,
+      "file": "versions/city-flight-v11.html",
+      "title": "More city, not bigger pixels",
+      "description": "Constant-scale city sizes, full-window controls, adjustable downtown clocks with calmer hands, grab-to-turn reels and a live City Chronicle.",
+      "sourceSha256": "fb1db15e04fa3429081a0b19c8c5c4cee1e735063159dd58c93f5c89c10834a1",
+      "provenance": "Verified current implementation captured before the next city milestone.",
+      "archiveSha256": "1fbdc7138d3f595b1783d7b69b56de0d5dc42308ae551d0b4902735879a00760"
+    },
+    {
+      "version": 12,
+      "file": "versions/city-flight-v12.html",
+      "title": "Compact clocks and tilted prints",
+      "description": "Full digital time, inline speed controls, 5x hand-speed limits, readable Chronicle ink, 30 FPS, city-specific paper tilts and separate Chronicle/media workers.",
+      "sourceSha256": "63f394972302d5c0da94b3eaa56dbd4c529f6593ecb7089eb798c522fcc4ff9f",
+      "provenance": "Verified current implementation captured before the next city milestone.",
+      "archiveSha256": "8befcf49b838e747b03983b89ef1c0b059883a4c2b10f34bb673cf83ce42d499"
+    },
+    {
+      "version": 13,
+      "file": "versions/city-flight-v13.html",
+      "title": "Clock tower and camera views",
+      "description": "Reference-style clock, 300 px / 30 FPS Drone default, restored Enlarge/Small control, Close up/Drone/Space zoom, four rendering and motion workers, and cached vehicle artwork.",
+      "sourceSha256": "798afe2b8781402a4f98c4ded3c740d2c97cd7c68c5848f9cf46f55469f07831",
+      "provenance": "Verified current implementation captured before the next city milestone.",
+      "archiveSha256": "64b7d47fe4247d977fddebb1e9b0d0dc5ac05f4ba564d3fec80a1baf0c26d0da"
+    },
+    {
+      "version": 14,
+      "file": "versions/city-flight-v14.html",
+      "title": "Living streets, two frames",
+      "description": "Light Gamified default with a separate collapsed style panel, city-specific lettering and films, crowd-responsive frame rates, stacked camera/print wheels, grouped Chronicle events and a larger recovery gallery; varied blocks, colored motorcycles, mini-roundabouts and fair traffic.",
+      "sourceSha256": "98ed44e9076c253ff8d63108b325a8934995c8fbec3a9a67341246c699595e3f",
+      "provenance": "Verified current implementation captured before the next city milestone.",
+      "archiveSha256": "ef99f5ac4856147911a4c29301e6640348506327098465339a8e04b3021cc245"
+    },
+    {
+      "version": 15,
+      "file": "city-flight.html",
+      "title": "Nineteen cities, a hundred landmarks",
+      "description": "19 destinations with 102 seeded architectural motifs and randomized startup. A 132 px dial with daylight and stacked speed controls; City options starts collapsed. A single successful-spawn hand hint, inline station greetings, comic poet titles and a fictional local paper. Procedural boats follow waterways with wakes, alongside rare coastal whales and belugas surfacing to breathe. New vehicles keep moving while searching for a home and yield to real obstacles. Approximate Polaroid borders, 440 px control pane, mixed car/motorcycle spawns and concurrent helicopter rescues with queued calls and random departures. A sleepy long-necked guard directs deliveries onto an intake conveyor. A hydraulic crusher and output belt fill a large scrap container; five real running seconds after all cars are packed, a steam train appears at the pickup point, hoists the sealed container and drives forward offscreen along the shortest safe spur, with fading rails, smoke and whistles. Defaults to 600 px Polaroid / Close up with city-specific film and Auto FPS. v14 preserves the prior layout.",
+      "sourceSha256": "ec31ea421d4b0e4b3c996ad2a666f609973755cdd9f9fe127ea7469fd4c1f6db"
+    }
+  ]
+}

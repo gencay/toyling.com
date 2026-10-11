@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>duell — a game by Toyling</title>
+  <meta name="description" content="duell is a little friendly rivalry: five original trivia questions in English, German, Spanish or Turkish, against a friend or Pip, a simulated opponent. Play the browser demo.">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FFF6E5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#10233F" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Toyling Games">
+  <meta property="og:title" content="duell — a game by Toyling">
+  <meta property="og:description" content="A little curiosity. A friendly rivalry. Play the duell browser demo.">
+  <meta property="og:url" content="https://toyling.com/games/duell/">
+  <meta property="og:image" content="https://toyling.com/assets/games/duell/duell-home-glass.jpg">
+  <meta property="og:image:alt" content="duell's home screen in Liquid Glass, with the Play Pip button">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pixelify+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/site.css">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('toyling-theme');
+        if (t === 'day' || t === 'night') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Toyling Games home">
+      <img class="day-only" src="/assets/brand/toyling-header-light.svg" width="98" height="36" alt="Toyling">
+      <img class="night-only" src="/assets/brand/toyling-header-dark.svg" width="98" height="36" alt="Toyling">
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/#games">Games</a>
+      <a href="/#studio">Studio</a>
+      <a href="/#press">Press</a>
+      <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
+        <span class="theme-icon" aria-hidden="true"></span>
+        <span class="theme-label">Night</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="game-hero" aria-labelledby="game-title">
+      <div class="container game-hero-grid">
+        <div>
+          <p class="eyebrow">Playable demo</p>
+          <h1 id="game-title" class="game-title">duell</h1>
+          <p class="lede">A little curiosity. A friendly rivalry. Five original text questions, four options and one point per correct answer. Speed only breaks a tie: the player who spent less time on their correct answers takes it.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/duell/play/" target="_blank">Play the demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn" href="#features">What you can do</a>
+          </div>
+          <img class="made-by day-only" src="/assets/brand/toyling-a-game-by-stacked-color.svg" width="198" height="102" alt="A game by Toyling">
+          <img class="made-by night-only" src="/assets/brand/toyling-a-game-by-stacked-reversed.svg" width="198" height="102" alt="A game by Toyling">
+        </div>
+        <div class="polaroids phones framed" aria-label="duell screenshots">
+          <figure class="polaroid tilt-a" data-depth-local="0.05">
+            <img src="/assets/games/duell/duell-reveal-glass.jpg" width="780" height="1280" alt="A duell reveal on a phone in Liquid Glass: both picks marked on the answers, a short explanation and Pip's reaction">
+          </figure>
+          <figure class="polaroid tilt-b" data-depth-local="-0.04">
+            <img src="/assets/games/duell/duell-question-material-tr.jpg" width="780" height="1280" alt="duell in Turkish with the Material look: the scoreboard above a question with four answers">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section games" aria-labelledby="features-title">
+      <div class="container">
+        <p class="eyebrow">Five questions</p>
+        <h2 id="features-title">What you can do</h2>
+        <ul class="feature-list">
+          <li>
+            <h3>Duel in five questions</h3>
+            <p>Both players answer the same five questions, with 20 to 40 seconds each depending on their length. Keys 1 to 4 or A to D answer, and Enter continues.</p>
+          </li>
+          <li>
+            <h3>Take on Pip</h3>
+            <p>Pip is a clearly labelled simulated opponent, not a live AI model. It answers 2 to 7 seconds in and gets about 72% of Easy, 55% of Medium and 35% of Hard questions right.</p>
+          </li>
+          <li>
+            <h3>Challenge a friend</h3>
+            <p>On duell's server, a friend joins through a private link or an eight-character code, and a rematch brings new questions. The browser demo has no server, so it plays Pip only.</p>
+          </li>
+          <li>
+            <h3>Learn as you play</h3>
+            <p>Each reveal shows both picks and a short explanation. Results let you revisit missed questions, and offline practice drills 12 separate questions per language with no timer.</p>
+          </li>
+          <li>
+            <h3>Play in four languages</h3>
+            <p>English, German, Spanish and Turkish, with 60 original questions each. The question language is fixed for each duel, and every player picks their own interface language.</p>
+          </li>
+          <li>
+            <h3>Pick your look</h3>
+            <p>Switch between Liquid Glass, a dark Apple-inspired appearance, and Material, a light Google Material 3-inspired one, at any time, even mid-duel.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section studio" aria-labelledby="gallery-title">
+      <div class="container">
+        <p class="eyebrow">Screenshots</p>
+        <h2 id="gallery-title">Rounds and reveals</h2>
+        <div class="gallery">
+          <figure class="wide">
+            <img src="/assets/games/duell/duell-reveal-material.jpg" width="1240" height="800" loading="lazy" alt="A duell reveal in Material on a desktop browser: the scoreboard, both picks marked on the answers, an explanation and Pip's reaction">
+            <figcaption>A reveal in Material: both picks, the explanation and a word from Pip.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/games/duell/duell-home-material-tr.jpg" width="780" height="1280" loading="lazy" alt="duell's home screen in Turkish with the Material look, below the demo note">
+            <figcaption>The home screen in Turkish.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/games/duell/duell-results-material.jpg" width="780" height="1280" loading="lazy" alt="duell's results screen in Material: the final score against Pip, with Rematch and New duel buttons">
+            <figcaption>Results lead with the score and offer a rematch.</figcaption>
+          </figure>
+          <figure class="wide">
+            <img src="/assets/games/duell/duell-home-glass.jpg" width="1240" height="800" loading="lazy" alt="duell's home screen in Liquid Glass on a desktop browser: the demo note, a nickname field and the Play Pip button">
+            <figcaption>Liquid Glass on a desktop browser, with the demo note.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section press" aria-labelledby="play-title">
+      <div class="container press-grid">
+        <div>
+          <p class="eyebrow">Play</p>
+          <h2 id="play-title">Open it in any modern browser</h2>
+          <p>The demo runs duell's own game server inside the page, so your answers, scores and practice packs stay in this browser. Play Pip or use offline practice. Friend duels need duell's shared server, so they aren't part of the demo.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/duell/play/" target="_blank">Play duell<span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+        <p class="small-print">duell is an independent prototype, not affiliated with QuizDuel or MAG Interactive. Pip is a simulated opponent, not a live AI model. Liquid Glass and Material are browser interpretations of Apple- and Google-inspired designs, not native components. Questions and translations are original prototype content. duell's server can also generate experimental AI question sets; they are off in the demo.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-ridge" aria-hidden="true" data-ridge></div>
+    <div class="container footer-inner">
+      <img src="/assets/brand/toyling-footer-mono-white.svg" width="110" height="136" alt="Toyling Games">
+      <nav aria-label="Footer">
+        <a href="/#games">Games</a>
+        <a href="/games/fuji-city/">Fuji City</a>
+        <a href="/games/mini-city/">Mini City</a>
+        <a href="/games/duell/">duell</a>
+        <a href="/#press">Press kit</a>
+      </nav>
+      <p class="copyright">© 2026 Toyling. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

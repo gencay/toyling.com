@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Somewhere, above — a tiny city film</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    :root {
+      /* Photographic pigments stay fixed when the surrounding page changes theme. */
+      --cp-film-paper: #ece6d5;
+      --cp-film-ink: #59564a;
+      --cp-film-road: #768383;
+      --cp-film-walk: #c3c3ad;
+      --cp-film-line: #d9ceb0;
+      --cp-film-grass: #859672;
+      --cp-film-leaf: #526f5c;
+      --cp-film-leaf-light: #7f956c;
+      --cp-film-shadow: #394e50;
+      --cp-film-roof: #ccc4a4;
+      --cp-film-roof-red: #b38970;
+      --cp-film-roof-blue: #8faaa3;
+      --cp-film-wall: #a79e82;
+      --cp-film-wall-dark: #7f8377;
+      --cp-film-window: #496266;
+      --cp-film-car: #e4d4ab;
+      --cp-film-red: #a85743;
+      --cp-film-white: #eee7ce;
+      --cp-film-black: #324e51;
+      --cp-film-gold: #ceaa65;
+      --cp-film-warm: #edc08c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 40px 16px;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      font: 13px/1.6 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    main { width: 264px; max-width: 100%; text-align: center; }
+    .eyebrow, .film-meta, button, .note {
+      font-family: Consolas, "Courier New", Courier, monospace;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--cp-text-muted);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0 0 28px; font: italic 26px/1.2 Georgia, "Times New Roman", serif; }
+    figure {
+      width: 232px;
+      margin: 0 auto;
+      padding: 16px 16px 0;
+      background: var(--cp-film-paper);
+      color: var(--cp-film-ink);
+      box-shadow: var(--cp-shadow);
+      transform: rotate(-2deg);
+    }
+    .aperture { width: 200px; height: 200px; overflow: hidden; background: var(--cp-film-road); }
+    canvas { display: block; width: 200px; height: 200px; cursor: crosshair; touch-action: manipulation; }
+    canvas:focus-visible { outline: 2px solid var(--cp-film-white); outline-offset: -3px; }
+    figcaption { padding: 16px 0 18px; }
+    .handwritten { font: italic 18px/1.3 Georgia, "Times New Roman", serif; }
+    .film-meta { display: flex; justify-content: space-between; margin-top: 9px; font-size: 8px; letter-spacing: .08em; }
+    .controls { display: flex; justify-content: center; gap: 8px; margin: 32px 0 12px; }
+    button {
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--cp-border-strong);
+      border-radius: 0;
+      background: var(--cp-bg-elevated);
+      color: var(--cp-text);
+      font-size: 11px;
+      cursor: pointer;
+    }
+    button:hover { background: var(--cp-surface-soft); }
+    button:active { transform: translateY(1px); }
+    button:focus-visible { outline: 2px solid var(--cp-text); outline-offset: 3px; }
+    .note { margin: 0; color: var(--cp-text-muted); font-size: 10px; line-height: 1.8; }
+    #status { margin: 8px 0 0; color: var(--cp-text-muted); font-size: 11px; min-height: 18px; }
+    @media (prefers-reduced-motion: reduce) {
+      figure { transform: none; }
+      button:active { transform: none; }
+    }
+  </style>
+<!-- CITY VERSION STYLE START -->
+<style>
+  .version-bar { display: flex; justify-content: flex-end; width: 100%; margin: 0 0 12px; position: relative; z-index: 30; }
+  .version-picker { margin: 0; color: var(--cp-film-ink); font: 11px/1.5 Consolas, "Courier New", monospace; letter-spacing: 0; }
+  .version-picker > summary { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 8px; cursor: pointer; list-style: none; border: 1px solid var(--cp-border-strong); background: var(--cp-film-paper); }
+  .version-picker > summary::-webkit-details-marker { display: none; }
+  .version-picker > summary::after { content: "+"; }
+  .version-picker[open] > summary::after { content: "-"; }
+  .version-picker > summary:focus-visible, .version-list a:focus-visible { outline: 2px solid var(--cp-film-ink); outline-offset: -3px; }
+  .version-panel { position: absolute; right: 0; top: 100%; width: min(370px, 100%); max-height: min(65vh, 520px); overflow-y: auto; overscroll-behavior: contain; background: var(--cp-film-paper); border: 1px solid var(--cp-film-ink); padding: 12px; text-align: left; box-shadow: var(--cp-shadow); }
+  .version-panel p { margin: 0 0 12px; line-height: 1.5; }
+  .version-list { list-style: none; padding: 0; margin: 0; }
+  .version-list a { display: block; padding: 10px 6px; min-height: 44px; color: var(--cp-film-ink); text-decoration: none; border-top: 1px solid var(--cp-border-strong); }
+  .version-list a:hover, .version-list a[aria-current="page"] { text-decoration: underline; }
+  .version-list strong, .version-list span { display: block; }
+  .version-list span { margin-top: 4px; font: 11px/1.5 "Segoe UI", sans-serif; }
+
+  .city-notes .version-bar, body.full-view .city-notes .version-bar { position: relative; inset: auto; width: 100%; margin: 0 0 16px; justify-content: flex-start; }
+  .city-notes .version-picker { width: 100%; }
+  .city-notes .version-panel, body.full-view .city-notes .version-panel { position: static; width: 100%; max-height: min(60dvh, 520px); box-sizing: border-box; box-shadow: none; }
+  html body:has(> .version-pager) { padding-top: 104px; }
+  .version-pager { position: fixed; inset: 0 0 auto; z-index: 100; height: 88px; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; background: var(--cp-surface); color: var(--cp-text); border-bottom: 1px solid var(--cp-border-strong); }
+  .version-step { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 88px; height: 72px; box-sizing: border-box; border: 1px solid var(--cp-border-strong); color: var(--cp-text); background: var(--cp-surface); text-decoration: none; text-align: center; font: 11px/1.5 Consolas, "Courier New", monospace; }
+  .version-step svg { display: block; width: 44px; height: 44px; }
+  a.version-step:hover { background: var(--cp-surface-soft); border-color: var(--cp-text); }
+  a.version-step:focus-visible { outline: 3px solid var(--cp-text); outline-offset: 2px; }
+  .version-step[aria-disabled="true"] { color: var(--cp-text-muted); border-style: dashed; }
+  .version-position { min-width: 0; text-align: center; font: 12px/1.5 Consolas, "Courier New", monospace; }
+  html body.full-view:has(> .version-pager) { padding-top: 88px; }
+  html body.full-view:has(> .version-pager) > main,
+  html body.full-view:has(> .version-pager) .city-layout { height: calc(100dvh - 88px); }
+  @media (min-width: 851px) {
+    html body.full-view:has(> .version-pager) .city-layout > main,
+    html body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+  @media (max-height: 500px) and (min-width: 650px) {
+    html[data-ui] body.full-view:has(> .version-pager) .city-layout > main,
+    html[data-ui] body.full-view:has(> .version-pager) .city-journal { height: calc(100dvh - 88px); }
+  }
+</style>
+<!-- CITY VERSION STYLE END -->
+</head>
+<body>
+<!-- CITY VERSION NAV START -->
+<nav class="version-pager" aria-label="Browse archived versions">
+  <a class="version-step" rel="prev" href="city-flight-v0.html" aria-label="Previous version: v0" title="Previous version: v0"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M30 8L14 24L30 40"/></svg><span>v0</span></a>
+  <span class="version-position">Archive<br><strong>v1</strong></span>
+  <a class="version-step" rel="next" href="city-flight-v2.html" aria-label="Next version: v2" title="Next version: v2"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M18 8L34 24L18 40"/></svg><span>v2</span></a>
+</nav>
+<!-- CITY VERSION NAV END -->
+  <main>
+    <p class="eyebrow">A little window / an endless city</p>
+    <h1>Somewhere, above.</h1>
+<!-- CITY VERSION NAV START -->
+      <nav class="version-bar" aria-label="City flight version history">
+        <details class="version-picker">
+          <summary aria-label="Version history, v1, archived">v1</summary>
+          <div class="version-panel">
+            <p><strong>Historical snapshot · v1</strong><br>Click a lane</p>
+            <p>Original simulation preserved; only this version navigator was added. Historical limitations remain.</p>
+            <ol class="version-list">
+              <li><a href="../city-flight.html"><strong>v15 · current — Nineteen cities, a hundred landmarks</strong><span>19 destinations with 102 seeded architectural motifs, including Antalya&#39;s Yivli Minare and Saat Kulesi. Modern Istanbul clock numerals; 176 px dial with stacked speed controls; colorful wheel strokes. New vehicles keep moving while searching for a home, while yielding to real obstacles. Researched approximate Polaroid borders, 440 px control pane, mixed car/motorcycle spawns and animated rescue Junkyard. Original defaults to 600 px Polaroid / Close up / Auto 30 FPS. v14 preserves the prior layout.</span></a></li>
+              <li><a href="city-flight-v0.html"><strong>v0 — The first miniature</strong><span>200 px procedural city, pedestrians, traffic and faded Chrome-style film.</span></a></li>
+              <li><a href="city-flight-v1.html" aria-current="page"><strong>v1 — Click a lane</strong><span>Lane-click cars, legal directions, keyboard aiming and an original WAV chime.</span></a></li>
+              <li><a href="city-flight-v2.html"><strong>v2 — Helicopter recovery</strong><span>Rooftop helicopters lift crashed vehicles into a collection bay.</span></a></li>
+              <li><a href="city-flight-v3.html"><strong>v3 — Films, cities and motorcycles</strong><span>20 film approximations, seven named cities, blue motorcycles, filtering and continuous rotor audio.</span></a></li>
+              <li><a href="city-flight-v4.html"><strong>v4 — A living soundtrack</strong><span>Generative music, safer ambient traffic, local crash queues, water falls and night lighting.</span></a></li>
+              <li><a href="city-flight-v5.html"><strong>v5 — Physics and paper controls</strong><span>Caption wheels, connected river bridges, physical falls and recovery, smaller argh effects and a day/night rocker.</span></a></li>
+              <li><a href="city-flight-v6.html"><strong>v6 — Five AI player-designer reviews</strong><span>Review-driven gameplay, accessibility, audio and input refinements; larger view and neighboring reel options. These were AI reviews, not human playtests.</span></a></li>
+              <li><a href="city-flight-v7.html"><strong>v7 — The size dial</strong><span>Hidden-at-rest reel neighbors and exact 100–1000 px sizes, originally defaulting to 200 px.</span></a></li>
+              <li><a href="city-flight-v8.html"><strong>v8 — Driving school and family homes</strong><span>First handbook-informed home routing and analog-clock daylight implementation, with a 600 px default. No real license test or AI training; turn refinements followed in v9.</span></a></li>
+              <li><a href="city-flight-v9.html"><strong>v9 — Forgiving reels and refined driving</strong><span>Nearest-option release snapping, deferred resizing, one shared preview line, and refined legal junction turns.</span></a></li>
+              <li><a href="city-flight-v10.html"><strong>v10 — Town clocks and traffic governor</strong><span>30 city minutes per real second, eight original city-branded dials, governor safety interlocks and the first browsable archive.</span></a></li>
+              <li><a href="city-flight-v11.html"><strong>v11 — More city, not bigger pixels</strong><span>Constant-scale city sizes, full-window controls, adjustable downtown clocks with calmer hands, grab-to-turn reels and a live City Chronicle.</span></a></li>
+              <li><a href="city-flight-v12.html"><strong>v12 — Compact clocks and tilted prints</strong><span>Full digital time, inline speed controls, 5x hand-speed limits, readable Chronicle ink, 30 FPS, city-specific paper tilts and separate Chronicle/media workers.</span></a></li>
+              <li><a href="city-flight-v13.html"><strong>v13 — Clock tower and camera views</strong><span>Reference-style clock, 300 px / 30 FPS Drone default, restored Enlarge/Small control, Close up/Drone/Space zoom, four rendering and motion workers, and cached vehicle artwork.</span></a></li>
+              <li><a href="city-flight-v14.html"><strong>v14 — Living streets, two frames</strong><span>Light Gamified default with a separate collapsed style panel, city-specific lettering and films, crowd-responsive frame rates, stacked camera/print wheels, grouped Chronicle events and a larger recovery gallery; varied blocks, colored motorcycles, mini-roundabouts and fair traffic.</span></a></li>
+            </ol>
+          </div>
+        </details>
+      </nav>
+<!-- CITY VERSION NAV END -->
+    <figure>
+      <div class="aperture">
+        <canvas id="city" width="400" height="400" role="img" tabindex="0" aria-describedby="spawn-help"
+          aria-label="Interactive bird's-eye city. Click a road lane to add a car. Keyboard: arrow keys move the crosshair; Enter or Space adds a car.">
+          Your browser needs Canvas support to show the city.
+        </canvas>
+      </div>
+      <figcaption>
+        <span class="handwritten">wish you were here.</span>
+        <div class="film-meta"><span id="roll">ROLL 001</span><span>CHROME / 200</span><span>24 FPS</span></div>
+      </figcaption>
+    </figure>
+    <div class="controls" aria-label="Film controls">
+      <button id="pause" type="button" aria-pressed="false">Pause</button>
+      <button id="new" type="button">New roll</button>
+      <button id="sound" type="button" aria-pressed="true" aria-label="Spawn sound">Sound on</button>
+    </div>
+    <p class="note">200 × 200 · made as you fly<br>no footage. no map. just a passing moment.</p>
+    <p class="note" id="spawn-help">Click a lane to add a car.<br>Keyboard: arrows to aim, Enter to add.</p>
+    <p id="status" role="status" aria-live="polite"></p>
+  </main>
+  <script>
+    (() => {
+      "use strict";
+      const canvas = document.getElementById("city");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const status = document.getElementById("status");
+      if (!ctx) {
+        status.textContent = "This browser cannot render the city: Canvas 2D is unavailable.";
+        document.querySelectorAll("button").forEach(button => { button.disabled = true; });
+        return;
+      }
+      const styles = getComputedStyle(document.documentElement);
+      const color = name => styles.getPropertyValue("--cp-film-" + name).trim();
+      const colors = Object.fromEntries([
+        "road", "walk", "line", "grass", "leaf", "leaf-light", "shadow", "roof",
+        "roof-red", "roof-blue", "wall", "wall-dark", "window", "car", "red",
+        "white", "black", "gold", "warm"
+      ].map(name => [name, color(name)]));
+      const SIZE = 200;
+      const BLOCK = 152;
+      const ROAD = 30;
+      const ZOOM = .72;
+      const FRAME_TIME = 1000 / 24;
+      const carPaints = ["car", "white", "red", "roof-blue", "black", "gold"];
+      const tiles = new Map();
+      const spawnedCars = [];
+      const activeSounds = new Set();
+      const aim = { x: SIZE / 2, y: SIZE / 2 };
+      let keyboardAim = false;
+      let screenToWorld;
+      let soundEnabled = true;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      const deviceTheme = matchMedia("(prefers-color-scheme: dark)");
+      let seed = newSeed();
+      let roll = 1;
+      let time = 0;
+      let paused = reducedMotion.matches;
+      let lastFrame = null;
+      let request = null;
+      let frame = 0;
+
+      function newSeed() {
+        return crypto.getRandomValues(new Uint32Array(1))[0];
+      }
+      function hash(x, y, salt = 0) {
+        let h = seed ^ Math.imul(x, 374761393) ^ Math.imul(y, 668265263) ^ Math.imul(salt, 1597334677);
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+      }
+      const mod = (n, m) => ((n % m) + m) % m;
+      function pick(items) {
+        return items[Math.floor(newSeed() / 4294967296 * items.length)];
+      }
+      function laneRules(road, axis, lane) {
+        return {
+          axis, road, lane,
+          dir: lane ? -1 : 1,
+          speed: 14 + hash(road, axis, 300 + lane) * 7,
+          across: road * BLOCK + (lane ? 9 : 21)
+        };
+      }
+      function lanesAt(x, y) {
+        const lanes = [];
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? x : y;
+          const local = mod(cross, BLOCK);
+          if (local >= ROAD) continue;
+          const road = Math.floor(cross / BLOCK);
+          // The center marking is equally close to both lanes; junctions admit both axes.
+          const choices = Math.abs(local - ROAD / 2) < 1 ? [0, 1] : [local < ROAD / 2 ? 1 : 0];
+          for (const lane of choices) lanes.push(laneRules(road, axis, lane));
+        }
+        return lanes;
+      }
+      function makeSpawnWav() {
+        const rate = 22050;
+        const count = Math.round(rate * .48);
+        const bytes = new ArrayBuffer(44 + count * 2);
+        const wav = new DataView(bytes);
+        const text = (offset, value) => [...value].forEach((char, i) => wav.setUint8(offset + i, char.charCodeAt(0)));
+        text(0, "RIFF"); wav.setUint32(4, bytes.byteLength - 8, true);
+        text(8, "WAVE"); text(12, "fmt "); wav.setUint32(16, 16, true);
+        wav.setUint16(20, 1, true); wav.setUint16(22, 1, true);
+        wav.setUint32(24, rate, true); wav.setUint32(28, rate * 2, true);
+        wav.setUint16(32, 2, true); wav.setUint16(34, 16, true);
+        text(36, "data"); wav.setUint32(40, count * 2, true);
+        // Original felt-like pluck: a soft attack, glassy partials, and a short rising answer.
+        for (let i = 0; i < count; i++) {
+          const t = i / rate;
+          let sample = 0;
+          for (const [start, frequency, gain] of [[0, 523.25, .29], [.065, 783.99, .16]]) {
+            const age = t - start;
+            if (age < 0) continue;
+            const envelope = (1 - Math.exp(-age * 650)) * Math.exp(-age * 12);
+            sample += gain * envelope * (
+              Math.sin(2 * Math.PI * frequency * age) +
+              .22 * Math.sin(2 * Math.PI * frequency * 2.003 * age) +
+              .06 * Math.sin(2 * Math.PI * frequency * 3.98 * age)
+            );
+          }
+          const fade = Math.min(1, (count - 1 - i) / (rate * .025));
+          wav.setInt16(44 + i * 2, Math.round(Math.max(-1, Math.min(1, sample * fade)) * 32767), true);
+        }
+        return bytes;
+      }
+      const spawnSoundUrl = URL.createObjectURL(new Blob([makeSpawnWav()], { type: "audio/wav" }));
+      function stopSounds() {
+        for (const audio of activeSounds) audio.pause();
+        activeSounds.clear();
+      }
+      function playSpawnSound() {
+        if (!soundEnabled) return;
+        if (activeSounds.size >= 6) {
+          const oldest = activeSounds.values().next().value;
+          oldest.pause();
+          activeSounds.delete(oldest);
+        }
+        const audio = new Audio(spawnSoundUrl);
+        audio.volume = .65;
+        activeSounds.add(audio);
+        audio.addEventListener("ended", () => activeSounds.delete(audio), { once: true });
+        audio.play().catch(error => {
+          const wasActive = activeSounds.delete(audio);
+          if (error.name === "AbortError" && !wasActive) return;
+          console.error("City spawn sound could not play:", error);
+          status.textContent = "Car added, but sound could not play. Check your browser's audio permissions.";
+        });
+      }
+      function spawnAt(screenX, screenY) {
+        const point = screenToWorld.transformPoint({
+          x: screenX * canvas.width / SIZE,
+          y: screenY * canvas.height / SIZE
+        });
+        const choices = lanesAt(point.x, point.y);
+        if (!choices.length) {
+          status.textContent = "Choose a road lane, not a building or sidewalk.";
+          return;
+        }
+        const rules = pick(choices);
+        spawnedCars.push({
+          ...rules,
+          start: rules.axis ? point.y : point.x,
+          born: time,
+          paint: pick(carPaints)
+        });
+        status.textContent = paused ? "Car added. Press Play to set it moving." : "Car added to the lane.";
+        playSpawnSound();
+        draw();
+      }
+      function rect(g, fill, x, y, w, h) {
+        g.fillStyle = colors[fill];
+        g.fillRect(x, y, w, h);
+      }
+      function polygon(g, fill, points) {
+        g.fillStyle = colors[fill];
+        g.beginPath();
+        points.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
+        g.closePath();
+        g.fill();
+      }
+      function tree(g, x, y, r) {
+        g.globalAlpha = .24;
+        g.fillStyle = colors.shadow;
+        g.beginPath();
+        g.ellipse(x + 4, y + 5, r, r * .7, .5, 0, Math.PI * 2);
+        g.fill();
+        g.globalAlpha = 1;
+        g.fillStyle = colors.leaf;
+        g.beginPath();
+        g.arc(x, y, r, 0, Math.PI * 2);
+        g.fill();
+        g.fillStyle = colors["leaf-light"];
+        g.beginPath();
+        g.arc(x - r * .25, y - r * .3, r * .68, 0, Math.PI * 2);
+        g.fill();
+      }
+      function building(g, x, y, w, h, height, variant) {
+        const dx = -height * .42;
+        const dy = -height * .65;
+        g.globalAlpha = .23;
+        polygon(g, "shadow", [[x, y], [x + w, y], [x + w + height, y + h + height * .5],
+          [x + height, y + h + height * .5], [x, y + h]]);
+        g.globalAlpha = 1;
+        polygon(g, "wall-dark", [[x + w, y], [x + w + dx, y + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        polygon(g, "wall", [[x, y + h], [x + dx, y + h + dy],
+          [x + w + dx, y + h + dy], [x + w, y + h]]);
+        const roof = ["roof", "roof-red", "roof-blue"][variant];
+        rect(g, roof, x + dx, y + dy, w, h);
+        g.strokeStyle = colors.line;
+        g.lineWidth = .7;
+        g.strokeRect(x + dx + 1, y + dy + 1, w - 2, h - 2);
+        rect(g, "wall-dark", x + dx + w * .6, y + dy + h * .25, 6, 5);
+        rect(g, "walk", x + dx + w * .6 - .8, y + dy + h * .25 - 1, 6, 4);
+        if (w > 30) {
+          rect(g, "window", x + dx + 5, y + dy + 5, 9, 5);
+          rect(g, "roof-blue", x + dx + 6, y + dy + 5, 7, 1);
+        }
+        g.globalAlpha = .65;
+        for (let wx = x + 4; wx < x + w - 2; wx += 6) {
+          rect(g, "window", wx + dx * .4, y + h + dy * .4, 2, 2);
+        }
+        g.globalAlpha = 1;
+      }
+      function createTile(bx, by) {
+        const tile = document.createElement("canvas");
+        tile.width = tile.height = BLOCK * 2;
+        const g = tile.getContext("2d");
+        if (!g) throw new Error("Unable to create a city block.");
+        g.scale(2, 2);
+        rect(g, "road", 0, 0, BLOCK, BLOCK);
+        rect(g, "walk", ROAD, ROAD, BLOCK - ROAD, BLOCK - ROAD);
+        rect(g, "wall", ROAD + 6, ROAD + 6, BLOCK - ROAD - 12, BLOCK - ROAD - 12);
+        g.strokeStyle = colors.line;
+        g.globalAlpha = .58;
+        g.lineWidth = .6;
+        g.setLineDash([5, 7]);
+        g.beginPath();
+        g.moveTo(ROAD + 5, ROAD / 2); g.lineTo(BLOCK - 5, ROAD / 2);
+        g.moveTo(ROAD / 2, ROAD + 5); g.lineTo(ROAD / 2, BLOCK - 5);
+        g.stroke();
+        g.setLineDash([]);
+        g.globalAlpha = .7;
+        for (let i = 5; i < ROAD - 3; i += 4) {
+          rect(g, "line", i, ROAD + 1, 2, 6);
+          rect(g, "line", ROAD + 1, i, 6, 2);
+        }
+        g.globalAlpha = 1;
+        if (hash(bx, by, 1) < .18) {
+          rect(g, "grass", 38, 38, 106, 106);
+          rect(g, "walk", 86, 38, 6, 106);
+          rect(g, "walk", 38, 90, 106, 5);
+          for (let i = 0; i < 18; i++) {
+            const x = 44 + hash(bx, by, i + 20) * 94;
+            const y = 44 + hash(bx, by, i + 50) * 94;
+            if (Math.abs(x - 89) > 10 && Math.abs(y - 92) > 9) tree(g, x, y, 4 + hash(bx, by, i + 80) * 5);
+          }
+          rect(g, "roof-red", 94, 101, 9, 2);
+          rect(g, "roof-red", 73, 80, 9, 2);
+        } else {
+          for (let row = 0; row < 2; row++) {
+            for (let col = 0; col < 2; col++) {
+              const n = row * 2 + col;
+              const x = 48 + col * 49;
+              const y = 50 + row * 47;
+              building(g, x, y, 30 + hash(bx, by, 10 + n) * 12,
+                27 + hash(bx, by, 15 + n) * 12,
+                5 + hash(bx, by, 90 + n) * 13,
+                Math.floor(hash(bx, by, 100 + n) * 3));
+            }
+          }
+          for (let i = 0; i < 4; i++) {
+            tree(g, 47 + i * 27, 143, 3.6);
+            if (i % 2 === 0) tree(g, 143, 48 + i * 28, 4.5);
+          }
+        }
+        // Fixed per-block texture prevents terrain from boiling as the camera moves.
+        g.globalAlpha = .07;
+        for (let i = 0; i < 230; i++) {
+          rect(g, i % 2 ? "white" : "black", hash(bx, by, 400 + i) * BLOCK,
+            hash(bx, by, 800 + i) * BLOCK, .7, .7);
+        }
+        g.globalAlpha = 1;
+        return tile;
+      }
+      function pedestrian(x, y, angle, phase, outfit) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        const stride = Math.sin(time * 8 + phase) * .65;
+        ctx.globalAlpha = .28;
+        rect(ctx, "shadow", .6, .6, 2.2, 3.4);
+        ctx.globalAlpha = 1;
+        rect(ctx, "black", -.65, -.7 + stride, .65, 1.25);
+        rect(ctx, "black", .15, -.7 - stride, .65, 1.25);
+        rect(ctx, outfit, -1, -.9, 2, 1.7);
+        rect(ctx, "car", -.55, -.5, 1.1, 1.1);
+        ctx.restore();
+      }
+      function people(bx, by) {
+        const outfits = ["red", "white", "black", "gold", "roof-blue"];
+        const lo = 33.5;
+        const hi = 148.5;
+        const side = hi - lo;
+        for (let i = 0; i < 15; i++) {
+          const direction = hash(bx, by, 180 + i) < .5 ? -1 : 1;
+          const speed = 3 + hash(bx, by, 210 + i) * 2;
+          const p = mod(hash(bx, by, 240 + i) * side * 4 + time * speed * direction, side * 4);
+          const edge = Math.floor(p / side);
+          const f = p % side;
+          const coords = [[lo + f, lo], [hi, lo + f], [hi - f, hi], [lo, hi - f]][edge];
+          pedestrian(bx * BLOCK + coords[0], by * BLOCK + coords[1],
+            edge * Math.PI / 2 + (direction < 0 ? Math.PI : 0), i * 2,
+            outfits[Math.floor(hash(bx, by, 270 + i) * outfits.length)]);
+        }
+      }
+      function car(x, y, angle, paint, long) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        const length = long ? 12 : 8;
+        ctx.globalAlpha = .28;
+        rect(ctx, "shadow", -length / 2 + 1.5, -.5, length, 4);
+        ctx.globalAlpha = 1;
+        rect(ctx, "black", -length / 2 + 1, -2.3, 1.5, 4.6);
+        rect(ctx, "black", length / 2 - 2.5, -2.3, 1.5, 4.6);
+        rect(ctx, paint, -length / 2, -2, length, 4);
+        rect(ctx, "window", length / 2 - 3, -1.6, 1.3, 3.2);
+        rect(ctx, "window", -length / 2 + 1.5, -1.5, 1, 3);
+        rect(ctx, "white", length / 2 - .7, -1.6, .6, .7);
+        rect(ctx, "white", length / 2 - .7, .9, .6, .7);
+        ctx.restore();
+      }
+      function traffic(cameraX, cameraY, radius) {
+        for (let axis = 0; axis < 2; axis++) {
+          const cross = axis ? cameraX : cameraY;
+          const along = axis ? cameraY : cameraX;
+          for (let road = Math.floor((cross - radius) / BLOCK); road <= Math.ceil((cross + radius) / BLOCK); road++) {
+            for (let lane = 0; lane < 2; lane++) {
+              const { dir, speed, across } = laneRules(road, axis, lane);
+              const travel = time * speed * dir;
+              const spacing = 70;
+              // Enumerate moving world-space slots, not screen-space spawns.
+              const first = Math.floor((along - radius - travel) / spacing) - 1;
+              const last = Math.ceil((along + radius - travel) / spacing) + 1;
+              for (let slot = first; slot <= last; slot++) {
+                if (hash(road, slot, 310 + axis * 2 + lane) < .26) continue;
+                const pos = slot * spacing + travel + hash(road, slot, 320 + lane) * 22;
+                const shade = carPaints[Math.floor(hash(road, slot, 330 + axis + lane) * carPaints.length)];
+                car(axis ? across : pos, axis ? pos : across,
+                  axis * Math.PI / 2 + (dir < 0 ? Math.PI : 0),
+                  shade, hash(road, slot, 340 + lane) < .12);
+              }
+            }
+          }
+        }
+      }
+      function spawnedTraffic(cameraX, cameraY, radius) {
+        for (let i = spawnedCars.length - 1; i >= 0; i--) {
+          const vehicle = spawnedCars[i];
+          const pos = vehicle.start + (time - vehicle.born) * vehicle.speed * vehicle.dir;
+          const x = vehicle.axis ? vehicle.across : pos;
+          const y = vehicle.axis ? pos : vehicle.across;
+          if (Math.abs(x - cameraX) > radius || Math.abs(y - cameraY) > radius) {
+            spawnedCars.splice(i, 1);
+            continue;
+          }
+          car(x, y, vehicle.axis * Math.PI / 2 + (vehicle.dir < 0 ? Math.PI : 0), vehicle.paint, false);
+        }
+      }
+      const grains = Array.from({ length: 8 }, (_, index) => {
+        const layer = document.createElement("canvas");
+        layer.width = layer.height = SIZE;
+        const g = layer.getContext("2d");
+        if (!g) throw new Error("Unable to create film texture.");
+        for (let i = 0; i < 7000; i++) {
+          g.globalAlpha = .025 + hash(index, i, 500) * .07;
+          rect(g, i % 2 ? "black" : "white",
+            Math.floor(hash(index, i, 501) * SIZE),
+            Math.floor(hash(index, i, 502) * SIZE), 1, 1);
+        }
+        return layer;
+      });
+      const vignette = ctx.createRadialGradient(100, 92, 40, 100, 100, 141);
+      vignette.addColorStop(0, "transparent");
+      vignette.addColorStop(1, colors.black);
+      function draw() {
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        if (canvas.width !== Math.round(SIZE * dpr)) {
+          canvas.width = canvas.height = Math.round(SIZE * dpr);
+        }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        rect(ctx, "road", 0, 0, SIZE, SIZE);
+        ctx.save();
+        const cameraX = 87 + time * 5.6 + Math.sin(time * .045) * 24;
+        const cameraY = 107 - time * 10;
+        const angle = -.18 + Math.sin(time * .025) * .045;
+        ctx.translate(100 + Math.sin(frame * 1.71) * .12, 100 + Math.cos(frame * 2.13) * .1);
+        ctx.rotate(angle);
+        ctx.scale(ZOOM, ZOOM);
+        ctx.translate(-cameraX, -cameraY);
+        screenToWorld = ctx.getTransform().inverse();
+        const radius = 235;
+        const visible = new Set();
+        const blocks = [];
+        for (let by = Math.floor((cameraY - radius) / BLOCK); by <= Math.floor((cameraY + radius) / BLOCK); by++) {
+          for (let bx = Math.floor((cameraX - radius) / BLOCK); bx <= Math.floor((cameraX + radius) / BLOCK); bx++) {
+            const key = bx + "," + by;
+            visible.add(key);
+            if (!tiles.has(key)) tiles.set(key, createTile(bx, by));
+            ctx.drawImage(tiles.get(key), bx * BLOCK, by * BLOCK, BLOCK, BLOCK);
+            blocks.push([bx, by]);
+          }
+        }
+        // Evict departed blocks; deterministic coordinates reproduce them if revisited.
+        for (const key of tiles.keys()) if (!visible.has(key)) tiles.delete(key);
+        traffic(cameraX, cameraY, radius);
+        spawnedTraffic(cameraX, cameraY, radius);
+        for (const [bx, by] of blocks) people(bx, by);
+        ctx.restore();
+        if (keyboardAim) {
+          ctx.strokeStyle = colors.white;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(aim.x - 4, aim.y - 4, 8, 8);
+          ctx.strokeStyle = colors.black;
+          ctx.strokeRect(aim.x - 5, aim.y - 5, 10, 10);
+        }
+        ctx.globalAlpha = .07;
+        rect(ctx, "warm", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .055;
+        rect(ctx, "roof-blue", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = .3;
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        ctx.drawImage(grains[frame % grains.length], 0, 0);
+        ctx.globalAlpha = .02 + Math.sin(frame * 1.43) * .012;
+        rect(ctx, "white", 0, 0, SIZE, SIZE);
+        ctx.globalAlpha = 1;
+        frame++;
+      }
+      function tick(now) {
+        request = null;
+        if (paused || document.hidden) return;
+        if (lastFrame === null) lastFrame = now;
+        if (now - lastFrame >= FRAME_TIME) {
+          const steps = Math.floor((now - lastFrame) / FRAME_TIME);
+          time += Math.min(steps * FRAME_TIME / 1000, .1);
+          lastFrame += steps * FRAME_TIME;
+          draw();
+        }
+        request = requestAnimationFrame(tick);
+      }
+      function syncPlayback() {
+        if (request !== null) cancelAnimationFrame(request);
+        request = null;
+        lastFrame = null;
+        document.getElementById("pause").textContent = paused ? "Play" : "Pause";
+        document.getElementById("pause").setAttribute("aria-pressed", String(paused));
+        if (!paused && !document.hidden) request = requestAnimationFrame(tick);
+      }
+      canvas.addEventListener("click", event => {
+        keyboardAim = false;
+        // offsetX/Y are element-local, undoing the paper's CSS rotation before the camera inverse.
+        spawnAt(event.offsetX * SIZE / canvas.clientWidth, event.offsetY * SIZE / canvas.clientHeight);
+      });
+      canvas.addEventListener("keydown", event => {
+        const moves = { ArrowLeft: [-4, 0], ArrowRight: [4, 0], ArrowUp: [0, -4], ArrowDown: [0, 4] };
+        if (moves[event.key]) {
+          event.preventDefault();
+          keyboardAim = true;
+          aim.x = Math.max(5, Math.min(SIZE - 5, aim.x + moves[event.key][0]));
+          aim.y = Math.max(5, Math.min(SIZE - 5, aim.y + moves[event.key][1]));
+          draw();
+        } else if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          if (!event.repeat) spawnAt(aim.x, aim.y);
+        }
+      });
+      canvas.addEventListener("focus", () => { keyboardAim = true; draw(); });
+      canvas.addEventListener("blur", () => { keyboardAim = false; draw(); });
+      document.getElementById("sound").addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        document.getElementById("sound").textContent = soundEnabled ? "Sound on" : "Sound off";
+        document.getElementById("sound").setAttribute("aria-pressed", String(soundEnabled));
+        if (!soundEnabled) stopSounds();
+      });
+      document.getElementById("pause").addEventListener("click", () => {
+        paused = !paused;
+        status.textContent = paused ? "A moment, held still." : "";
+        syncPlayback();
+      });
+      document.getElementById("new").addEventListener("click", () => {
+        seed = newSeed();
+        time = 0;
+        frame = 0;
+        tiles.clear();
+        spawnedCars.length = 0;
+        stopSounds();
+        roll++;
+        document.getElementById("roll").textContent = "ROLL " + String(roll).padStart(3, "0");
+        status.textContent = "A new city. A different afternoon.";
+        draw();
+        syncPlayback();
+      });
+      reducedMotion.addEventListener("change", event => {
+        paused = event.matches;
+        status.textContent = paused ? "Motion is off. Press Play to take flight." : "";
+        syncPlayback();
+      });
+      deviceTheme.addEventListener("change", event => {
+        if (!new URLSearchParams(location.search).has("scoutTheme")) {
+          document.documentElement.dataset.theme = event.matches ? "dark" : "light";
+        }
+      });
+      document.addEventListener("visibilitychange", syncPlayback);
+      document.addEventListener("visibilitychange", () => { if (document.hidden) stopSounds(); });
+      if (paused) status.textContent = "Motion is off. Press Play to take flight.";
+      draw();
+      syncPlayback();
+    })();
+  </script>
+<!-- CITY VERSION SCRIPT START -->
+<script>
+  (() => {
+    const picker = document.querySelector(".version-picker");
+    const extras = document.querySelector(".city-extras");
+    if (extras) extras.prepend(picker.closest(".version-bar"));
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && picker.open) {
+        event.preventDefault(); event.stopImmediatePropagation();
+        picker.open = false; picker.querySelector("summary").focus();
+      }
+    }, true);
+    document.addEventListener("pointerdown", event => {
+      if (picker.open && !picker.contains(event.target)) picker.open = false;
+    });
+    picker.addEventListener("focusout", () => {
+      setTimeout(() => { if (!picker.contains(document.activeElement)) picker.open = false; }, 0);
+    });
+    const theme = new URLSearchParams(location.search).get("scoutTheme");
+    if (theme === "dark" || theme === "light") {
+      for (const link of document.querySelectorAll(".version-list a, .version-pager a")) link.search = "?scoutTheme=" + theme;
+    }
+  })();
+</script>
+<!-- CITY VERSION SCRIPT END -->
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini City — a game by Toyling</title>
+  <meta name="description" content="Mini City is a minimalist transit puzzle by Toyling: draw bus routes across a pixel valley, ride the daily tides and keep the city out of gridlock. Play the browser demo.">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FFF6E5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#10233F" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Toyling Games">
+  <meta property="og:title" content="Mini City — a game by Toyling">
+  <meta property="og:description" content="Draw loops. Move a little city. Play the Mini City browser demo.">
+  <meta property="og:url" content="https://toyling.com/games/mini-city/">
+  <meta property="og:image" content="https://toyling.com/assets/games/mini-city/mini-city-run-day.jpg">
+  <meta property="og:image:alt" content="Mini City in the browser on a summer day, with bus routes across a pixel valley">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pixelify+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/site.css">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('toyling-theme');
+        if (t === 'day' || t === 'night') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Toyling Games home">
+      <img class="day-only" src="/assets/brand/toyling-header-light.svg" width="98" height="36" alt="Toyling">
+      <img class="night-only" src="/assets/brand/toyling-header-dark.svg" width="98" height="36" alt="Toyling">
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/#games">Games</a>
+      <a href="/#studio">Studio</a>
+      <a href="/#press">Press</a>
+      <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
+        <span class="theme-icon" aria-hidden="true"></span>
+        <span class="theme-label">Night</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="game-hero" aria-labelledby="game-title">
+      <div class="container game-hero-grid">
+        <div>
+          <p class="eyebrow">Playable demo</p>
+          <h1 id="game-title" class="game-title">Mini City</h1>
+          <p class="lede">Draw loops. Move a little city. A minimalist transit puzzle: houses fill with riders who want an office, a market or a park, and you drag bus routes across a pixel valley to get them there. Calm to start, frantic to master.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/mini-city/play/" target="_blank">Play the demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn" href="#features">What you can do</a>
+          </div>
+          <img class="made-by day-only" src="/assets/brand/toyling-a-game-by-stacked-color.svg" width="198" height="102" alt="A game by Toyling">
+          <img class="made-by night-only" src="/assets/brand/toyling-a-game-by-stacked-reversed.svg" width="198" height="102" alt="A game by Toyling">
+        </div>
+        <div class="polaroids framed" aria-label="Mini City screenshots">
+          <figure class="polaroid tilt-a" data-depth-local="0.05">
+            <img src="/assets/games/mini-city/mini-city-title.jpg" width="712" height="890" alt="The Mini City title screen: Draw loops. Move a little city., a preview valley under the mountain mascot, and Play, Daily and Zen buttons">
+          </figure>
+          <figure class="polaroid tilt-b" data-depth-local="-0.04">
+            <img src="/assets/games/mini-city/mini-city-twin-lakes-night.png" width="1536" height="1179" alt="Mini City's Twin Lakes valley at night, with lit windows and routes running between two lakes under the mountain mascot">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section games" aria-labelledby="features-title">
+      <div class="container">
+        <p class="eyebrow">In the valley</p>
+        <h2 id="features-title">What you can do</h2>
+        <ul class="feature-list">
+          <li>
+            <h3>Draw a route in one drag</h3>
+            <p>Press on empty ground or a house and drag from cell to cell. Finish where you started to close a loop, which adds a free bus running the other way round.</p>
+          </li>
+          <li>
+            <h3>Ride the daily tides</h3>
+            <p>Mornings want offices, middays markets and evenings parks. Night is the breather: the board turns dusk blue, windows light up and crickets play.</p>
+          </li>
+          <li>
+            <h3>Pick a weekly gift</h3>
+            <p>Every four-day week brings 12 more track and a choice of two gifts: a new loop, an extra bus, bridges, a cart, an express, 45 more track or bigger stations.</p>
+          </li>
+          <li>
+            <h3>Keep the city moving</h3>
+            <p>When a house holds more than five riders, an orange ring starts to fill; let it close and it's gridlock. Every new building is forecast 8 seconds ahead, and you can pause time and keep drawing.</p>
+          </li>
+          <li>
+            <h3>Unlock four valleys</h3>
+            <p>Meadow, River Bend, Twin Lakes and Summit Pass each unlock with a score in the one before. Seasons turn every three days, and winter snow slows the buses.</p>
+          </li>
+          <li>
+            <h3>Hear the network sing</h3>
+            <p>Every delivered rider plays a note on the beat, so a healthy city sounds like music. Play Classic, the same Daily Valley as everyone else, or endless Zen.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section studio" aria-labelledby="gallery-title">
+      <div class="container">
+        <p class="eyebrow">Screenshots</p>
+        <h2 id="gallery-title">Scenes from the valley</h2>
+        <div class="gallery">
+          <figure class="wide">
+            <img src="/assets/games/mini-city/mini-city-run-day.jpg" width="1240" height="698" loading="lazy" alt="Mini City in the browser on a summer midday: the day and score along the top, routes across the valley, a route panel and the tool bar below">
+            <figcaption>Summer, day 6 in the browser demo. The selected route's panel shows its length and buses.</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/games/mini-city/mini-city-gift.jpg" width="712" height="445" loading="lazy" alt="The week 2 gift card: 12 more track arrived, pick Bridges ×3 or Bigger stations">
+            <figcaption>Week 2: bridges, or bigger stations?</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/games/mini-city/mini-city-summit-winter.png" width="1536" height="1179" loading="lazy" alt="Summit Pass in winter: snow lies over the upper valley and a cold stream, with routes crossing it">
+            <figcaption>Summit Pass, where winters run long.</figcaption>
+          </figure>
+          <figure class="wide">
+            <img src="/assets/games/mini-city/mini-city-gridlock.jpg" width="1240" height="698" loading="lazy" alt="The Gridlock results card: 296 riders delivered in 9 days with 3 routes, a new best, new stamps and Twin Lakes unlocked">
+            <figcaption>Gridlock ends the run, and the results card counts what you delivered and unlocked.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section press" aria-labelledby="play-title">
+      <div class="container press-grid">
+        <div>
+          <p class="eyebrow">Play</p>
+          <h2 id="play-title">Try the demo in your browser</h2>
+          <p>The demo is Mini City's Defold prototype: the same rules, art, sounds and balance numbers as the full game, in one page with no install. Drag to draw, right-drag to erase, press Space to pause and keep drawing, Z to undo and Esc for the menu. On phones and tablets, drag to draw.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/mini-city/play/" target="_blank">Play Mini City<span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+        <p class="small-print">Mini City is a Toyling game for iOS, Android and Steam (macOS and Windows), built in Unity. The browser demo is its Defold prototype, which leaves out some of the Unity game's polish, such as the colour-blind palette, gamepad support and platform achievements. Its music and sound effects are synthesized by the game's own code.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-ridge" aria-hidden="true" data-ridge></div>
+    <div class="container footer-inner">
+      <img src="/assets/brand/toyling-footer-mono-white.svg" width="110" height="136" alt="Toyling Games">
+      <nav aria-label="Footer">
+        <a href="/#games">Games</a>
+        <a href="/games/fuji-city/">Fuji City</a>
+        <a href="/games/mini-city/">Mini City</a>
+        <a href="/games/duell/">duell</a>
+        <a href="/#press">Press kit</a>
+      </nav>
+      <p class="copyright">© 2026 Toyling. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

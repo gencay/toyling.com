@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Toyling Games — indie games where AI is part of play</title>
-  <meta name="description" content="Toyling is an indie studio making mobile and Steam games where AI is part of gameplay, including adaptive characters and evolving stories. Our first game is Fuji City.">
+  <meta name="description" content="Toyling is an indie studio making mobile and Steam games where AI is part of gameplay, including adaptive characters and evolving stories. Play Fuji City and the Mini City and duell demos in your browser.">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Toyling Games">
   <meta property="og:title" content="Toyling Games">
-  <meta property="og:description" content="An indie studio making mobile and Steam games where AI is part of gameplay. Our first game: Fuji City.">
+  <meta property="og:description" content="An indie studio making mobile and Steam games where AI is part of gameplay. Play Fuji City, Mini City and duell in your browser.">
   <meta property="og:url" content="https://toyling.com/">
   <meta property="og:image" content="https://toyling.com/assets/og/toyling-og-image-1200x630.png">
   <meta property="og:image:width" content="1200">
@@ -64,7 +64,7 @@
         <img class="hero-logo night-only" src="/assets/brand/toyling-stacked-games-reversed.svg" width="55" height="68" alt="Toyling Games logo: a smiling snowy mountain with a game controller face">
         <p class="hero-tagline">Mobile and Steam games where AI is part of the play.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/games/fuji-city/">Meet Fuji City</a>
+          <a class="btn btn-primary" href="#games">Play our games</a>
           <a class="btn" href="#studio">About the studio</a>
         </div>
       </div>
@@ -73,10 +73,11 @@
     </section>
 
     <section id="games" class="section games" aria-labelledby="games-title">
-      <div class="container games-grid">
+      <h2 id="games-title" class="visually-hidden">Our games</h2>
+      <article class="container games-grid game-block" aria-labelledby="fuji-city-title">
         <div class="games-copy">
           <p class="eyebrow">Our first game</p>
-          <h2 id="games-title">Fuji City</h2>
+          <h3 id="fuji-city-title" class="game-heading">Fuji City</h3>
           <p class="lede">A tiny, procedural city movie in an instant-photo frame: moving people, homebound cars and motorcycles, an east-to-west day/night cycle, original synthesized sound, and film-inspired colour treatments.</p>
           <ul class="facts" aria-label="Fuji City at a glance">
             <li><strong>19</strong> destinations, from Paris and Tokyo to Dublin and Antalya</li>
@@ -85,7 +86,7 @@
             <li>Every print carries an original, handwritten-style two-line poem</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://fuji-city.toyling.com/" rel="noopener" target="_blank">Play in your browser<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn btn-primary" href="/games/fuji-city/play/" target="_blank">Play in your browser<span class="visually-hidden"> (opens in a new tab)</span></a>
             <a class="btn" href="/games/fuji-city/">Explore the game</a>
           </div>
         </div>
@@ -97,7 +98,59 @@
             <img src="/assets/games/fuji-city/fuji-city-antalya.jpg" width="712" height="856" loading="lazy" alt="Fuji City print of Antalya's waterfront with boats and red roofs">
           </figure>
         </div>
-      </div>
+      </article>
+
+      <article class="container games-grid flip game-block" aria-labelledby="mini-city-title">
+        <div class="games-copy">
+          <p class="eyebrow">Transit puzzle</p>
+          <h3 id="mini-city-title" class="game-heading">Mini City</h3>
+          <p class="lede">Draw loops. Move a little city. Houses fill with riders who want an office, a market or a park. Drag bus routes across a pixel valley, and every delivery plays a note.</p>
+          <ul class="facts" aria-label="Mini City at a glance">
+            <li><strong>4</strong> valleys, from Meadow to Summit Pass, each unlocked by your score in the one before</li>
+            <li>Every week brings more track and a gift: a new loop, an extra bus, bridges and more</li>
+            <li>Days have tides and winters bring snow; leave a crowded house waiting too long and it's gridlock</li>
+            <li>Play Classic, the same Daily Valley as everyone else, or endless Zen</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/mini-city/play/" target="_blank">Play the demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn" href="/games/mini-city/">Explore the game</a>
+          </div>
+        </div>
+        <div class="polaroids landscape framed" aria-label="Mini City screenshots">
+          <figure class="polaroid tilt-a" data-depth-local="0.06">
+            <img src="/assets/games/mini-city/mini-city-river-bend-evening.png" width="1536" height="1179" loading="lazy" alt="Mini City's River Bend valley in the evening: bus routes cross a winding river past houses, offices, markets and parks">
+          </figure>
+          <figure class="polaroid tilt-b" data-depth-local="-0.04">
+            <img src="/assets/games/mini-city/mini-city-twin-lakes-night.png" width="1536" height="1179" loading="lazy" alt="Mini City's Twin Lakes valley at night, with lit windows and routes running between two lakes under the mountain mascot">
+          </figure>
+        </div>
+      </article>
+
+      <article class="container games-grid game-block" aria-labelledby="duell-title">
+        <div class="games-copy">
+          <p class="eyebrow">Trivia duel</p>
+          <h3 id="duell-title" class="game-heading">duell</h3>
+          <p class="lede">A little curiosity. A friendly rivalry. Five original questions, four options and one point per correct answer. Speed only breaks a tie.</p>
+          <ul class="facts" aria-label="duell at a glance">
+            <li><strong>60</strong> original questions in each of English, German, Spanish and Turkish</li>
+            <li>Take on Pip, a simulated opponent, in a duel that starts with one tap</li>
+            <li>Every reveal explains the answer, and offline practice uses questions that never appear in duels</li>
+            <li>Two looks: dark Liquid Glass and light Material</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="/games/duell/play/" target="_blank">Play the demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="btn" href="/games/duell/">Explore the game</a>
+          </div>
+        </div>
+        <div class="polaroids phones framed" aria-label="duell screenshots">
+          <figure class="polaroid tilt-a" data-depth-local="0.06">
+            <img src="/assets/games/duell/duell-question-glass.jpg" width="780" height="1280" loading="lazy" alt="duell on a phone in Liquid Glass: the scoreboard, with Pip locked in, above a question with four answers">
+          </figure>
+          <figure class="polaroid tilt-b" data-depth-local="-0.04">
+            <img src="/assets/games/duell/duell-results-material.jpg" width="780" height="1280" loading="lazy" alt="duell's results screen in Material: the final score against Pip, with Rematch and New duel buttons">
+          </figure>
+        </div>
+      </article>
     </section>
 
     <section id="studio" class="section studio" aria-labelledby="studio-title">
@@ -135,8 +188,8 @@
         <dl class="fact-sheet">
           <div><dt>Studio</dt><dd>Toyling</dd></div>
           <div><dt>Website</dt><dd>toyling.com</dd></div>
-          <div><dt>Platforms</dt><dd>Mobile and Steam; Fuji City plays in the browser</dd></div>
-          <div><dt>First game</dt><dd><a href="/games/fuji-city/">Fuji City</a></dd></div>
+          <div><dt>Platforms</dt><dd>Mobile and Steam; Fuji City and the Mini City and duell demos play in the browser</dd></div>
+          <div><dt>Games</dt><dd><a href="/games/fuji-city/">Fuji City</a>, <a href="/games/mini-city/">Mini City</a> and <a href="/games/duell/">duell</a></dd></div>
         </dl>
       </div>
     </section>
@@ -149,6 +202,8 @@
       <nav aria-label="Footer">
         <a href="#games">Games</a>
         <a href="/games/fuji-city/">Fuji City</a>
+        <a href="/games/mini-city/">Mini City</a>
+        <a href="/games/duell/">duell</a>
         <a href="#press">Press kit</a>
       </nav>
       <p class="copyright">© 2026 Toyling. All rights reserved.</p>
