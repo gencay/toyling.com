@@ -1,0 +1,565 @@
+{
+  "frames": {
+    "neutral": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "blink": {
+      "x": 57,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "happy": {
+      "x": 114,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "happy+lift": {
+      "x": 171,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "look-l": {
+      "x": 228,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "look-r": {
+      "x": 285,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+dot1": {
+      "x": 342,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+dot2": {
+      "x": 399,
+      "y": 0,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+dot3": {
+      "x": 0,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+glint": {
+      "x": 57,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+glint-dot": {
+      "x": 114,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "neutral+squash": {
+      "x": 171,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "press": {
+      "x": 228,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "press+dot1": {
+      "x": 285,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "sleepy": {
+      "x": 342,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "sleepy+z1-0": {
+      "x": 399,
+      "y": 70,
+      "w": 57,
+      "h": 70
+    },
+    "sleepy+z1-1+z2-0": {
+      "x": 0,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "sleepy+z1-2+z2-1": {
+      "x": 57,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "sleepy+z2-2": {
+      "x": 114,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "squint": {
+      "x": 171,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "surprised": {
+      "x": 228,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "thinking-l": {
+      "x": 285,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "thinking-n": {
+      "x": 342,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "thinking-r": {
+      "x": 399,
+      "y": 140,
+      "w": 57,
+      "h": 70
+    },
+    "thinking-y": {
+      "x": 0,
+      "y": 210,
+      "w": 57,
+      "h": 70
+    },
+    "wink": {
+      "x": 57,
+      "y": 210,
+      "w": 57,
+      "h": 70
+    },
+    "wink+glint": {
+      "x": 114,
+      "y": 210,
+      "w": 57,
+      "h": 70
+    },
+    "wink+glint-dot": {
+      "x": 171,
+      "y": 210,
+      "w": 57,
+      "h": 70
+    },
+    "yawn": {
+      "x": 228,
+      "y": 210,
+      "w": 57,
+      "h": 70
+    }
+  },
+  "variants": {
+    "day": [
+      {
+        "name": "blink",
+        "weight": 5,
+        "frames": [
+          [
+            "blink",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "double-blink",
+        "weight": 2,
+        "frames": [
+          [
+            "blink",
+            120
+          ],
+          [
+            "neutral",
+            160
+          ],
+          [
+            "blink",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "glance",
+        "weight": 3,
+        "frames": [
+          [
+            "look-l",
+            640
+          ],
+          [
+            "neutral",
+            200
+          ],
+          [
+            "look-r",
+            640
+          ]
+        ]
+      },
+      {
+        "name": "wink",
+        "weight": 2,
+        "frames": [
+          [
+            "wink",
+            160
+          ],
+          [
+            "wink+glint",
+            200
+          ],
+          [
+            "wink+glint-dot",
+            200
+          ],
+          [
+            "wink",
+            200
+          ]
+        ]
+      },
+      {
+        "name": "happy-hop",
+        "weight": 2,
+        "frames": [
+          [
+            "happy",
+            160
+          ],
+          [
+            "happy+lift",
+            120
+          ],
+          [
+            "happy",
+            120
+          ],
+          [
+            "happy+lift",
+            120
+          ],
+          [
+            "happy",
+            440
+          ]
+        ]
+      },
+      {
+        "name": "button-combo",
+        "weight": 2,
+        "frames": [
+          [
+            "thinking-y",
+            160
+          ],
+          [
+            "thinking-r",
+            160
+          ],
+          [
+            "thinking-n",
+            160
+          ],
+          [
+            "thinking-l",
+            160
+          ],
+          [
+            "happy",
+            280
+          ],
+          [
+            "neutral+glint",
+            160
+          ],
+          [
+            "neutral+glint-dot",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "dot-hop",
+        "weight": 2,
+        "frames": [
+          [
+            "press",
+            80
+          ],
+          [
+            "press+dot1",
+            40
+          ],
+          [
+            "neutral+dot2",
+            40
+          ],
+          [
+            "neutral+dot3",
+            120
+          ],
+          [
+            "neutral+dot2",
+            40
+          ],
+          [
+            "neutral+dot1",
+            40
+          ],
+          [
+            "neutral+squash",
+            80
+          ],
+          [
+            "neutral+dot1",
+            40
+          ]
+        ]
+      },
+      {
+        "name": "summit-glint",
+        "weight": 2,
+        "frames": [
+          [
+            "neutral+glint",
+            160
+          ],
+          [
+            "neutral+glint-dot",
+            120
+          ],
+          [
+            "neutral",
+            400
+          ],
+          [
+            "neutral+glint",
+            120
+          ],
+          [
+            "neutral+glint-dot",
+            80
+          ]
+        ]
+      },
+      {
+        "name": "surprise",
+        "weight": 1,
+        "frames": [
+          [
+            "surprised",
+            480
+          ],
+          [
+            "blink",
+            120
+          ]
+        ]
+      }
+    ],
+    "night": [
+      {
+        "name": "slow-blink",
+        "weight": 4,
+        "frames": [
+          [
+            "squint",
+            120
+          ],
+          [
+            "blink",
+            320
+          ],
+          [
+            "squint",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "doze",
+        "weight": 4,
+        "frames": [
+          [
+            "squint",
+            240
+          ],
+          [
+            "sleepy",
+            640
+          ],
+          [
+            "sleepy+z1-0",
+            480
+          ],
+          [
+            "sleepy+z1-1+z2-0",
+            480
+          ],
+          [
+            "sleepy+z1-2+z2-1",
+            480
+          ],
+          [
+            "sleepy+z2-2",
+            480
+          ],
+          [
+            "sleepy",
+            640
+          ],
+          [
+            "squint",
+            200
+          ],
+          [
+            "blink",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "yawn",
+        "weight": 2,
+        "frames": [
+          [
+            "squint",
+            160
+          ],
+          [
+            "yawn",
+            800
+          ],
+          [
+            "sleepy",
+            480
+          ],
+          [
+            "squint",
+            200
+          ],
+          [
+            "blink",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "star-glint",
+        "weight": 2,
+        "frames": [
+          [
+            "neutral+glint",
+            200
+          ],
+          [
+            "neutral+glint-dot",
+            160
+          ],
+          [
+            "neutral",
+            480
+          ],
+          [
+            "neutral+glint",
+            160
+          ],
+          [
+            "neutral+glint-dot",
+            120
+          ]
+        ]
+      },
+      {
+        "name": "stargaze",
+        "weight": 2,
+        "frames": [
+          [
+            "look-l",
+            960
+          ],
+          [
+            "squint",
+            240
+          ],
+          [
+            "look-r",
+            960
+          ]
+        ]
+      },
+      {
+        "name": "drowsy-blink",
+        "weight": 2,
+        "frames": [
+          [
+            "squint",
+            160
+          ],
+          [
+            "blink",
+            160
+          ],
+          [
+            "squint",
+            280
+          ],
+          [
+            "blink",
+            480
+          ],
+          [
+            "squint",
+            160
+          ]
+        ]
+      }
+    ]
+  },
+  "meta": {
+    "image": "toyling-idle-sheet-light@1x.png",
+    "image_dark": "toyling-idle-sheet-dark@1x.png",
+    "rest": "neutral",
+    "timing_unit_ms": 40,
+    "gap_ms": {
+      "day": [
+        2400,
+        5200
+      ],
+      "night": [
+        3200,
+        7200
+      ]
+    },
+    "day_uses": "light sheet (colour logo on light backgrounds)",
+    "night_uses": "dark sheet (reversed logo)",
+    "notes": "Play after the intro (or from rest): wait a random gap, pick a variant of the current mode by weight, play its frames, return to rest. Same frame size and gutter as the intro, so both share one canvas. Skip all of it for reduced motion. Night variants lean sleepy; day variants are lively."
+  }
+}

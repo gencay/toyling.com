@@ -28,6 +28,12 @@
   --rs: 3;     /* footer ridge cell scale */
   --header-h: 68px;
   --radius: 0;
+
+  /* dotted-notebook paper: pale dots on light paper, faint ones on navy */
+  --dot-on-light: rgba(16, 35, 63, 0.17);
+  --dot-on-dark: rgba(255, 255, 255, 0.11);
+  --dot: var(--dot-on-light);
+  --dot-gap: 20px;
 }
 
 html[data-theme="night"] {
@@ -36,6 +42,7 @@ html[data-theme="night"] {
   --surface: var(--navy);
   --surface-2: #10233F;
   --line: var(--snow);
+  --dot: var(--dot-on-dark);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -43,7 +50,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
-  background: var(--surface);
+  background-color: var(--surface);
   color: var(--ink);
   font: 400 1.0625rem/1.65 var(--font-body);
   text-rendering: optimizeLegibility;
@@ -65,7 +72,7 @@ a { color: inherit; }
 html[data-theme="day"] .night-only, html:not([data-theme]) .night-only { display: none !important; }
 html[data-theme="night"] .day-only { display: none !important; }
 
-.pixel, .brand img, .hero-logo, .polaroid img, .intro-canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
+.pixel, .brand img, .hero-logo, .sky-canvas, .polaroid img, .intro-canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
 .polaroid img { image-rendering: auto; }
 
 .container { width: min(1120px, 100% - 48px); margin-inline: auto; }
@@ -119,7 +126,7 @@ html[data-theme="night"] .site-nav a:hover { color: var(--yellow); }
 .hero {
   position: relative; overflow: hidden; isolation: isolate;
   height: max(600px, calc(100svh - var(--header-h)));
-  background: var(--sky);
+  background-color: var(--sky);
 }
 .layer {
   position: absolute; left: -24px; right: -24px; bottom: -4px;
@@ -134,12 +141,15 @@ html[data-theme="night"] .site-nav a:hover { color: var(--yellow); }
 .layer-far  { background-image: url("/assets/brand/hero/day-range-far@1x.png"); z-index: 1; }
 .layer-near { background-image: url("/assets/brand/hero/day-range-near@1x.png"); z-index: 3; }
 .layer-snow { background-image: url("/assets/brand/hero/day-snowfield@1x.png"); z-index: 4; }
+.layer-decor { background-image: url("/assets/brand/hero/day-decor@1x.png"); z-index: 5; }
 html[data-theme="night"] .layer-sky  { background-image: url("/assets/brand/hero/night-sky-stars@1x.png"); }
 html[data-theme="night"] .layer-far  { background-image: url("/assets/brand/hero/night-range-far@1x.png"); }
 html[data-theme="night"] .layer-near { background-image: url("/assets/brand/hero/night-range-near@1x.png"); }
 html[data-theme="night"] .layer-snow { background-image: url("/assets/brand/hero/night-snowfield@1x.png"); }
-/* with JS the night sky is redrawn from the kit's star list so no star ever sits behind the hero copy */
-html.js[data-theme="night"] .layer-sky { background-image: none; }
+html[data-theme="night"] .layer-decor { background-image: url("/assets/brand/hero/night-decor@1x.png"); }
+/* with JS the sky is redrawn (and, by day, animated) from the kit's item lists so nothing sits behind the hero copy */
+.hero .layer-sky.is-live { background-image: none; }
+.sky-canvas { position: absolute; bottom: 0; height: calc(180px * var(--s)); }
 /* narrow screens: shift the scenery so the tall Ida peak stays in view beside the logo */
 @media (max-width: 700px) {
   .layer { background-position: calc(50% + 48px * var(--s)) bottom; }
@@ -150,7 +160,18 @@ html.js[data-theme="night"] .layer-sky { background-image: none; }
   display: flex; flex-direction: column; align-items: center; text-align: center;
   padding: 0 20px; will-change: transform;
 }
-.hero-logo { width: calc(55px * var(--ls)); height: calc(68px * var(--ls)); }
+.hero-logo { position: relative; width: calc(55px * var(--ls)); height: calc(68px * var(--ls)); }
+.hero-logo img { display: block; width: 100%; height: 100%; }
+/* the animated logo: the stacked lockup plus a 1-cell gutter, so it sits one cell up and left of the static one */
+.logo-canvas {
+  position: absolute; left: calc(-1px * var(--ls)); top: calc(-1px * var(--ls));
+  width: calc(57px * var(--ls)); height: calc(70px * var(--ls)); visibility: hidden;
+}
+.hero-logo.is-live .logo-canvas { visibility: visible; }
+.hero-logo.is-live img { visibility: hidden; }
+/* while the player loads, hide the static logo so the intro does not pop in over it; show it if the player never starts */
+html.js .hero-logo:not(.is-live):not(.is-static) img { visibility: hidden; animation: logo-fallback 0s 3s forwards; }
+@keyframes logo-fallback { to { visibility: visible; } }
 .hero-tagline {
   margin: 18px 0 0; max-width: 34ch;
   font: 600 clamp(1.15rem, 2.4vw, 1.5rem)/1.35 var(--font-display);
@@ -170,9 +191,9 @@ html[data-theme="night"] .eyebrow { color: var(--yellow); }
 h2 { margin: 0 0 18px; font: 700 clamp(2rem, 4.6vw, 3.25rem)/1.1 var(--font-display); }
 .lede { font-size: 1.15rem; max-width: 52ch; }
 
-.games { background: var(--snow); color: var(--navy); }
+.games { background-color: var(--snow); color: var(--navy); --dot: var(--dot-on-light); }
 .games .eyebrow, html[data-theme="night"] .games .eyebrow { color: var(--blue); }
-html[data-theme="night"] .games { background: #FFFFFF; }
+html[data-theme="night"] .games { background-color: #FFFFFF; }
 .games .btn { border-color: var(--navy); color: var(--navy); }
 .games .btn:hover { background: var(--navy); color: var(--snow); }
 .games .btn-primary:hover { background: var(--orange); color: var(--navy); }
@@ -208,8 +229,8 @@ html[data-theme="night"] .games { background: #FFFFFF; }
 .polaroids.phones .tilt-b { right: 3%; top: 0; margin-top: 14%; }
 @media (min-width: 881px) { .games-grid.flip .polaroids { order: -1; } }
 
-.studio { background: var(--paper); color: var(--navy); overflow: hidden; }
-html[data-theme="night"] .studio { background: var(--navy); color: var(--snow); }
+.studio { background-color: var(--paper); color: var(--navy); overflow: hidden; }
+html[data-theme="night"] .studio { background-color: var(--navy); color: var(--snow); }
 .studio-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
 .intro-player { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .intro-canvas {
@@ -256,8 +277,8 @@ html[data-theme="night"] .intro-canvas { background: var(--navy); border-color: 
 .copyright { margin: 0; font-size: 0.95rem; }
 
 /* ------------------------------------------------------------------ game page */
-.game-hero { position: relative; background: var(--paper); color: var(--navy); padding: clamp(40px, 7vw, 88px) 0; overflow: hidden; }
-html[data-theme="night"] .game-hero { background: var(--navy); color: var(--snow); }
+.game-hero { position: relative; background-color: var(--paper); color: var(--navy); padding: clamp(40px, 7vw, 88px) 0; overflow: hidden; }
+html[data-theme="night"] .game-hero { background-color: var(--navy); color: var(--snow); }
 .game-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
 .game-title { margin: 0 0 14px; font: 700 clamp(2.6rem, 7vw, 4.8rem)/1 var(--font-display); }
 .made-by { display: block; width: calc(99px * 2); height: auto; margin-top: 28px; image-rendering: pixelated; }
@@ -274,6 +295,16 @@ html[data-theme="night"] .game-hero { background: var(--navy); color: var(--snow
 .feature-list h3 { margin: 0 0 6px; font: 700 1.3rem/1.2 var(--font-display); }
 .feature-list p { margin: 0; }
 .small-print { font-size: 0.95rem; max-width: 70ch; opacity: 1; }
+
+/* ------------------------------------------------------------------ dotted paper
+   Pale Moleskine-style dots, as if the pixel art were drawn in a dotted notebook. In the hero the dots sit on whole
+   cells of the scenery grid (site.js sets --dot-gap and --dot-pos); bands with their own colour (press, footer) stay
+   solid. */
+body, .hero, .games, .studio, .game-hero {
+  background-image: radial-gradient(circle at center, var(--dot) 0 1.1px, transparent 1.6px);
+  background-size: var(--dot-gap) var(--dot-gap);
+}
+.hero { background-position: var(--dot-pos, center bottom); }
 
 /* ------------------------------------------------------------------ responsive */
 @media (max-width: 880px) {

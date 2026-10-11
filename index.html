@@ -60,8 +60,11 @@
       <div class="layer layer-far" data-depth="0.3" aria-hidden="true"></div>
       <div class="hero-content" data-depth="0.38">
         <h1 id="hero-title" class="visually-hidden">Toyling Games</h1>
-        <img class="hero-logo day-only" src="/assets/brand/toyling-stacked-games-color.svg" width="55" height="68" alt="Toyling Games logo: a smiling snowy mountain with a game controller face">
-        <img class="hero-logo night-only" src="/assets/brand/toyling-stacked-games-reversed.svg" width="55" height="68" alt="Toyling Games logo: a smiling snowy mountain with a game controller face">
+        <div class="hero-logo" role="img" aria-label="Toyling Games logo: a smiling snowy mountain with a game controller face">
+          <img class="day-only" src="/assets/brand/toyling-stacked-games-color.svg" width="55" height="68" alt="">
+          <img class="night-only" src="/assets/brand/toyling-stacked-games-reversed.svg" width="55" height="68" alt="">
+          <canvas class="logo-canvas" width="57" height="70" aria-hidden="true"></canvas>
+        </div>
         <p class="hero-tagline">Mobile and Steam games where AI is part of the play.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#games">Play our games</a>
@@ -70,6 +73,7 @@
       </div>
       <div class="layer layer-near" data-depth="0.15" aria-hidden="true"></div>
       <div class="layer layer-snow" data-depth="0.05" aria-hidden="true"></div>
+      <div class="layer layer-decor" data-depth="0.05" aria-hidden="true"></div>
     </section>
 
     <section id="games" class="section games" aria-labelledby="games-title">
@@ -162,7 +166,7 @@
       </div>
       <div class="container studio-grid">
         <div class="intro-player">
-          <canvas class="intro-canvas" width="57" height="70" data-intro aria-label="Toyling studio intro animation: a mountain rises, snow lands on the summit and a controller face smiles. Click to skip." role="img"></canvas>
+          <canvas class="intro-canvas" width="57" height="70" data-intro aria-label="Toyling logo animation: the smiling mountain blinks, winks and hops by day and dozes off at night. Replay intro shows it rise and the controller face smile. Click to skip the intro." role="img"></canvas>
           <button class="btn btn-small" type="button" data-intro-replay>Replay intro</button>
         </div>
         <div>
