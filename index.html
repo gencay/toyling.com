@@ -3,6 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+      gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+    }
+  </script>
   <title>Toyling Games — indie games where AI is part of play</title>
   <meta name="description" content="Toyling is an indie studio making mobile and Steam games where AI is part of gameplay, including adaptive characters and evolving stories. Play Fuji City and the Mini City and duell demos in your browser.">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
