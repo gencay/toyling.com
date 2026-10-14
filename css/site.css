@@ -218,7 +218,7 @@ html[data-theme="night"] .games { background-color: #FFFFFF; }
 /* One block per game, alternating sides. Screenshots without a print border of their own get an instant-photo frame;
    landscape boards and phone screens use proportional sizes so each tilted pair stays inside its box at any width. */
 .game-block + .game-block { margin-top: clamp(72px, 10vw, 128px); }
-.arcade-invite { margin-top: clamp(72px, 10vw, 128px); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.arcade-invite { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .arcade-invite .lede { max-width: 60ch; margin: 0; }
 .game-heading { margin: 0 0 18px; font: 700 clamp(2rem, 4.6vw, 3.25rem)/1.1 var(--font-display); }
 .polaroids.framed .polaroid { padding: 10px 10px 30px; }
