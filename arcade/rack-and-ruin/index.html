@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#14121c">
+  <title>Rack &amp; Ruin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <header class="hud">
+      <div class="score-bar" role="progressbar" aria-label="Round score" id="hud-progress" aria-valuemin="0">
+        <div class="score-fill" id="hud-fill"></div>
+        <span class="score-text" id="hud-score">0 / 150</span>
+      </div>
+    </header>
+
+    <div class="play">
+      <aside class="side side-left" aria-label="Round and run">
+        <span class="chip" id="hud-round">R1/5</span>
+        <span class="chip money" id="hud-money">$4</span>
+        <span class="chip mult" id="hud-mult">+0</span>
+        <button class="chip chip-btn" id="btn-shots" type="button" aria-haspopup="dialog" aria-label="Shot types">Shots</button>
+        <button class="chip chip-btn" id="btn-undo" type="button" aria-label="Retry the last shot (once per round)">↺</button>
+        <button class="chip chip-btn" id="btn-sound" type="button" aria-label="Sound on" aria-pressed="true">♪</button>
+      </aside>
+
+      <div class="table-wrap" id="table-wrap">
+        <canvas id="table" width="310" height="595" aria-label="Pool table. Touch: drag around the cue ball to aim, pull back anywhere and release to shoot; tap a ball to see it. Mouse: point to aim, press, drag back, release."></canvas>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <div class="theatre" id="theatre" hidden aria-live="polite">
+          <div class="theatre-type" id="th-type">Single</div>
+          <div class="theatre-boxes">
+            <span class="th-box th-points" id="th-points">0</span>
+            <span class="th-x">×</span>
+            <span class="th-box th-mult" id="th-mult">0</span>
+          </div>
+          <div class="theatre-total" id="th-total"></div>
+        </div>
+      </div>
+
+      <aside class="side side-right" aria-label="Your coins">
+        <div class="mods" id="mods" aria-label="Your modifier coins and special coins"></div>
+      </aside>
+    </div>
+
+    <section class="overlay" id="ov-start" aria-labelledby="start-title">
+      <div class="panel">
+        <h1 id="start-title">Rack &amp; Ruin</h1>
+        <p class="lead">Pot balls. Beat 5 targets. Upgrade between rounds.</p>
+        <ol class="map" id="run-map"></ol>
+        <p class="rule">A ball scores its number. A pocket multiplies it (all start ×1). Your shot type adds Mult. Coins change the rules.</p>
+        <p class="best" id="best"></p>
+        <button class="btn primary" id="btn-start" type="button">Rack 'em</button>
+      </div>
+    </section>
+
+    <section class="overlay" id="ov-shop" hidden aria-labelledby="shop-title">
+      <div class="panel">
+        <h2 id="shop-title">Round cleared!</h2>
+        <p class="lead" id="shop-income"></p>
+        <div class="offers" id="offers"></div>
+        <p class="rule">Your coins (tap one to see it; specials can be used):</p>
+        <div class="mods" id="shop-mods"></div>
+        <div class="shop-actions">
+          <button class="btn" id="btn-reroll" type="button">Reroll $1</button>
+          <button class="btn primary" id="btn-next" type="button">Next round</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="overlay" id="ov-shots" hidden aria-labelledby="shots-title">
+      <div class="panel">
+        <h2 id="shots-title">Shot types</h2>
+        <p class="rule">Your shot scores as its best type. Its Mult multiplies the ball points. Chalk raises it.</p>
+        <ol class="shot-list" id="shot-list"></ol>
+        <button class="btn primary" id="btn-shots-close" type="button">Back to the table</button>
+      </div>
+    </section>
+
+    <section class="overlay" id="ov-end" hidden aria-labelledby="end-title">
+      <div class="panel">
+        <h2 id="end-title">Out of shots</h2>
+        <p class="lead" id="end-text"></p>
+        <button class="btn" id="btn-end-undo" type="button" hidden>↺ Retry the last shot</button>
+        <button class="btn primary" id="btn-again" type="button">New run</button>
+      </div>
+    </section>
+    <canvas id="goo" aria-hidden="true"></canvas>
+    <div class="tip" id="tip" role="dialog" aria-live="polite" hidden>
+      <div class="tip-title" id="tip-title"></div>
+      <div class="tip-text" id="tip-text"></div>
+      <div class="tip-actions" id="tip-actions"></div>
+    </div>
+  </main>
+  <script type="module" src="app.js"></script>
+<a id="toyling-arcade-back" href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a></body>
+</html>

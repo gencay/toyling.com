@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+      gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+    }
+  </script>
+  <meta name="theme-color" content="#0b162b">
+  <meta name="description" content="Play the duell browser demo: five original trivia questions against Pip, a simulated opponent, on this device.">
+  <title>duell - a little friendly rivalry</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="vendor/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="vendor/fontawesome/css/solid.min.css">
+  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="demo.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="wordmark" href="./" aria-label="duell home">duell<span>.</span></a>
+      <details class="header-tools">
+        <summary aria-label="Settings" data-i18n-label="Settings"><i class="fa-solid fa-gear" aria-hidden="true"></i></summary>
+        <div class="settings-panel">
+          <div class="appearance-control"><label for="theme-selector" data-i18n="Appearance">Appearance</label><select id="theme-selector"><option value="glass">Liquid Glass</option><option value="material">Material</option></select></div>
+          <div class="language-control"><label for="language-selector" data-i18n="Interface language">Interface language</label><select id="language-selector"><option value="en" lang="en">English</option></select></div>
+        </div>
+      </details>
+    </header>
+    <p class="demo-note" data-demo-note>Browser demo: duell runs entirely on this device.</p>
+    <div id="notice" role="status" aria-live="polite" hidden></div>
+    <main id="app"><section class="card"><h1>A little friendly rivalry.</h1><p>Getting the questions ready...</p></section></main>
+    <footer><span data-i18n="Original questions. No ads. Just curiosity.">Original questions. No ads. Just curiosity.</span><span data-i18n="Independent prototype - not affiliated with QuizDuel or MAG Interactive.">Independent prototype - not affiliated with QuizDuel or MAG Interactive.</span></footer>
+  </div>
+  <dialog id="feedback-dialog" aria-labelledby="feedback-title" aria-describedby="feedback-question">
+    <form id="feedback-form">
+      <span class="eyebrow"><i class="fa-solid fa-thumbs-down" aria-hidden="true"></i> <span data-i18n="QUESTION FEEDBACK">QUESTION FEEDBACK</span></span>
+      <h2 id="feedback-title" data-i18n="Help us make it better.">Help us make it better.</h2>
+      <p id="feedback-question"></p>
+      <label for="feedback-comment"><span data-i18n="What could be better?">What could be better?</span> <span class="hint" data-i18n="(optional)">(optional)</span></label>
+      <div class="feedback-field">
+        <textarea id="feedback-comment" name="comment" maxlength="500" placeholder="An unclear answer, a tricky phrase, or anything else..." data-i18n-placeholder="An unclear answer, a tricky phrase, or anything else..." aria-describedby="feedback-hint"></textarea>
+        <button type="submit" class="feedback-submit"><span data-i18n="Send feedback">Send feedback</span> <i class="fa-solid fa-paper-plane" aria-hidden="true"></i></button>
+      </div>
+      <p class="hint" id="feedback-hint" data-i18n="Your thumbs-down is enough. A comment is optional. The game continues while you write.">Your thumbs-down is enough. A comment is optional. The game continues while you write.</p>
+      <p id="feedback-result" role="status" aria-live="polite" hidden></p>
+      <button type="button" data-action="close-feedback" class="text-button" data-i18n="Cancel">Cancel</button>
+    </form>
+  </dialog>
+<a id="toyling-arcade-back" href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a></body>
+</html>

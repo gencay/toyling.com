@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tidewall (prototype)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="board">
+      <canvas id="map" width="768" height="512" aria-label="Map. Click a tile to build or scout."></canvas>
+      <p id="hover" class="hover" aria-live="polite"></p>
+    </section>
+    <aside class="panel">
+      <h1>Tidewall <small>prototype</small></h1>
+      <dl id="stats" class="stats"></dl>
+      <h2>Tool</h2>
+      <div id="tools" class="tools" role="radiogroup" aria-label="Tool"></div>
+      <p id="toolHelp" class="help"></p>
+      <div class="actions">
+        <button id="load" type="button">Load ship</button>
+        <button id="endDay" type="button" class="primary">End day <kbd>Space</kbd></button>
+      </div>
+      <p id="message" class="message" role="status"></p>
+      <h2>Log</h2>
+      <ol id="log" class="log"></ol>
+      <p class="help">Seed <span id="seed"></span> · <a id="newRun" href="#">New run</a></p>
+    </aside>
+  </main>
+  <script type="module" src="app.js"></script>
+<a id="toyling-arcade-back" href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a></body>
+</html>

@@ -1,0 +1,14 @@
+/* duell browser demo: hide what needs a shared server and show the demo note in duell's own style. */
+#create-form button[value="friend"], #code-form { display: none !important; }
+#create-form .play-buttons { grid-template-columns: 1fr; }
+.home-extras { justify-content: flex-start; }
+
+.demo-note {
+  margin: 16px 0 0; padding: 12px 16px;
+  border: 1px solid var(--line); border-radius: 16px;
+  background: var(--panel); color: var(--muted);
+  font-size: 13px; line-height: 1.45;
+}
+.demo-note a { color: var(--text); font-weight: 650; }
+/* Keep the board clear while a duel or practice round is on screen. */
+.shell:has(#app .game) .demo-note { display: none; }

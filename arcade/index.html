@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arcade — play Toyling games</title>
+  <meta name="description" content="The Toyling Arcade: play every Toyling game and prototype in your browser, from word searches and pool to roguelikes and racers.">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#FFF6E5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#10233F" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Toyling Games">
+  <meta property="og:title" content="Toyling Arcade">
+  <meta property="og:description" content="Every Toyling game, playable in your browser.">
+  <meta property="og:url" content="https://toyling.com/arcade/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pixelify+Sans:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="/css/site.css">
+  <style>
+    .arcade-hero { padding: 48px 0 8px; }
+    .arcade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px; padding-bottom: 64px; }
+    .arcade-card { display: flex; flex-direction: column; overflow: hidden; background: var(--surface); color: var(--ink); border: 3px solid var(--line); border-radius: var(--radius); box-shadow: 4px 4px 0 var(--line); }
+    .arcade-shot { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--navy); border-bottom: 3px solid var(--line); }
+    .arcade-shot-empty { background: linear-gradient(135deg, #ffd6a5, #a5d8ff); }
+    .arcade-card-body { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 22px; flex: 1; }
+    .arcade-card-body h2 { margin: 0; font-size: 1.5rem; }
+    .arcade-card-body p { margin: 0; }
+    .arcade-card-body .btn { margin-top: auto; align-self: flex-start; }
+    .arcade-note { margin-top: auto !important; font-weight: 700; opacity: 0.8; }
+  </style>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('toyling-theme');
+        if (t === 'day' || t === 'night') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Toyling Games home">
+      <img class="day-only" src="/assets/brand/toyling-header-light.svg" width="98" height="36" alt="Toyling">
+      <img class="night-only" src="/assets/brand/toyling-header-dark.svg" width="98" height="36" alt="Toyling">
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/arcade/" aria-current="page">Arcade</a>
+      <a href="/#games">Games</a>
+      <a href="/#studio">Studio</a>
+      <a href="/#press">Press</a>
+      <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle>
+        <span class="theme-icon" aria-hidden="true"></span>
+        <span class="theme-label">Night</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="container arcade-hero" aria-labelledby="arcade-title">
+      <p class="eyebrow">Play in your browser</p>
+      <h1 id="arcade-title" class="game-title">Toyling Arcade</h1>
+      <p class="lede">Every Toyling game and prototype in one place. Most are early builds: they change often, and every one runs on your phone, tablet or computer with no install.</p>
+    </section>
+    <section class="container arcade-grid" aria-label="Games">
+      <article class="arcade-card" id="zarhane">
+        <img class="arcade-shot" src="/arcade/shots/zarhane.jpg" width="640" height="400" loading="lazy" alt="Zarhane">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Tavla roguelike</p>
+          <h2>Zarhane</h2>
+          <p>Backgammon roguelike: your dice are your deck, the doubling cube is your bet, and every Ağa bends the rules.</p>
+          <a class="btn btn-primary" href="/arcade/zarhane/">Play Zarhane</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="ihale">
+        <img class="arcade-shot" src="/arcade/shots/ihale.jpg" width="640" height="400" loading="lazy" alt="İhale">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Batak roguelike</p>
+          <h2>İhale</h2>
+          <p>Batak roguelike: your bid is your multiplier, and Koz, the voice in your head, dares you to go higher.</p>
+          <a class="btn btn-primary" href="/arcade/ihale/">Play İhale</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="fuji-city">
+        <img class="arcade-shot" src="/arcade/shots/fuji-city.jpg" width="640" height="400" loading="lazy" alt="Fuji City">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Procedural city flight</p>
+          <h2>Fuji City</h2>
+          <p>Fly over a procedurally generated city under Mount Fuji, framed like an instant photo.</p>
+          <a class="btn btn-primary" href="https://fuji-city.toyling.com/">Play Fuji City</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="mini-city">
+        <img class="arcade-shot" src="/arcade/shots/mini-city.jpg" width="640" height="400" loading="lazy" alt="Mini City">
+        <div class="arcade-card-body">
+          <p class="eyebrow">City builder</p>
+          <h2>Mini City</h2>
+          <p>Draw bus routes across a pixel valley and keep a little city moving (the Defold browser prototype).</p>
+          <a class="btn btn-primary" href="/arcade/mini-city/">Play Mini City</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="duell">
+        <img class="arcade-shot" src="/arcade/shots/duell.jpg" width="640" height="400" loading="lazy" alt="duell">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Trivia duel</p>
+          <h2>duell</h2>
+          <p>Five-question trivia duels against Pip, playable right in your browser.</p>
+          <a class="btn btn-primary" href="/arcade/duell/">Play duell</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="quiz-city">
+        <div class="arcade-shot arcade-shot-empty" aria-hidden="true"></div>
+        <div class="arcade-card-body">
+          <p class="eyebrow">Live party quiz</p>
+          <h2>Quiz City</h2>
+          <p>Host a live quiz on a big screen while everyone answers on their phones.</p>
+          <p class="arcade-note">Live party quiz: needs the host computer, so it plays on the home arcade only.</p>
+        </div>
+      </article>
+      <article class="arcade-card" id="word-lanterns">
+        <img class="arcade-shot" src="/arcade/shots/word-lanterns.jpg" width="640" height="400" loading="lazy" alt="Word Lanterns">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Relaxing word search</p>
+          <h2>Word Lanterns</h2>
+          <p>A calm word search: light a lantern for every word, and hear a note for every letter.</p>
+          <a class="btn btn-primary" href="/arcade/word-lanterns/">Play Word Lanterns</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="tidewall">
+        <img class="arcade-shot" src="/arcade/shots/tidewall.jpg" width="640" height="400" loading="lazy" alt="Tidewall">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Roguelite tide builder</p>
+          <h2>Tidewall</h2>
+          <p>Build a coastal outpost and fill the ship before the tide takes it.</p>
+          <a class="btn btn-primary" href="/arcade/tidewall/">Play Tidewall</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="rack-and-ruin">
+        <img class="arcade-shot" src="/arcade/shots/rack-and-ruin.jpg" width="640" height="400" loading="lazy" alt="Rack &amp; Ruin">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Pool roguelike</p>
+          <h2>Rack &amp; Ruin</h2>
+          <p>Pool roguelike: pot balls into pockets, beat five score targets and collect coins between rounds.</p>
+          <a class="btn btn-primary" href="/arcade/rack-and-ruin/">Play Rack &amp; Ruin</a>
+        </div>
+      </article>
+      <article class="arcade-card" id="sportster-rush">
+        <img class="arcade-shot" src="/arcade/shots/sportster-rush.jpg" width="640" height="400" loading="lazy" alt="Sportster Rush">
+        <div class="arcade-card-body">
+          <p class="eyebrow">Cartoon moto racer</p>
+          <h2>Sportster Rush</h2>
+          <p>Race a cartoon Sportster S against AI models whose bikes are as fast as their tokens per second.</p>
+          <a class="btn btn-primary" href="/arcade/sportster-rush/">Play Sportster Rush</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-ridge" aria-hidden="true" data-ridge></div>
+    <div class="container footer-inner">
+      <img src="/assets/brand/toyling-footer-mono-white.svg" width="110" height="136" alt="Toyling Games">
+      <nav aria-label="Footer">
+        <a href="/arcade/">Arcade</a>
+        <a href="/#games">Games</a>
+        <a href="/games/fuji-city/">Fuji City</a>
+        <a href="/games/mini-city/">Mini City</a>
+        <a href="/games/duell/">duell</a>
+        <a href="/#press">Press kit</a>
+      </nav>
+      <p class="copyright">© 2026 Toyling. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

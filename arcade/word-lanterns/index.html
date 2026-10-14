@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#262a52">
+  <title>Word Lanterns</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="home" class="screen home">
+    <canvas id="homeScene" class="pixel scene" width="160" height="72" aria-hidden="true"></canvas>
+    <div class="home-card">
+      <h1>Word Lanterns</h1>
+      <p class="tagline">Find the words. Light the road.</p>
+      <p id="homeProgress" class="progress-note"></p>
+      <button id="playBtn" class="btn primary big" type="button">Play</button>
+      <div class="home-links">
+        <button id="homeSettings" class="btn" type="button">Settings</button>
+        <button id="homeShop" class="btn" type="button">Shop</button>
+      </div>
+    </div>
+  </main>
+
+  <main id="game" class="screen game" hidden>
+    <header class="topbar">
+      <button id="backBtn" class="btn" type="button">Road</button>
+      <p id="boardLabel" class="board-label"></p>
+      <button id="settingsBtn" class="btn" type="button">Settings</button>
+    </header>
+    <div id="stripWrap" class="strip-wrap">
+      <canvas id="lanternStrip" class="pixel strip" width="160" height="20" aria-hidden="true"></canvas>
+      <div id="banner" class="banner" role="status" aria-live="polite"><span id="bannerText"></span></div>
+    </div>
+    <div class="stage">
+      <canvas id="scenery" class="scenery" aria-hidden="true"></canvas>
+      <section class="words" aria-labelledby="category">
+        <div class="words-head">
+          <h2 id="category" class="category"></h2>
+          <span id="foundCount" class="found-count"></span>
+        </div>
+        <ul id="wordList" class="word-list"></ul>
+      </section>
+      <nav class="controls" aria-label="Game controls">
+        <button id="hintBtn" class="ctrl" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+          <span>Hint</span><span id="hintCount" class="pill">5</span>
+        </button>
+        <button id="rotateBtn" class="ctrl rotate" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>
+          <span>Rotate</span>
+        </button>
+      </nav>
+      <div id="boardZone" class="board-zone">
+        <div id="board" class="board" role="grid" aria-label="Letter grid">
+          <svg id="marks" class="marks" aria-hidden="true"><g id="marksG"></g></svg>
+          <div id="cells" class="cells"></div>
+        </div>
+        <div id="praise" class="praise" aria-hidden="true"></div>
+        <div id="mascot" class="mascot" hidden aria-hidden="true">
+          <svg viewBox="0 0 64 72">
+            <defs>
+              <radialGradient id="lumiBody" cx="0.38" cy="0.32" r="0.75">
+                <stop offset="0" stop-color="#fff2a8"/>
+                <stop offset="0.45" stop-color="#ffc23d"/>
+                <stop offset="1" stop-color="#ff8a1f"/>
+              </radialGradient>
+            </defs>
+            <g class="leg leg-a"><rect x="21" y="52" width="7" height="14" rx="3.5" fill="#6b3a05"/><ellipse cx="24" cy="66" rx="6" ry="3.5" fill="#6b3a05"/></g>
+            <g class="leg leg-b"><rect x="36" y="52" width="7" height="14" rx="3.5" fill="#6b3a05"/><ellipse cx="40" cy="66" rx="6" ry="3.5" fill="#6b3a05"/></g>
+            <g class="body">
+              <rect x="24" y="2" width="16" height="7" rx="3" fill="#6b3a05"/>
+              <circle cx="32" cy="34" r="23" fill="url(#lumiBody)" stroke="#6b3a05" stroke-width="3"/>
+              <ellipse cx="24" cy="24" rx="6" ry="4" fill="#ffffff" opacity="0.7"/>
+              <circle cx="24" cy="34" r="6" fill="#fff"/><circle cx="40" cy="34" r="6" fill="#fff"/>
+              <circle class="pupil" cx="25" cy="35" r="3.2" fill="#2b2540"/><circle class="pupil" cx="41" cy="35" r="3.2" fill="#2b2540"/>
+              <circle cx="18" cy="43" r="3.5" fill="#ff7aa8" opacity="0.7"/><circle cx="46" cy="43" r="3.5" fill="#ff7aa8" opacity="0.7"/>
+              <path d="M28 45 q4 4 8 0" fill="none" stroke="#6b3a05" stroke-width="2.5" stroke-linecap="round"/>
+              <g class="arm"><path d="M53 36 q8 -4 9 -12" fill="none" stroke="#6b3a05" stroke-width="4.5" stroke-linecap="round"/><circle cx="62" cy="23" r="4" fill="#ffc23d" stroke="#6b3a05" stroke-width="2.5"/></g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <aside id="adBar" class="ad-bar" aria-label="Advertisement">
+      <span class="ad-tag">Ad</span>
+      <span class="ad-text">Banner ad placeholder (test build)</span>
+      <button id="adBarRemove" class="btn small" type="button">Remove ads</button>
+    </aside>
+  </main>
+  <canvas id="fx" class="fx" aria-hidden="true"></canvas>
+
+  <div id="complete" class="overlay" hidden>
+    <div class="dialog complete-card" role="dialog" aria-modal="true" aria-labelledby="completeTitle">
+      <canvas id="completeArt" class="pixel complete-art" width="48" height="40" aria-hidden="true"></canvas>
+      <h2 id="completeTitle">Board lit!</h2>
+      <p id="completeNote"></p>
+      <div id="adSlot" class="ad-slot">
+        <p class="ad-label">Advertisement</p>
+        <p class="ad-body">Ad placeholder in this test build.</p>
+        <button id="adRemove" class="btn small" type="button">Remove ads</button>
+      </div>
+      <button id="nextBtn" class="btn primary big" type="button">Next board</button>
+    </div>
+  </div>
+
+  <div id="settings" class="overlay" hidden>
+    <div class="dialog sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="sheet-head">
+        <h2 id="settingsTitle">Settings</h2>
+        <button class="btn close" type="button" data-close>Done</button>
+      </div>
+      <label class="field">Word theme
+        <span class="select-wrap">
+          <select id="themeSelect"></select>
+          <svg class="chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5"/></svg>
+        </span>
+      </label>
+      <label class="field">Soundtrack
+        <span class="select-wrap">
+          <select id="trackSelect"></select>
+          <svg class="chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5"/></svg>
+        </span>
+      </label>
+      <label class="field">Text size
+        <span class="select-wrap">
+          <select id="textSelect">
+            <option value="normal">Normal</option>
+            <option value="large">Large</option>
+            <option value="xl">Extra large</option>
+          </select>
+          <svg class="chevron" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5"/></svg>
+        </span>
+      </label>
+      <label class="toggle"><input id="musicToggle" type="checkbox"> Music</label>
+      <label class="field">Music volume
+        <input id="volumeRange" type="range" min="0" max="100" step="5">
+      </label>
+      <label class="toggle"><input id="sfxToggle" type="checkbox"> Sound effects</label>
+      <label class="toggle"><input id="vibrateToggle" type="checkbox"> Vibration</label>
+      <div class="sheet-actions">
+        <button id="openShop" class="btn" type="button">Shop</button>
+        <button id="newBoardBtn" class="btn" type="button">New puzzle at this level</button>
+        <button id="resetBtn" class="btn danger" type="button">Reset progress</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="shop" class="overlay" hidden>
+    <div class="dialog sheet" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+      <div class="sheet-head">
+        <h2 id="shopTitle">Shop</h2>
+        <button class="btn close" type="button" data-close>Done</button>
+      </div>
+      <p class="test-store">Test store: nothing is charged. Purchases only unlock items in this browser.</p>
+      <ul id="shopList" class="shop-list"></ul>
+      <button id="restoreBtn" class="btn" type="button">Restore purchases</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

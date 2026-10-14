@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zarhane: a tavla roguelike</title>
+    <meta name="description" content="Backgammon roguelike: your dice are your deck, the doubling cube is your bet, and every Ağa bends the rules." />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='10' y='10' width='80' height='80' rx='16' fill='%23f3e7d3'/><circle cx='32' cy='32' r='9' fill='%237a2e22'/><circle cx='68' cy='68' r='9' fill='%237a2e22'/><circle cx='50' cy='50' r='9' fill='%237a2e22'/></svg>" />
+  </head>
+  <body>
+    <main id="app" aria-live="polite"></main>
+    <div id="toast" role="status"></div>
+    <script type="module" src="./main.js"></script>
+  <a id="toyling-arcade-back" href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a></body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "toyling": "85f0877",
+  "published": "2026-10-14T20:32:17.307Z",
+  "games": [
+    {
+      "slug": "zarhane",
+      "name": "Zarhane",
+      "mode": "copy",
+      "commit": null,
+      "uncommitted": null,
+      "gitRepo": false,
+      "built": "2026-10-14T20:31:45.312Z"
+    },
+    {
+      "slug": "ihale",
+      "name": "İhale",
+      "mode": "copy",
+      "commit": null,
+      "uncommitted": null,
+      "gitRepo": false,
+      "built": "2026-10-14T20:31:45.627Z"
+    },
+    {
+      "slug": "fuji-city",
+      "name": "Fuji City",
+      "mode": "external",
+      "url": "https://fuji-city.toyling.com/"
+    },
+    {
+      "slug": "mini-city",
+      "name": "Mini City",
+      "mode": "copy",
+      "commit": "6f29ac9",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-14T20:31:49.970Z"
+    },
+    {
+      "slug": "duell",
+      "name": "duell",
+      "mode": "copy",
+      "commit": "7b34c55",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-14T20:31:50.577Z"
+    },
+    {
+      "slug": "quiz-city",
+      "name": "Quiz City",
+      "mode": "home",
+      "url": null
+    },
+    {
+      "slug": "word-lanterns",
+      "name": "Word Lanterns",
+      "mode": "copy",
+      "commit": "e3af1e6",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-14T20:31:58.370Z"
+    },
+    {
+      "slug": "tidewall",
+      "name": "Tidewall",
+      "mode": "copy",
+      "commit": null,
+      "uncommitted": null,
+      "gitRepo": false,
+      "built": "2026-10-14T20:31:58.560Z"
+    },
+    {
+      "slug": "rack-and-ruin",
+      "name": "Rack & Ruin",
+      "mode": "copy",
+      "commit": "3dce3b2",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-14T20:32:16.872Z"
+    },
+    {
+      "slug": "sportster-rush",
+      "name": "Sportster Rush",
+      "mode": "copy",
+      "commit": "22d6783",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-14T20:32:17.036Z"
+    }
+  ]
+}

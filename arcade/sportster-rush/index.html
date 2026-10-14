@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js): Google Analytics for toyling.com. It reports only from toyling.com, not from local previews. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6MPHWLFN1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (/^(www\.)?toyling\.com$/.test(location.hostname)) {
+    gtag('config', 'G-6MPHWLFN1T', { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sportster Rush: you vs the models</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="c" aria-label="Race view"></canvas>
+
+<div id="hud" hidden>
+  <div class="panel left">
+    <div class="big" id="place">1/8</div>
+    <div id="speed">0 km/h</div>
+    <div class="bar"><span id="boost"></span></div><div class="tiny">BOOST (Space)</div>
+    <div class="tiny">Motor resolution: <b id="res">4K</b></div>
+    <div id="item" class="item">No nerf (grab a ? box)</div>
+  </div>
+  <div class="panel right">
+    <div class="track"><span id="prog"></span></div>
+    <ol id="board"></ol>
+  </div>
+  <ol id="feed" aria-live="polite" aria-label="Race commentary"></ol>
+  <div id="lights" hidden aria-label="Start lights"><i></i><i></i><i></i><i></i><i></i></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <button id="cordBtn" class="cord" title="Pull the power cord (P)">🔌 Pull the cord</button>
+  <div id="touch">
+    <button data-k="ArrowLeft">◀</button><button data-k="ArrowRight">▶</button>
+    <button data-k="KeyE">Nerf</button><button data-k="Space">Boost</button>
+  </div>
+</div>
+
+<div id="suggest" class="modal small" hidden>
+  <p><b>Last 10% and you're behind.</b><br>Those models run on electricity. Your Sportster runs on gasoline.<br>Pull the cord?</p>
+  <div class="row"><button id="pullYes" class="primary">🔌 Yank it</button><button id="pullNo">No, I'll win honestly</button></div>
+</div>
+
+<div id="menu" class="modal">
+  <h1>Sportster Rush</h1>
+  <p class="sub">Your cartoon Sportster S vs. AI models on their own custom bikes. Model speed comes from output tokens/s and
+  bike polygon quality from AA-3D Elo (<a href="https://artificialanalysis.ai/" target="_blank" rel="noopener">Artificial Analysis</a>, snapshot <span id="snap"></span>).</p>
+  <div class="row">
+    <label>Field <span class="selwrap"><select id="field">
+      <option value="ladder">Speed ladder (7 models, fastest to slowest)</option>
+      <option value="fastest">Fastest 7 (hard)</option>
+      <option value="slowest">Slowest 7 (warm-up)</option>
+      <option value="all">All 24 models (chaos)</option>
+    </select></span></label>
+    <button id="start" class="primary">Ride ▶</button>
+  </div>
+  <div class="tablewrap"><table id="roster"><thead><tr><th></th><th>Model</th><th>tok/s</th><th>Bike km/h</th><th>AA-3D</th><th>Bike look</th></tr></thead><tbody></tbody></table></div>
+  <p class="keys"><b>Keys:</b> auto-throttle · ↑/W or Shift tuck · ↓/S brake · ←→/AD steer · Space boost · E fire nerf · P pull the cord · Esc pause<br>
+  <b>Tips:</b> sit 5–25 m behind a model to slipstream (refills boost). ? boxes give nerfs: 429 Rate Limit, Context Flood, Hallucination, Token Boost.
+  Grid order is fastest model on pole down to you in last. Every AI bike runs on a graphics card. Pulled cords only buy 2 seconds: the models escape the sandbox and come back ahead of you. Fall behind and your motor drops resolution, down to 144p, and gets a little heavier.</p>
+</div>
+
+<div id="result" class="modal small" hidden>
+  <h2 id="resTitle"></h2>
+  <p id="resMsg"></p>
+  <ol id="resList"></ol>
+  <div class="row"><button id="again" class="primary">Race again</button><button id="toMenu">Change field</button></div>
+</div>
+
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script type="module" src="game.js"></script>
+</body>
+</html>
