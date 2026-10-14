@@ -1,6 +1,6 @@
 {
-  "toyling": "85f0877",
-  "published": "2026-10-14T20:32:17.307Z",
+  "toyling": "e89b64a",
+  "published": "2026-10-14T20:41:50.256Z",
   "games": [
     {
       "slug": "zarhane",
@@ -9,7 +9,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-14T20:31:45.312Z"
+      "built": "2026-10-14T20:41:22.827Z"
     },
     {
       "slug": "ihale",
@@ -18,7 +18,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-14T20:31:45.627Z"
+      "built": "2026-10-14T20:41:23.147Z"
     },
     {
       "slug": "fuji-city",
@@ -33,7 +33,7 @@
       "commit": "6f29ac9",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-14T20:31:49.970Z"
+      "built": "2026-10-14T20:41:26.752Z"
     },
     {
       "slug": "duell",
@@ -42,7 +42,7 @@
       "commit": "7b34c55",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-14T20:31:50.577Z"
+      "built": "2026-10-14T20:41:27.057Z"
     },
     {
       "slug": "quiz-city",
@@ -57,7 +57,7 @@
       "commit": "e3af1e6",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-14T20:31:58.370Z"
+      "built": "2026-10-14T20:41:34.083Z"
     },
     {
       "slug": "tidewall",
@@ -66,7 +66,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-14T20:31:58.560Z"
+      "built": "2026-10-14T20:41:34.263Z"
     },
     {
       "slug": "rack-and-ruin",
@@ -75,7 +75,7 @@
       "commit": "3dce3b2",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-14T20:32:16.872Z"
+      "built": "2026-10-14T20:41:49.920Z"
     },
     {
       "slug": "sportster-rush",
@@ -84,7 +84,7 @@
       "commit": "22d6783",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-14T20:32:17.036Z"
+      "built": "2026-10-14T20:41:50.060Z"
     }
   ]
 }

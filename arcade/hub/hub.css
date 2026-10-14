@@ -1,0 +1,127 @@
+:root { color-scheme: dark; --amber: #ff8a2a; --amber-dim: #a8551a; --term: #6cff9a; --bg: #050505; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--amber); font: 15px/1.45 "Courier New", ui-monospace, monospace; overflow: hidden; }
+#scene { position: fixed; inset: 0; width: 100vw; height: 100vh; image-rendering: pixelated; cursor: pointer; }
+.fx { position: fixed; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.85) 100%); mix-blend-mode: multiply; }
+.fx::after { content: ''; position: absolute; inset: -50%; opacity: .07; animation: grain .35s steps(3) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@keyframes grain { 0% { transform: translate(0, 0); } 33% { transform: translate(-3%, 2%); } 66% { transform: translate(2%, -3%); } }
+#hud { position: fixed; left: 24px; right: 24px; bottom: 22px; pointer-events: none; text-transform: uppercase; text-shadow: 0 0 6px rgba(255,120,30,.7); }
+.brand { position: fixed; top: 18px; left: 24px; font-weight: 700; letter-spacing: 3px; font-size: 18px; }
+.brand span { color: var(--amber-dim); font-size: 13px; letter-spacing: 1px; }
+#sel { max-width: 640px; border-left: 3px solid var(--amber); padding: 6px 14px; background: rgba(10,4,0,.55); }
+#sel .nm { font-size: 30px; font-weight: 700; letter-spacing: 2px; }
+#sel .meta { color: var(--amber-dim); font-size: 13px; }
+#sel .bl { text-transform: none; font-size: 14px; color: #ffb27a; }
+#sel .bad { color: #ff3b2f; }
+.hint { margin-top: 10px; font-size: 12px; color: var(--amber-dim); letter-spacing: 1px; }
+#listBtn { position: fixed; top: 14px; right: 18px; font: 700 14px "Courier New", monospace; color: var(--amber); background: rgba(10,4,0,.7);
+  border: 2px solid var(--amber); padding: 8px 14px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+#listBtn:hover, #listBtn[aria-expanded="true"] { background: var(--amber); color: #120600; }
+button:focus-visible, a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+#fade { position: fixed; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .35s; }
+#fade.on { opacity: 1; }
+#term { position: fixed; top: 64px; right: 18px; bottom: 18px; width: min(560px, calc(100vw - 36px)); overflow: auto; padding: 16px 20px;
+  background: rgba(2, 12, 5, .94); color: var(--term); border: 2px solid var(--term); text-shadow: 0 0 5px rgba(108,255,154,.5); }
+#term h1 { margin: 0; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; }
+#term .sub { font-size: 12px; opacity: .8; }
+#term .section { font-size: 16px; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px dashed; margin: 18px 0 6px; }
+#term ol { padding-left: 22px; margin: 0; }
+#term li { margin: 0 0 12px; }
+#term li.off { opacity: .55; }
+#term .nm { font-weight: 700; }
+#term .tag, #term small { display: block; font-size: 12px; opacity: .8; }
+#term a { color: var(--term); }
+#term .go { float: right; border: 1px solid; padding: 0 8px; text-decoration: none; }
+#term code { background: #0008; padding: 0 4px; }
+@media (max-width: 640px) { #sel .nm { font-size: 22px; } .hint { display: none; } }
+@media (prefers-reduced-motion: reduce) { .fx::after { animation: none; } #fade { transition: none; } }
+#labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.plate { --hue: 30; position: absolute; left: 0; top: 0; transform-origin: 50% 100%; white-space: normal; max-width: 7em; text-align: center; font: 700 17px/1.1 "Courier New", ui-monospace, monospace;
+  letter-spacing: 1px; text-transform: uppercase; color: hsl(var(--hue), 100%, 72%); background: rgba(8, 5, 3, .86); border: 2px solid hsl(var(--hue), 85%, 50%);
+  padding: 6px 10px; text-shadow: 0 0 8px hsl(var(--hue), 100%, 50%); }
+.plate.sel { color: #0b0602; background: hsl(var(--hue), 95%, 62%); border-color: #fff4e0; text-shadow: none; }
+.plate.tool { border-style: dashed; }
+.plate.off { color: #b9a58e; }
+@media (forced-colors: active) { .plate { border-color: CanvasText; } }
+
+/* Lethal Company-ish HUD: big orange monospace, boxed tips, scan readouts */
+#signupBtn { position: fixed; top: 14px; right: 190px; font: 700 14px "Courier New", monospace; color: var(--amber); background: rgba(10,4,0,.7);
+  border: 2px solid var(--amber); padding: 8px 14px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+#signupBtn:hover { background: var(--amber); color: #120600; }
+#wallet { position: fixed; top: 48px; left: 24px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,120,30,.7); }
+#wallet span { display: block; font-size: 13px; letter-spacing: 3px; color: var(--amber-dim); }
+#wallet b { font-size: 34px; letter-spacing: 2px; display: inline-block; }
+#wallet b.bump { animation: bump .5s ease-out; }
+@keyframes bump { 40% { transform: scale(1.25); color: #fff; } }
+#scan { position: fixed; left: 0; top: 0; pointer-events: none; border: 2px solid #3fb6ff; background: rgba(0, 20, 40, .6); color: #bfe6ff; padding: 6px 10px;
+  font: 700 16px/1.25 "Courier New", monospace; text-transform: uppercase; box-shadow: 0 0 12px rgba(63,182,255,.5); }
+#scan.scrap { border-color: #5dff7a; color: #d6ffd9; background: rgba(0, 30, 10, .6); box-shadow: 0 0 12px rgba(93,255,122,.5); }
+#scan b, #tip b { display: block; }
+#tip { position: fixed; top: 22%; left: 50%; transform: translateX(-50%); width: min(520px, 90vw); border: 3px solid #ffcc00; background: rgba(20, 10, 0, .78);
+  color: #ffd27a; padding: 14px 18px; font: 700 18px/1.35 "Courier New", monospace; text-shadow: 0 0 6px rgba(255,150,40,.6); pointer-events: none; }
+#tip b { font-size: 28px; color: #ffcc00; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+#tip.show { animation: tipin .25s ease-out; }
+@keyframes tipin { from { opacity: 0; transform: translate(-50%, -8px); } }
+.float { position: fixed; pointer-events: none; font: 900 26px "Courier New", monospace; color: #5dff7a; text-shadow: 0 0 8px #0a0; animation: up 1.3s ease-out forwards; }
+@keyframes up { to { transform: translateY(-60px); opacity: 0; } }
+dialog#signup { width: min(520px, 92vw); background: rgba(2, 12, 5, .97); color: var(--term); border: 2px solid var(--term); padding: 20px 24px;
+  font: 700 16px/1.45 "Courier New", monospace; text-shadow: 0 0 5px rgba(108,255,154,.45); }
+dialog#signup::backdrop { background: rgba(0,0,0,.7); }
+#signup h2 { margin: 0 0 6px; font-size: 26px; letter-spacing: 1px; }
+#signup p { font-size: 16px; }
+#signup label { display: block; margin-top: 12px; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; }
+#signup input[type=email], #signup select { width: 100%; font: 700 17px "Courier New", monospace; color: var(--term); background: #000; border: 2px solid var(--term); padding: 9px 10px; margin-top: 4px; }
+#signup .selwrap { position: relative; display: block; margin-top: 4px; }
+#signup .selwrap select { appearance: none; padding-right: 48px; margin: 0; }
+#signup .selwrap svg { position: absolute; right: 14px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); pointer-events: none; fill: none; stroke: var(--term); stroke-width: 3; }
+#signup select:disabled { opacity: .5; }
+@media (forced-colors: active) { #signup .selwrap select { appearance: auto; padding-right: 10px; } #signup .selwrap svg { display: none; } }
+#signup .check { display: flex; gap: 10px; align-items: flex-start; text-transform: none; font-size: 14px; }
+#signup .hp { position: absolute; left: -9999px; }
+#signup .row { display: flex; gap: 10px; margin-top: 14px; }
+#signup button { font: 700 16px "Courier New", monospace; text-transform: uppercase; padding: 9px 16px; cursor: pointer; background: #000; color: var(--term); border: 2px solid var(--term); }
+#signup button.go { background: var(--term); color: #021; }
+#sfMsg { min-height: 1.4em; margin: 10px 0 0; }
+#sfMsg.bad { color: #ff5a4a; text-shadow: 0 0 5px rgba(255,80,60,.5); }
+@media (prefers-reduced-motion: reduce) { #tip.show, #wallet b.bump, .float { animation: none; } }
+
+/* ship terminal */
+/* close-up of a ship monitor floating over the arcade, seen at a slight angle like leaning in to a terminal */
+#computer, #peek { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; perspective: 1100px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 30%, rgba(0,0,0,.65) 100%); }
+#computer[hidden], #peek[hidden] { display: none; }
+.monitor { width: min(860px, 78vw); height: min(540px, 66vh); padding: 22px 24px 30px; background: linear-gradient(160deg, #d6d1b8, #a29d85 60%, #8a8570);
+  border-radius: 16px 16px 22px 22px; box-shadow: inset 0 0 0 4px #8b8670, inset 0 -10px 0 #77725e, 0 40px 80px rgba(0,0,0,.85);
+  transform: rotateY(-9deg) rotateX(5deg) translateZ(-20px); transform-origin: 60% 50%; animation: lean .45s ease-out; }
+@keyframes lean { from { transform: rotateY(-16deg) rotateX(9deg) translateZ(-160px); opacity: 0; } }
+#peek .monitor { transform: rotateY(7deg) rotateX(4deg) translateZ(-30px); }
+@media (prefers-reduced-motion: reduce) { .monitor { animation: none; } }
+.screen { position: relative; height: 100%; background: #141a17; border-radius: 10px; overflow: hidden; padding: 70px 48px 24px; display: flex; flex-direction: column;
+  box-shadow: inset 0 0 60px rgba(0,0,0,.9), inset 0 0 6px rgba(61,255,110,.2); color: #3dff6e; font: 400 22px/1.32 "Courier New", ui-monospace, monospace;
+  text-shadow: 0 0 6px rgba(61,255,110,.55); }
+.screen::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.25) 0 1px, transparent 1px 3px),
+  linear-gradient(115deg, rgba(255,255,255,.06), transparent 40%); }
+.credits { position: absolute; top: 14px; left: 22px; font-size: 34px; background: rgba(61,255,110,.12); padding: 0 12px; letter-spacing: 1px; }
+.quit { position: absolute; top: 18px; right: 22px; color: #d7d7d7; font-size: 17px; text-shadow: none; opacity: .85; }
+#tOut { margin: 0; white-space: pre-wrap; font: inherit; flex: 1; min-height: 0; overflow: auto; }
+#tForm { display: flex; }
+#tIn { flex: 1; background: transparent; border: 0; outline: 0; color: #3dff6e; caret-color: #3dff6e; font: inherit; text-shadow: inherit; padding: 0; }
+#tIn:focus-visible { outline: 0; }
+#tForm:focus-within { box-shadow: 0 2px 0 rgba(61,255,110,.5); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (max-width: 640px) { .screen { font-size: 15px; padding: 58px 18px 16px; } .credits { font-size: 24px; } }
+
+#peekRadar { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.peekText { position: relative; text-transform: uppercase; font-size: 17px; max-width: 70%; }
+.peekText h2 { margin: 0 0 6px; font-size: 26px; color: #ff3b2f; text-shadow: 0 0 8px rgba(255,59,47,.6); }
+.peekText p { margin: 0 0 4px; }
+#peekClose { background: transparent; border: 0; cursor: pointer; font: 400 17px "Courier New", monospace; z-index: 2; }
+#peekClose:focus-visible { outline: 2px solid #fff; }
+
+.plate.low { margin-top: 34px; }
+.plate.soon { --hue: 48; border-style: dashed; }
+.plate { transition: opacity .15s; }
