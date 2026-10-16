@@ -51,7 +51,7 @@ body {
 }
 .btn.primary { background: var(--amber); }
 .btn.big { min-height: 64px; font-size: 1.3rem; padding: 0.6rem 2rem; }
-.btn.small { min-height: 40px; font-size: 0.85rem; padding: 0.25rem 0.75rem; }
+.btn.small { min-height: 44px; font-size: 0.85rem; padding: 0.25rem 0.75rem; }
 .btn.danger { color: var(--danger); }
 .btn:disabled { opacity: 0.55; cursor: default; }
 .pill {

@@ -277,7 +277,7 @@ body { background-color: #3a1420; background-size: 192px 192px; image-rendering:
 .play { flex: 1; min-height: 0; display: flex; gap: 6px; align-items: stretch; }
 .side { width: 52px; flex: none; display: flex; flex-direction: column; gap: 5px; }
 .side .chip { display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; padding: 4px 2px; min-height: 30px; line-height: 1.1; }
-.side .chip-btn { min-height: 36px; font-size: 13px; }
+.side .chip-btn { min-height: 44px; font-size: 13px; }
 .side .chip.mult { color: var(--mint); }
 .side-right .mods { flex-direction: column; flex: 1; padding: 4px 2px; }
 .side-right .tray-section { flex-direction: column; flex-wrap: nowrap; justify-content: flex-start; }
