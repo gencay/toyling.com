@@ -289,8 +289,11 @@ function renderHint() {
 let boardPx = 0;
 function layout() {
   const zone = $("boardZone");
-  const s = Math.max(200, Math.floor(Math.min(zone.clientWidth - 24, zone.clientHeight - 16, 620)));
-  // Small changes are ignored so the word card and board (which share this width) settle instead of oscillating.
+  // The column is as wide as the screen allows; the board fills the height left in it, up to that width.
+  const column = Math.floor(Math.min(zone.clientWidth - 24, 620));
+  const s = Math.max(200, Math.floor(Math.min(column, zone.clientHeight - 14)));
+  $("game").style.setProperty("--column", `${column}px`);
+  // Small changes are ignored so the word card and board settle instead of oscillating.
   if (Math.abs(s - boardPx) > 2) {
     boardPx = s;
     $("game").style.setProperty("--board", `${s}px`);

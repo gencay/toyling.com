@@ -51,16 +51,6 @@
         </div>
         <ul id="wordList" class="word-list"></ul>
       </section>
-      <nav class="controls" aria-label="Game controls">
-        <button id="hintBtn" class="ctrl" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
-          <span>Hint</span><span id="hintCount" class="pill">5</span>
-        </button>
-        <button id="rotateBtn" class="ctrl rotate" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>
-          <span>Rotate</span>
-        </button>
-      </nav>
       <div id="boardZone" class="board-zone">
         <div id="board" class="board" role="grid" aria-label="Letter grid">
           <svg id="marks" class="marks" aria-hidden="true"><g id="marksG"></g></svg>
@@ -91,6 +81,16 @@
           </svg>
         </div>
       </div>
+      <nav class="controls" aria-label="Game controls">
+        <button id="hintBtn" class="ctrl" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+          <span>Hint</span><span id="hintCount" class="pill">5</span>
+        </button>
+        <button id="rotateBtn" class="ctrl rotate" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg>
+          <span>Rotate</span>
+        </button>
+      </nav>
     </div>
     <aside id="adBar" class="ad-bar" aria-label="Advertisement">
       <span class="ad-tag">Ad</span>
