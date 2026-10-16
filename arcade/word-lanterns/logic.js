@@ -105,6 +105,8 @@ export const nextLevel = ({ round, level }) => (level >= LEVELS ? { round: round
 export const progressIndex = (round, level) => (Math.max(round, 1) - 1) * LEVELS + (Math.max(level, 1) - 1);
 
 export const levelLabel = (round, level) => `Round ${round} · Level ${level} of ${LEVELS}`;
+/** The short form for the top bar, which shares its row with two buttons on narrow phones. */
+export const levelLabelShort = (round, level) => `Round ${round} · Level ${level}/${LEVELS}`;
 
 /** Converts saves from before rounds existed (adaptive "step") to the round and level at the same difficulty. */
 export function migrateSave(state) {

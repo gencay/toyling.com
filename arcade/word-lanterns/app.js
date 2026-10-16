@@ -174,7 +174,8 @@ function renderBoard(animate = false) {
   if (animate) setTimeout(() => cellsEl.classList.remove("drop"), 1200);
   marksEl.setAttribute("viewBox", `0 0 ${size} ${size}`);
   marksG.setAttribute("transform", `rotate(${90 * (state.rotation || 0)} ${size / 2} ${size / 2})`);
-  $("boardLabel").textContent = L.levelLabel(state.round, state.level);
+  $("boardLabel").textContent = L.levelLabelShort(state.round, state.level);
+  $("boardLabel").title = L.levelLabel(state.round, state.level);
   $("category").innerHTML = `<small></small><span></span>`;
   const genre = GENRES[THEMES[state.boardTheme]];
   $("category").querySelector("small").textContent = genre ? `${THEMES[state.boardTheme]} · ${genre.name}` : THEMES[state.boardTheme];

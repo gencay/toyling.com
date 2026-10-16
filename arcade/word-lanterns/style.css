@@ -110,8 +110,9 @@ body {
   background: var(--dusk);
   color: var(--paper);
 }
-.board-label { flex: 1; margin: 0; font-weight: 650; text-align: center; min-width: 0; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.topbar .btn { min-height: 44px; padding: 0.25rem 0.8rem; }
+.board-label { flex: 1; margin: 0; font-weight: 650; text-align: center; min-width: 0; font-size: clamp(0.78rem, 3.7vw, 0.9rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar .btn { min-height: 44px; padding: 0.25rem 0.7rem; }
+
 
 /* Lantern strip: messages hang on a banner strung between the lanterns. */
 .strip-wrap { position: relative; height: clamp(40px, 6vh, 64px); background: var(--dusk); flex: none; overflow: hidden; }
@@ -333,6 +334,8 @@ body {
   font-size: 0.85rem;
   color: var(--ink-soft);
 }
+.ad-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ad-bar .btn { white-space: nowrap; flex: none; }
 .ad-tag { font-weight: 800; font-size: 0.7rem; padding: 0 0.4em; border: 1.5px solid currentColor; border-radius: 4px; }
 
 /* Lumi, the lantern mascot, walks over and knocks on a letter when the player has been still for a while. */
@@ -489,4 +492,20 @@ input[type="range"] { width: 100%; min-height: 40px; accent-color: var(--amber-d
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .cell.hint::after { border-width: 6px; }
+}
+
+/* Short screens (small phones, or any phone with the browser's bars showing): give the height to the board. */
+@media (max-height: 600px) {
+  .strip-wrap { height: 32px; }
+  .words { margin-top: 0.35rem; padding: 0.25rem 0.5rem 0.35rem; }
+  .category { font-size: 0.95rem; }
+  .category small { display: none; } /* the theme also shows on the lantern banner */
+  .words-head { margin-bottom: 0.2rem; }
+  .word-list { max-height: 3.3rem; gap: 0.25rem; }
+  .word-list li { font-size: 0.8rem; padding: 0 0.45rem; }
+  .board-zone { padding: 0.25rem 0.75rem; }
+  .controls { margin-bottom: 0.35rem; }
+  .ctrl { min-height: 44px; }
+  .ad-bar { min-height: 48px; }
+  .ad-text { font-size: 0.75rem; }
 }
