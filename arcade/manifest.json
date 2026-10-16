@@ -1,6 +1,6 @@
 {
-  "toyling": "dc0fb81",
-  "published": "2026-10-16T01:30:49.487Z",
+  "toyling": "efeb7be",
+  "published": "2026-10-16T04:16:50.572Z",
   "games": [
     {
       "slug": "zarhane",
@@ -9,7 +9,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T01:29:56.686Z"
+      "built": "2026-10-16T04:15:33.549Z"
     },
     {
       "slug": "ihale",
@@ -18,7 +18,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T01:29:57.040Z"
+      "built": "2026-10-16T04:15:33.934Z"
     },
     {
       "slug": "fuji-city",
@@ -33,7 +33,7 @@
       "commit": "6f29ac9",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T01:30:01.554Z"
+      "built": "2026-10-16T04:15:39.591Z"
     },
     {
       "slug": "duell",
@@ -42,7 +42,7 @@
       "commit": "7b34c55",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T01:30:01.740Z"
+      "built": "2026-10-16T04:15:40.014Z"
     },
     {
       "slug": "quiz-city",
@@ -54,10 +54,10 @@
       "slug": "word-lanterns",
       "name": "Word Lanterns",
       "mode": "copy",
-      "commit": "1b1c081",
+      "commit": "b933b95",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T01:30:28.442Z"
+      "built": "2026-10-16T04:16:24.466Z"
     },
     {
       "slug": "tidewall",
@@ -66,7 +66,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T01:30:28.623Z"
+      "built": "2026-10-16T04:16:24.747Z"
     },
     {
       "slug": "rack-and-ruin",
@@ -75,7 +75,7 @@
       "commit": "7e56f48",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T01:30:49.214Z"
+      "built": "2026-10-16T04:16:49.978Z"
     },
     {
       "slug": "sportster-rush",
@@ -84,7 +84,7 @@
       "commit": "22d6783",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T01:30:49.328Z"
+      "built": "2026-10-16T04:16:50.171Z"
     }
   ]
 }
