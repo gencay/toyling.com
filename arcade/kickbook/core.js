@@ -123,6 +123,19 @@ export function answer(state, option) {
     q.tried.push(option);
     return { correct: false, coins: 0 };
   }
+  if (q.kind === 'steps') {
+    // fill the gaps in order: a right letter fills the next gap; a wrong one costs nothing
+    const want = q.data.steps[q.found.length];
+    if (option === want) {
+      q.found.push(option);
+      if (q.found.length < q.data.steps.length) return { correct: true, partial: true, coins: 0 };
+      q.done = true;
+      q.firstTry = q.tried.length === 0;
+      return { correct: true, coins: q.firstTry ? COINS.firstTry : COINS.afterRetry, last: r.i === r.questions.length - 1 };
+    }
+    q.tried.push(`${q.found.length}:${option}`);
+    return { correct: false, coins: 0 };
+  }
   if (option === q.answer) {
     q.done = true;
     q.firstTry = q.tried.length === 0;
@@ -260,9 +273,9 @@ export function startSession(state, game, opts = {}) {
     const data = game === 'math'
       ? makeQuestion(opts.topic ?? 'times', { level, table: opts.table ?? 2, facts: { ...state.facts, ...Object.fromEntries(questions.filter((q) => q.data.fact).map((q) => [q.data.fact, 99])) }, rand })
       : game === 'letters'
-        ? makeLetterQuestion(opts.mode ?? LETTER_MODES[i % 3], { lang: state.lang ?? 'en', level, rand })
+        ? makeLetterQuestion(opts.mode ?? LETTER_MODES[(i + state.sessions) % LETTER_MODES.length], { lang: state.lang ?? 'en', level, rand })
         : makeWhoQuestion(state.unlocked, rand);
-    questions.push({ id: String(i), kind: data.mode === 'find' ? 'find' : 'choice', options: data.options, answer: data.answer, tried: [], found: [], done: false, shown: 1, data });
+    questions.push({ id: String(i), kind: data.mode === 'find' ? 'find' : data.mode === 'puzzle' ? 'steps' : 'choice', options: data.options, answer: data.answer, tried: [], found: [], done: false, shown: 1, data });
   }
   state.current = { type: game, opts, level, round: state.sessions + 1, i: 0, questions, readToMe: true, finished: false };
   return state.current;

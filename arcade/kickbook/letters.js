@@ -7,7 +7,40 @@
 //   find:    tap every ball with the target letter among look-alikes.
 
 export const LETTERS = ['b', 'd', 's'];
-export const MODES = ['keeper', 'missing', 'mirror', 'find'];
+export const MODES = ['keeper', 'missing', 'mirror', 'find', 'puzzle', 'sentence'];
+
+// From the owner's 2nd-grade writing worksheet "S, b, d Yazı Çalışması" (claude.ai artifact KED5DKDJCo8uF6LdebX6RN,
+// read October 18, 2026): its long sentences and its two-missing-letters puzzle. Worksheet item 7 ("___ü___ük",
+// büyük) is left out: its second missing letter is y, not b, d or s. English sets are written to the same rules.
+export const SENTENCES = {
+  tr: [
+    'Dedem bahçedeki ağaçtan bol bol badem topladı.',
+    'Babam sabah erkenden bisikletle bakkala gitti.',
+    'Sude ile Deniz bahçede beraber saklambaç oynadı.',
+    'Annem dolaptaki sütü büyük bardağa doldurdu.',
+    'Bodrum’da denize giren Selin dalgalarla oynadı.',
+    'Sabah dişlerimi fırçalar, sonra bol bol kahvaltı ederim.',
+    'Bebeğin battaniyesi sobanın yanında kurudu.',
+    'Dondurmacı bize böğürtlenli ve sade dondurma verdi.',
+    'Doktor, boğazım ağrıdığı için bana şurup verdi.',
+  ],
+  en: [
+    'Dad and Ben ride their bikes to the beach.',
+    'Sam saw a big duck swim in the pond.',
+    'The dog sleeps on a soft blue bed.',
+    'Sara drinks milk from a big brown cup.',
+    'Bob builds a sandcastle by the sea.',
+    'Dina brushes her teeth before breakfast.',
+    'The baby sits on a soft sofa with a book.',
+    'Six birds sing in the big tree.',
+    'Dan scores a goal and the fans dance.',
+  ],
+};
+/** Words with two letters missing (each a b, d or s), and where the gaps are. */
+export const PUZZLES = {
+  tr: [['bardak', [0, 3]], ['dondurma', [0, 3]], ['bidon', [0, 2]], ['badem', [0, 2]], ['sabun', [0, 2]], ['susam', [0, 2]], ['doldur', [0, 3]]],
+  en: [['bed', [0, 2]], ['bird', [0, 3]], ['sand', [0, 3]], ['desk', [0, 2]], ['bus', [0, 2]], ['dads', [0, 3]], ['sad', [0, 2]]],
+};
 
 /** Picture words starting with b, d or s (emoji pictures, no files). */
 export const WORDS = {
@@ -19,6 +52,7 @@ export const WORDS = {
   tr: [
     ['b', 'balık', '🐟'], ['b', 'bebek', '👶'], ['b', 'bulut', '☁️'], ['b', 'bal', '🍯'], ['b', 'bisiklet', '🚲'], ['b', 'balon', '🎈'],
     ['d', 'dağ', '⛰️'], ['d', 'diş', '🦷'], ['d', 'dondurma', '🍦'], ['d', 'deve', '🐫'], ['d', 'davul', '🥁'], ['d', 'dinozor', '🦕'],
+    ['b', 'bardak', '🥛'], ['b', 'badem', '🌰'], ['s', 'sabun', '🧼'], ['s', 'sepet', '🧺'],
     ['s', 'su', '💧'], ['s', 'saat', '⏰'], ['s', 'simit', '🥯'], ['s', 'salyangoz', '🐌'], ['s', 'sandalye', '🪑'], ['s', 'sincap', '🐿️'],
   ],
 };
@@ -42,6 +76,30 @@ export function makeLetterQuestion(mode, { lang = 'en', level = 1, rand }) {
   if (mode === 'missing') {
     const [letter, word, picture] = pick(rand, WORDS[lang]);
     return { mode, letter, word, picture, rest: word.slice(1), answer: letter, options: shuffle(LETTERS, rand) };
+  }
+  if (mode === 'puzzle') {
+    // fill both gaps, one after the other (each answer is b, d or s)
+    const [word, gaps] = pick(rand, PUZZLES[lang]);
+    return { mode, word, gaps, steps: gaps.map((g) => word[g]), answer: 'steps', options: ['b', 'd', 's'] };
+  }
+  if (mode === 'sentence') {
+    // read a long sentence, then find the word that starts with a letter, or count a letter
+    const sentence = pick(rand, SENTENCES[lang]);
+    const words = [...new Set(sentence.split(/\s+/).map((w) => w.replace(/[.,!?’']+.*$|[.,!?]$/g, '').replace(/[.,!?]/g, '')))];
+    const low = (w) => w.toLocaleLowerCase(lang);
+    const present = LETTERS.filter((l) => words.some((w) => low(w)[0] === l));
+    if (rand() < 0.5 && present.length) {
+      const letter = pick(rand, present);
+      const right = pick(rand, words.filter((w) => low(w)[0] === letter));
+      const others = shuffle(words.filter((w) => low(w)[0] !== letter && w.length > 1), rand);
+      // prefer look-alike starts (b for d, d for b) so the child really looks at the letter
+      others.sort((a, b) => (LETTERS.includes(low(b)[0]) ? 1 : 0) - (LETTERS.includes(low(a)[0]) ? 1 : 0));
+      return { mode, kind: 'starts', sentence, letter, answer: right, options: shuffle([right, ...others.slice(0, 2)], rand) };
+    }
+    const letter = pick(rand, LETTERS.filter((l) => low(sentence).includes(l)));
+    const n = [...low(sentence)].filter((c) => c === letter).length;
+    const opts = [n, n + 1, n > 1 ? n - 1 : n + 2].map(String);
+    return { mode, kind: 'count', sentence, letter, answer: String(n), options: shuffle([...new Set(opts)], rand) };
   }
   if (mode === 'mirror') {
     // Only s: a mirrored b is simply a d (and the other way round), which the keeper game already teaches.

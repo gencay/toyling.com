@@ -210,7 +210,8 @@ function questionText(r, q) {
   const d = q.data;
   if (r.type === 'math') return d[L()].q;
   if (r.type === 'who') return d.clues.slice(0, q.shown).map((c) => c[L()]).join(' ');
-  return { keeper: tr('qKeeper'), missing: tr('qMissing'), mirror: tr('qMirror', d.letter), find: tr('qFind', d.target) }[d.mode];
+  if (d.mode === 'sentence') return d.kind === 'starts' ? tr('qStarts', d.letter) : tr('qCount', d.letter);
+  return { keeper: tr('qKeeper'), missing: tr('qMissing'), mirror: tr('qMirror', d.letter), find: tr('qFind', d.target), puzzle: tr('qPuzzle') }[d.mode];
 }
 
 function optionHtml(r, q, o) {
@@ -224,6 +225,8 @@ function optionHtml(r, q, o) {
   if (r.type === 'math') return `<button class="${cls} num" type="button" data-opt="${o}"${off}>${esc(o)}</button>`;
   if (r.type === 'who') { const p = player(o); return `<button class="${cls} who-opt" type="button" data-opt="${o}"${off}>${portrait(p)}<span>${esc(p.name)}</span></button>`; }
   const d = q.data;
+  if (d.mode === 'sentence') return `<button class="${cls}${d.kind === 'count' ? ' num' : ''}" type="button" data-opt="${esc(o)}"${off}>${esc(o)}</button>`;
+  if (d.mode === 'puzzle') { const k = `${q.found.length}:${o}`; const t = q.tried.includes(k); return `<button class="btn answer letter-opt${t ? ' tried' : ''}" type="button" data-opt="${o}"${t ? ' disabled' : ''} aria-label="${o}">${glyph(o)}</button>`; }
   if (d.mode === 'keeper') return `<button class="${cls} glove" type="button" data-opt="${o}"${off} aria-label="${o}">${mnemonicSvg(o)}${glyph(o)}</button>`;
   return `<button class="${cls} letter-opt" type="button" data-opt="${o}"${off} aria-label="${o.replace('~', '')}">${glyph(o)}</button>`;
 }
@@ -233,6 +236,8 @@ function visualHtml(r, q) {
   if (r.type === 'math' && d.array) return arraySvg(d.array.rows, d.array.cols);
   if (r.type === 'letters' && d.mode === 'keeper') return `<div class="letter-ball"><span>${esc(d.letter)}</span></div>`;
   if (r.type === 'letters' && d.mode === 'missing') return `<div class="picture-word"><span class="picture" aria-hidden="true">${d.picture}</span><span class="word"><span class="blank">_</span>${esc(d.rest)}</span></div>`;
+  if (r.type === 'letters' && d.mode === 'puzzle') { let gap = 0; return `<div class="picture-word"><span class="word">${[...d.word].map((c, i) => (d.gaps.includes(i) ? (gap++ < q.found.length ? `<span class="filled">${esc(c)}</span>` : `<span class="blank${gap - 1 === q.found.length ? ' next' : ''}">_</span>`) : esc(c))).join('')}</span></div>`; }
+  if (r.type === 'letters' && d.mode === 'sentence') return `<p class="read-sentence">${tappable(d.sentence)}</p>`;
   if (r.type === 'who') return `<ol class="clues">${d.clues.slice(0, q.shown).map((c, i) => `<li><small>${tr('clueOf', i + 1, d.clues.length)}</small> ${tappable(c[L()])}</li>`).join('')}</ol>`;
   return '';
 }
@@ -376,8 +381,8 @@ RENDER.math = () => {
 };
 
 RENDER.letters = () => {
-  $('tricks').innerHTML = ['b', 'd', 's'].map((l) => `<div class="trick">${mnemonicSvg(l)}<span class="glyph">${l}</span><span>${tr(`letter${l.toUpperCase()}`)}</span></div>`).join('');
-  $('modes').innerHTML = ['keeper', 'missing', 'mirror', 'find', 'mix'].map((m) => `<button class="btn topic" type="button" data-mode="${m}">${tr(`mode_${m}`)}</button>`).join('');
+  $('tricks').innerHTML = ['b', 'd', 's'].map((l) => `<div class="trick">${mnemonicSvg(l)}<span class="glyph">${l}</span><span>${tr(`letter${l.toUpperCase()}`)}</span></div>`).join('') + `<div class="trick trick-fist"><span class="fists" aria-hidden="true">👍👍</span><span class="glyph">b d</span><span>${tr('letterFist')}</span></div>`;
+  $('modes').innerHTML = ['keeper', 'missing', 'puzzle', 'sentence', 'mirror', 'find', 'mix'].map((m) => `<button class="btn topic" type="button" data-mode="${m}">${tr(`mode_${m}`)}</button>`).join('');
 };
 
 RENDER.me = () => {
@@ -543,7 +548,7 @@ $('readToMeBtn').addEventListener('click', () => { state.current.readToMe = true
 $('iReadBtn').addEventListener('click', () => { show('quiz'); });
 $('hearBtn').addEventListener('click', () => {
   const r = state.current, q = r.questions[r.i];
-  speak(r.type === 'letters' && q.data.mode === 'missing' ? q.data.word : questionText(r, q));
+  speak(r.type === 'letters' && q.data.mode === 'missing' ? q.data.word : r.type === 'letters' && q.data.mode === 'sentence' ? `${q.data.sentence} ${questionText(r, q)}` : questionText(r, q));
 });
 $('clueBtn').addEventListener('click', () => { moreClue(state); save(); RENDER.quiz(); });
 $('peekBtn').addEventListener('click', () => { const p = $('peek'); p.hidden = !p.hidden; $('peekBtn').textContent = tr(p.hidden ? 'rereadCard' : 'hideCard'); });

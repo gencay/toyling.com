@@ -388,3 +388,8 @@ body.calm *, body.calm *::before, body.calm *::after { animation: none !importan
 .credits small { font-size: 12px; color: var(--ink-soft); overflow-wrap: anywhere; }
 .pitch.is-3d { background: var(--sky); }
 .penalty-3d { display: block; width: 100%; height: auto; aspect-ratio: 1 / .72; }
+.read-sentence { margin: 0; font: 800 26px/1.5 "Comic Sans MS", "Chalkboard SE", var(--display), ui-rounded, system-ui, sans-serif; text-align: center; }
+.filled { color: var(--good); }
+.blank.next { border-bottom-color: var(--good); }
+.trick-fist .fists { font-size: 30px; text-align: center; }
+.trick-fist .glyph { font-size: 28px; }

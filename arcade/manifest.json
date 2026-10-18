@@ -96,10 +96,10 @@
       "slug": "kickbook",
       "name": "Kickbook",
       "mode": "copy",
-      "commit": "059a722",
+      "commit": "27e3d30",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T17:29:59.325Z"
+      "built": "2026-10-18T17:43:42.732Z"
     }
   ]
 }
