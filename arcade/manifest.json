@@ -1,6 +1,6 @@
 {
   "toyling": "2f42f74",
-  "published": "2026-10-18T09:28:54.120Z",
+  "published": "2026-10-18T17:29:59.535Z",
   "games": [
     {
       "slug": "zarhane",
@@ -9,7 +9,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-18T09:24:32.801Z"
+      "built": "2026-10-18T17:24:32.451Z"
     },
     {
       "slug": "ihale",
@@ -18,7 +18,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-18T09:24:33.035Z"
+      "built": "2026-10-18T17:24:32.724Z"
     },
     {
       "slug": "fuji-city",
@@ -33,7 +33,7 @@
       "commit": "6f29ac9",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T09:24:37.021Z"
+      "built": "2026-10-18T17:24:39.657Z"
     },
     {
       "slug": "duell",
@@ -42,7 +42,7 @@
       "commit": "7b34c55",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T09:24:37.194Z"
+      "built": "2026-10-18T17:24:39.940Z"
     },
     {
       "slug": "quiz-city",
@@ -57,7 +57,7 @@
       "commit": "95c2473",
       "uncommitted": 11,
       "gitRepo": true,
-      "built": "2026-10-18T09:25:40.106Z"
+      "built": "2026-10-18T17:26:17.556Z"
     },
     {
       "slug": "tidewall",
@@ -66,7 +66,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-18T09:25:40.248Z"
+      "built": "2026-10-18T17:26:17.736Z"
     },
     {
       "slug": "rack-and-ruin",
@@ -75,7 +75,7 @@
       "commit": "7e56f48",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T09:25:58.476Z"
+      "built": "2026-10-18T17:26:37.703Z"
     },
     {
       "slug": "sportster-rush",
@@ -84,7 +84,7 @@
       "commit": "22d6783",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T09:25:58.576Z"
+      "built": "2026-10-18T17:26:37.842Z"
     },
     {
       "slug": "livingfit-wod",
@@ -96,10 +96,10 @@
       "slug": "kickbook",
       "name": "Kickbook",
       "mode": "copy",
-      "commit": "58b489d",
+      "commit": "059a722",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-18T09:28:53.752Z"
+      "built": "2026-10-18T17:29:59.325Z"
     }
   ]
 }

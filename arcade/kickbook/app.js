@@ -138,6 +138,7 @@ function fcCard(size = 'big') {
 // ---- screens ----
 const RENDER = {};
 function show(name) {
+  if (name !== 'kick') dropPenalty();
   screen = name;
   for (const s of document.querySelectorAll('.screen')) s.hidden = s.id !== `${name}Screen`;
   $('bar').hidden = name === 'lang';
@@ -267,11 +268,28 @@ RENDER.quiz = () => {
   }
 };
 
+// The penalty: the 3D goal and goalkeeper (penalty3d.js, loaded on first use) when the device has WebGL, else the
+// 2D goal. The 2D picture shows at once and the 3D scene replaces it when ready.
+let penalty = null, penaltyMod = null;
+const calmMotion = () => state.settings.motion === 'less' || matchMedia('(prefers-reduced-motion: reduce)').matches;
+function dropPenalty() { penalty?.dispose(); penalty = null; }
 RENDER.kick = () => {
-  $('pitch').innerHTML = goalSvg(itemById(state.equipped.ball).color);
+  dropPenalty();
+  const ballColor = itemById(state.equipped.ball).color;
+  $('pitch').innerHTML = goalSvg(ballColor);
+  $('pitch').classList.remove('is-3d');
   $('zones').hidden = false;
   $('shootLabel').hidden = false;
   $('scored').hidden = true;
+  if (params.has('flat')) return;
+  (penaltyMod ??= import('./penalty3d.js')).then((m) => {
+    if (screen !== 'kick' || penalty || !m.webglAvailable() || !$('scored').hidden) return;
+    try {
+      penalty = m.createPenalty($('pitch'), { ballColor, reduced: calmMotion() });
+      $('pitch').querySelector('svg.goal')?.remove();
+      $('pitch').classList.add('is-3d');
+    } catch { penalty = null; }
+  }).catch(() => {});
 };
 
 function shoot(zone) {
@@ -279,8 +297,6 @@ function shoot(zone) {
   const q = r.questions[r.i];
   const sides = ['left', 'middle', 'right'].filter((z) => z !== zone);
   const dive = sides[(r.round + r.i) % 2];
-  $('ball').classList.add(`to-${zone}`);
-  $('keeper').classList.add(`dive-${dive}`);
   $('zones').hidden = true;
   $('shootLabel').hidden = true;
   const done = () => {
@@ -291,8 +307,10 @@ function shoot(zone) {
     $('nextBtn').textContent = last ? tr('finish') : tr('next');
     $('nextBtn').focus();
   };
-  const calm = state.settings.motion === 'less' || matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (calm) done(); else setTimeout(done, 700);
+  if (penalty) { penalty.shoot(zone, dive).then(done); return; }
+  $('ball')?.classList.add(`to-${zone}`);
+  $('keeper')?.classList.add(`dive-${dive}`);
+  if (calmMotion()) done(); else setTimeout(done, 700);
 }
 
 RENDER.reward = () => {

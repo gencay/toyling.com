@@ -386,3 +386,5 @@ body.calm *, body.calm *::before, body.calm *::after { animation: none !importan
 .credits ul { margin: 0 0 8px; padding: 0; list-style: none; display: grid; gap: 8px; }
 .credits li { display: grid; gap: 2px; padding-bottom: 8px; border-bottom: 1px dashed var(--line); font-size: 16px; }
 .credits small { font-size: 12px; color: var(--ink-soft); overflow-wrap: anywhere; }
+.pitch.is-3d { background: var(--sky); }
+.penalty-3d { display: block; width: 100%; height: auto; aspect-ratio: 1 / .72; }
