@@ -56,5 +56,16 @@
       <button type="button" data-action="close-feedback" class="text-button" data-i18n="Cancel">Cancel</button>
     </form>
   </dialog>
-<a id="toyling-arcade-back" href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a></body>
+<a id="toyling-arcade-back" hidden href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a><script>(function(){var a=document.getElementById('toyling-arcade-back');if(!a)return;var f=false;try{f=sessionStorage.getItem('toyling-arcade')==='1';}catch(e){}var ok=(function cameFromArcade(referrer, hubHref, flagged) {
+  if (flagged)
+    return !0;
+  if (!referrer)
+    return !1;
+  try {
+    const r = new URL(referrer), h = new URL(hubHref);
+    return r.origin === h.origin && r.pathname === h.pathname;
+  } catch {
+    return !1;
+  }
+})(document.referrer,a.href,f);if(ok){a.hidden=false;try{sessionStorage.setItem('toyling-arcade','1');}catch(e){}}})();</script></body>
 </html>

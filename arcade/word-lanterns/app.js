@@ -2,6 +2,8 @@ import { drawHome, drawStrip, drawComplete } from "./art.js";
 import { Sound, TRACKS, GENRES } from "./audio.js";
 import { Fx } from "./fx.js";
 import * as L from "./logic.js";
+import * as P from "./pace.js";
+import { bindCore } from "./core.g.js";
 import { Pulse, drawScene, generateScene } from "./scenery.js";
 
 const SAVE_KEY = "wordLanterns.v1";
@@ -13,7 +15,7 @@ const $ = (id) => document.getElementById(id);
 
 // ---- Core (wasm) ----
 const wasm = await WebAssembly.instantiate(await (await fetch("game.wasm")).arrayBuffer(), {});
-const core = wasm.instance.exports;
+const core = bindCore(wasm.instance.exports);
 const bytes = () => new Uint8Array(core.memory.buffer);
 const text = (ptr, len) => String.fromCharCode(...bytes().subarray(ptr, ptr + len));
 const THEMES = Array.from({ length: core.themeCount() }, (_, t) => text(core.themeNamePtr(t), core.themeNameLen(t)));
@@ -24,6 +26,11 @@ const defaults = () => ({
   level: 1,
   boardMax: 0,
   seed: newSeed(),
+  // Fair pacing (web/pace.js): the board's seed is picked from baseSeed's candidates at target; form is the last
+  // boards' words, help and time. A null baseSeed (older saves) keeps the seed as it is.
+  baseSeed: null,
+  target: 0.5,
+  form: [],
   boardTheme: 0,
   found: [],
   hintsUsed: 0,
@@ -88,8 +95,31 @@ const buzz = (pattern) => {
 
 const categoryFor = () => L.categoryFor(THEMES[state.boardTheme], state.seed);
 
+// Picks this board's seed among the fair-pacing candidates; only on a fresh board, so saved finds keep their board.
+function pickBoardSeed() {
+  if (state.found.length || state.baseSeed == null) return;
+  state.seed = P.pickSeed(state.baseSeed, state.target, (s) => {
+    core.newBoard(s, state.round, state.level, state.boardTheme, state.boardMax);
+    const n = core.gridSize();
+    return P.boardScore({
+      size: n,
+      grid: text(core.gridPtr(), n * n),
+      words: Array.from({ length: core.wordCount() }, (_, i) => ({
+        text: text(core.wordPtr(i), core.wordLen(i)), start: core.wordStart(i), end: core.wordEnd(i),
+      })),
+    });
+  });
+}
+
+/** Starts the next board's pacing: a new base seed, and a target from the level and the player's own form only. */
+function paceNextBoard() {
+  state.baseSeed = newSeed();
+  state.target = P.adaptTarget({ level: state.level, form: state.form });
+}
+
 function loadBoard(animate = true) {
   if (!state.boardMax) state.boardMax = readableMax();
+  pickBoardSeed();
   core.newBoard(state.seed, state.round, state.level, state.boardTheme, state.boardMax);
   sound.setGenre(THEMES[state.boardTheme]);
   scene = generateScene(THEMES[state.boardTheme], state.seed);
@@ -133,6 +163,7 @@ function readableMax() {
 
 function startNewBoard() {
   state.seed = newSeed();
+  paceNextBoard();
   state.boardMax = readableMax();
   state.boardTheme = chooseTheme();
   state.found = [];
@@ -692,6 +723,7 @@ function completeBoard() {
   const count = words.length;
   const finished = { round: state.round, level: state.level };
   const roundDone = finished.level >= L.LEVELS;
+  state.form = P.pushForm(state.form, P.formEntry(count, state.hintsUsed + state.mascotHelps, state.elapsed));
   Object.assign(state, L.nextLevel(finished));
   state.boards++;
   let note = roundDone
@@ -703,6 +735,7 @@ function completeBoard() {
   }
   state.found = [];
   state.seed = newSeed();
+  paceNextBoard();
   state.boardMax = 0;
   state.boardTheme = chooseTheme();
   state.hintsUsed = 0;

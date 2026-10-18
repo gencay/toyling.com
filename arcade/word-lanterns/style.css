@@ -1,17 +1,5 @@
 :root {
-  --dusk: #262a52;
-  --dusk-2: #3a3c72;
-  --paper: #fbf3e2;
-  --paper-2: #f3e6cb;
-  --ink: #241f33;
-  --ink-soft: #4d4660;
-  --amber: #f2a93b;
-  --amber-deep: #8a4b06;
-  --line: #2b2540;
-  --focus: #1b6fd1;
-  --danger: #a3262a;
-  --radius: 14px;
-  --base: 18px;
+  /* Colors, --radius and --base come from tokens.css, generated from ../tokens.json (Toyling factory). */
   font-size: var(--base);
   color-scheme: light;
 }

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>Kickbook</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar" id="bar" hidden>
+    <button class="bar-btn" id="homeBtn" type="button"><span aria-hidden="true">⌂</span> <span data-t="home"></span></button>
+    <div class="wallet" id="wallet" aria-live="polite"></div>
+    <button class="bar-btn flag-btn" id="langBtn" type="button"></button>
+  </header>
+
+  <main id="app">
+    <section id="langScreen" class="screen" hidden>
+      <h1 class="logo">Kickbook</h1>
+      <p class="lead">Choose your language · Dilini seç</p>
+      <div class="lang-pick">
+        <button class="big-flag" type="button" data-lang="en"></button>
+        <button class="big-flag" type="button" data-lang="tr"></button>
+      </div>
+    </section>
+
+    <section id="homeScreen" class="screen" hidden>
+      <h1 class="logo">Kickbook</h1>
+      <button class="me-mini" id="meBtn" type="button"></button>
+      <h2 class="section-title" data-t="pickCard"></h2>
+      <div class="offer" id="offer"></div>
+      <button class="cr7" id="cr7Btn" type="button"></button>
+      <h2 class="section-title" data-t="gamesTitle"></h2>
+      <div class="hub" id="hub">
+        <button class="tile tile-math" type="button" data-go="math"><span class="tile-icon" aria-hidden="true">✖️</span><b data-t="gameMath"></b><span data-t="gameMathSub"></span></button>
+        <button class="tile tile-letters" type="button" data-go="letters"><span class="tile-icon" aria-hidden="true">🔤</span><b data-t="gameLetters"></b><span data-t="gameLettersSub"></span></button>
+        <button class="tile tile-who" type="button" data-play="who"><span class="tile-icon" aria-hidden="true">🕵️</span><b data-t="gameWho"></b><span data-t="gameWhoSub"></span></button>
+        <button class="tile tile-shop" type="button" data-go="shop"><span class="tile-icon" aria-hidden="true">👟</span><b data-t="shop"></b><span data-t="shopSub"></span></button>
+      </div>
+      <div class="home-actions">
+        <button class="btn btn-gold" id="packBtn" type="button"></button>
+        <button class="btn" id="albumBtn" type="button" data-t="album"></button>
+      </div>
+      <p class="streak" id="streak"></p>
+      <button class="link-btn" id="grownBtn" type="button"><span aria-hidden="true">🔒</span> <span data-t="grown"></span></button>
+      <button class="link-btn" id="creditsBtn" type="button" data-t="credits"></button>
+    </section>
+
+    <section id="readScreen" class="screen" hidden>
+      <article class="card" id="card"></article>
+      <p class="hint" data-t="tapWord"></p>
+      <div class="row">
+        <button class="btn btn-soft" id="readToMeBtn" type="button" hidden><span aria-hidden="true">🔊</span> <span data-t="readToMe"></span></button>
+        <button class="btn btn-go" id="iReadBtn" type="button" data-t="iRead"></button>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="screen" hidden>
+      <p class="progress" id="qProgress"></p>
+      <div class="question">
+        <div class="q-visual" id="qVisual"></div>
+        <p class="q-text" id="qText"></p>
+        <button class="btn btn-soft btn-small" id="hearBtn" type="button"><span aria-hidden="true">🔊</span> <span data-t="hear"></span></button>
+      </div>
+      <div class="answers" id="answers"></div>
+      <p class="feedback" id="feedback" role="status"></p>
+      <button class="btn btn-soft" id="clueBtn" type="button" data-t="moreClue"></button>
+      <button class="btn btn-soft" id="peekBtn" type="button" data-t="rereadCard"></button>
+      <article class="card card-peek" id="peek" hidden></article>
+    </section>
+
+    <section id="kickScreen" class="screen" hidden>
+      <p class="feedback good" data-t="correct"></p>
+      <div class="pitch" id="pitch"></div>
+      <p class="shoot-label" id="shootLabel" data-t="shoot"></p>
+      <div class="zones" id="zones">
+        <button class="btn zone" type="button" data-zone="left" data-t="left"></button>
+        <button class="btn zone" type="button" data-zone="middle" data-t="middle"></button>
+        <button class="btn zone" type="button" data-zone="right" data-t="right"></button>
+      </div>
+      <div class="scored" id="scored" hidden>
+        <p class="goal-text" data-t="goal"></p>
+        <p class="plus" id="plus"></p>
+        <button class="btn btn-go" id="nextBtn" type="button"></button>
+      </div>
+    </section>
+
+    <section id="rewardScreen" class="screen" hidden>
+      <h2 class="title" data-t="rewardTitle"></h2>
+      <div class="reward" id="reward"></div>
+      <div class="fact" id="fact"></div>
+      <button class="btn btn-soft" id="aloudBtn" type="button"><span aria-hidden="true">🗣️</span> <span data-t="readAloud"></span></button>
+      <button class="btn btn-gold" id="againBtn" type="button" data-t="playAgain"></button>
+      <button class="btn btn-go" id="backBtn" type="button" data-t="back"></button>
+    </section>
+
+    <section id="albumScreen" class="screen" hidden>
+      <h2 class="title" data-t="album"></h2>
+      <div class="album" id="album"></div>
+    </section>
+
+    <section id="packScreen" class="screen" hidden>
+      <h2 class="title" data-t="packTitle"></h2>
+      <div class="pack-reveal" id="packReveal"></div>
+      <button class="btn btn-go" id="readNowBtn" type="button" data-t="readNow"></button>
+    </section>
+
+    <section id="mathScreen" class="screen" hidden>
+      <h2 class="title" data-t="gameMath"></h2>
+      <h3 class="section-title" data-t="pickTable"></h3>
+      <div class="tables" id="tables"></div>
+      <h3 class="section-title" data-t="pickTopic"></h3>
+      <div class="topics" id="topics"></div>
+    </section>
+
+    <section id="lettersScreen" class="screen" hidden>
+      <h2 class="title" data-t="gameLetters"></h2>
+      <div class="tricks" id="tricks"></div>
+      <div class="topics" id="modes"></div>
+    </section>
+
+    <section id="meScreen" class="screen" hidden>
+      <div class="fc-wrap" id="fcBig"></div>
+      <div class="set grow" id="grow"></div>
+      <div class="set" id="editCard"></div>
+      <input id="photoInput" type="file" accept="image/*" hidden>
+    </section>
+
+    <section id="shopScreen" class="screen" hidden>
+      <h2 class="title" data-t="shop"></h2>
+      <div class="fc-wrap fc-small" id="fcShop"></div>
+      <div class="seg slots" id="slots"></div>
+      <div class="shelf" id="shelf"></div>
+    </section>
+
+    <section id="cr7Screen" class="screen" hidden>
+      <h2 class="title" data-t="cr7Title"></h2>
+      <div class="cr7-head" id="cr7Head"></div>
+      <ol class="stars-list" id="starsList"></ol>
+    </section>
+
+    <section id="creditsScreen" class="screen" hidden>
+      <h2 class="title" data-t="credits"></h2>
+      <div class="set credits" id="creditsList"></div>
+    </section>
+
+    <section id="grownScreen" class="screen" hidden>
+      <h2 class="title" data-t="gateTitle"></h2>
+      <div class="settings" id="settings"></div>
+    </section>
+  </main>
+
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateQ" hidden>
+    <form class="gate-box" id="gateForm">
+      <p class="gate-title" data-t="gateTitle"></p>
+      <label class="gate-q" id="gateQ" for="gateInput"></label>
+      <input class="gate-input" id="gateInput" type="text" inputmode="numeric" autocomplete="off" maxlength="3">
+      <p class="feedback" id="gateMsg" role="status"></p>
+      <div class="row">
+        <button class="btn btn-soft" id="gateCancel" type="button" data-t="cancel"></button>
+        <button class="btn btn-go" id="gateOk" type="submit" data-t="ok"></button>
+      </div>
+    </form>
+  </div>
+
+  <script type="module" src="app.js"></script>
+<a id="toyling-arcade-back" hidden href="/arcade/" title="Back to the Toyling arcade" style="position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:2147483647;font:700 13px/1 'Courier New',monospace;letter-spacing:1px;text-transform:uppercase;color:#ff8a2a;background:rgba(10,4,0,.82);border:2px solid #ff8a2a;padding:7px 12px;text-decoration:none;text-shadow:0 0 6px rgba(255,120,30,.6)">◂ Arcade</a><script>(function(){var a=document.getElementById('toyling-arcade-back');if(!a)return;var f=false;try{f=sessionStorage.getItem('toyling-arcade')==='1';}catch(e){}var ok=(function cameFromArcade(referrer, hubHref, flagged) {
+  if (flagged)
+    return !0;
+  if (!referrer)
+    return !1;
+  try {
+    const r = new URL(referrer), h = new URL(hubHref);
+    return r.origin === h.origin && r.pathname === h.pathname;
+  } catch {
+    return !1;
+  }
+})(document.referrer,a.href,f);if(ok){a.hidden=false;try{sessionStorage.setItem('toyling-arcade','1');}catch(e){}}})();</script></body>
+</html>

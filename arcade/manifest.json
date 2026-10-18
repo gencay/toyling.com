@@ -1,6 +1,6 @@
 {
-  "toyling": "efeb7be",
-  "published": "2026-10-16T04:16:50.572Z",
+  "toyling": "2f42f74",
+  "published": "2026-10-18T09:28:54.120Z",
   "games": [
     {
       "slug": "zarhane",
@@ -9,7 +9,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T04:15:33.549Z"
+      "built": "2026-10-18T09:24:32.801Z"
     },
     {
       "slug": "ihale",
@@ -18,7 +18,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T04:15:33.934Z"
+      "built": "2026-10-18T09:24:33.035Z"
     },
     {
       "slug": "fuji-city",
@@ -33,7 +33,7 @@
       "commit": "6f29ac9",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T04:15:39.591Z"
+      "built": "2026-10-18T09:24:37.021Z"
     },
     {
       "slug": "duell",
@@ -42,7 +42,7 @@
       "commit": "7b34c55",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T04:15:40.014Z"
+      "built": "2026-10-18T09:24:37.194Z"
     },
     {
       "slug": "quiz-city",
@@ -54,10 +54,10 @@
       "slug": "word-lanterns",
       "name": "Word Lanterns",
       "mode": "copy",
-      "commit": "b933b95",
-      "uncommitted": 0,
+      "commit": "95c2473",
+      "uncommitted": 11,
       "gitRepo": true,
-      "built": "2026-10-16T04:16:24.466Z"
+      "built": "2026-10-18T09:25:40.106Z"
     },
     {
       "slug": "tidewall",
@@ -66,7 +66,7 @@
       "commit": null,
       "uncommitted": null,
       "gitRepo": false,
-      "built": "2026-10-16T04:16:24.747Z"
+      "built": "2026-10-18T09:25:40.248Z"
     },
     {
       "slug": "rack-and-ruin",
@@ -75,7 +75,7 @@
       "commit": "7e56f48",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T04:16:49.978Z"
+      "built": "2026-10-18T09:25:58.476Z"
     },
     {
       "slug": "sportster-rush",
@@ -84,7 +84,22 @@
       "commit": "22d6783",
       "uncommitted": 0,
       "gitRepo": true,
-      "built": "2026-10-16T04:16:50.171Z"
+      "built": "2026-10-18T09:25:58.576Z"
+    },
+    {
+      "slug": "livingfit-wod",
+      "name": "LivingFit WOD",
+      "mode": "home",
+      "url": null
+    },
+    {
+      "slug": "kickbook",
+      "name": "Kickbook",
+      "mode": "copy",
+      "commit": "58b489d",
+      "uncommitted": 0,
+      "gitRepo": true,
+      "built": "2026-10-18T09:28:53.752Z"
     }
   ]
 }
